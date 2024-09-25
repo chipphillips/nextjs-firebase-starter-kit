@@ -1,0 +1,97 @@
+constructiv-ai/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── about/
+│   │   └── page.tsx
+│   ├── ai-tools/
+│   │   ├── page.tsx
+│   │   ├── coming-soon/
+│   │   │   └── page.tsx
+│   │   └── beta-signup/
+│   │       └── page.tsx
+│   ├── services/
+│   │   ├── page.tsx
+│   │   ├── basic/
+│   │   │   └── page.tsx
+│   │   ├── standard/
+│   │   │   └── page.tsx
+│   │   └── premium/
+│   │       └── page.tsx
+│   ├── resources/
+│   │   ├── page.tsx
+│   │   └── blog/
+│   │       ├── page.tsx
+│   │       └── [slug]/
+│   │           └── page.tsx
+│   ├── contact/
+│   │   └── page.tsx
+│   ├── signup/
+│   │   └── page.tsx
+│   ├── signin/
+│   │   └── page.tsx
+│   └── dashboard/
+│       ├── page.tsx
+│       ├── available-tools/
+│       │   ├── page.tsx
+│       │   ├── ai-readiness-survey/
+│       │   │   └── page.tsx
+│       │   └── custom-ai-report/
+│       │       └── page.tsx
+│       └── upcoming-tools/
+│           ├── page.tsx
+│           └── voting/
+│               └── page.tsx
+├── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── LandingPage.tsx
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── input.tsx
+│   │   ├── textarea.tsx
+│   │   └── other UI components
+│   └── ... (other components)
+├── lib/
+│   ├── firebase.ts
+│   ├── firebaseAdmin.ts
+│   └── posts.ts
+├── public/
+│   └── images/
+│       ├── constructiv-ai-logo.png
+│       ├── about-us.jpg
+│       ├── hero-image.png
+│       └── ... (other images)
+├── styles/
+│   └── globals.css
+├── types/
+│   └── index.d.ts
+├── backend/
+│   ├── app/
+│   │   └── main.py
+│   ├── models/
+│   │   └── ... (Pydantic models)
+│   ├── routes/
+│   │   └── ... (API routes)
+│   ├── services/
+│   │   └── ... (Business logic)
+│   └── utils/
+│       └── ... (Backend utilities)
+├── ai/
+│   ├── openai_models.py
+│   └── claude_models.py
+├── tests/
+│   ├── frontend/
+│   │   └── ... (Frontend tests)
+│   └── backend/
+│       └── ... (Backend tests)
+├── .env.local
+├── .gitignore
+├── README.md
+├── project-scope.md
+├── PDR.md
+├── next.config.js
+├── tailwind.config.js
+├── tsconfig.json
+└── package.json
