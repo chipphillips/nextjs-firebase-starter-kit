@@ -36,3 +36,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore specific directory
+/lib
+
+# Alternative: Ignore lib folder relative to project root
+# /lib
+

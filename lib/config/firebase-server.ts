@@ -5,14 +5,16 @@
 
 import "server-only";
 import { initializeApp, cert, ServiceAccount, getApps } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore, Firestore } from "firebase-admin/firestore";
 import { getAuth, UserRecord } from "firebase-admin/auth";
 import { getStorage } from "firebase-admin/storage";
 import { getDatabase } from "firebase-admin/database";
 import { cache } from 'react';
 import { sendEmail } from './email-sender';
 import { Role } from '@/types';
+import { getAllPublishedPosts, getPostBySlug, addNewPost } from '@/lib/dao/blog-post-dao';
 
+// Use these functions in your API routes or server components
 
 /**
  * Firebase Admin SDK configuration
@@ -278,3 +280,26 @@ export const authUserApi = {
   generateSignInWithEmailLink,
   requiredVerifyEmail
 } as const;
+
+function getFirebaseAdminApp() {
+  const apps = getApps();
+  if (apps.length > 0) {
+    return apps[0];
+  }
+
+  const serviceAccount = {
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  };
+
+  return initializeApp({
+    credential: cert(serviceAccount),
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+  });
+}
+
+export function getFirestoreInstance(): Firestore {
+  const app = getFirebaseAdminApp();
+  return getFirestore(app);
+}

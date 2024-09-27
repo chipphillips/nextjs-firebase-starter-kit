@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getFirestore } from 'firebase/firestore';
 
 // Firebase configuration object
 // The environment variables are securely stored in the .env.local file
@@ -21,10 +22,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const auth = getAuth(app);       // For Firebase Authentication
+const db = getFirestore(app);    // For Firebase Firestore
 
 // Initialize Firebase services
 const storage = getStorage(app); // For Firebase Storage
-const auth = getAuth(app);       // For Firebase Authentication
 
 // Initialize Analytics and export it
 export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
@@ -38,4 +40,4 @@ if (typeof window !== 'undefined') {
 }
 
 // Export initialized services for use in other parts of the application
-export { storage, auth };
+export { storage, auth, db };

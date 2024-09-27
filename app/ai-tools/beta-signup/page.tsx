@@ -1,4 +1,4 @@
-import { HeaderComponent } from '@/components/header'
+import { HeaderComponent } from '@/components/Header'
 
 export default function BetaSignup() {
   return (

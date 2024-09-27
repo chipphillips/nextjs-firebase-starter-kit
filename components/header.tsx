@@ -5,9 +5,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function HeaderComponent() {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
+  const router = useRouter()
+
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +54,11 @@ export function HeaderComponent() {
           </nav>
           
           <div className="flex items-center">
-            <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+            <Button 
+              variant="outline" 
+              className="text-blue-600 border-blue-600 hover:bg-blue-50"
+              onClick={() => router.push('/signin')}
+            >
               Log In / Sign Up
             </Button>
           </div>

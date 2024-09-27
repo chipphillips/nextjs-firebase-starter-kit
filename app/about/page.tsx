@@ -1,6 +1,6 @@
 'use client'
 
-import { HeaderComponent } from '@/components/header'
+import { HeaderComponent } from '@/components/Header'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 We believe skilled builders are irreplaceable. Craftsmanship is at the heart of construction, and this philosophy is foundational to how we design our tools.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground">
-                Our mission is to enhance your capabilities, allowing you to focus on what truly matters: building dreams and growing your business.
+                At Constructiv AI, our mission is to supercharge the traditional construction process by providing intuitive, customizable AI tools, expert insights, and tailored solutions. 
               </p>
             </div>
             <div className="lg:w-1/2">
