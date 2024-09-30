@@ -12,99 +12,51 @@ import { getDatabase } from "firebase-admin/database";
 import { cache } from 'react';
 import { sendEmail } from './email-sender';
 import { Role } from '@/types';
-import { getAllPublishedPosts, getPostBySlug, addNewPost } from '@/lib/dao/blog-post-dao';
 
-// Use these functions in your API routes or server components
-
-/**
- * Firebase Admin SDK configuration
- */
-
+// Firebase Admin SDK configuration
 const serviceAccount = {
   type: "service_account",
-  project_id: process.env.FIREBASE_ADMIN_PROJECT_ID as string,
-  private_key_id: process.env.FIREBASE_ADMIN_PRIVATE_KEY_ID as string,
-  private_key: process.env.FIREBASE_ADMIN_PRIVATE_KEY as string,
-  client_email: process.env.FIREBASE_ADMIN_CLIENT_EMAIL as string,
-  client_id: process.env.FIREBASE_ADMIN_CLIENT_ID as string,
-  auth_uri: process.env.FIREBASE_ADMIN_AUTH_URI as string,
-  token_uri: process.env.FIREBASE_ADMIN_TOKEN_URI as string,
-  auth_provider_x509_cert_url: process.env.FIREBASE_ADMIN_AUTH_CERT_URL as string,
-  client_x509_cert_url: process.env.FIREBASE_ADMIN_CLIENT_CERT_URL as string,
-  clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL as string,
-  privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY as string,
-  projectId: process.env.FIREBASE_ADMIN_PROJECT_ID as string,
+  project_id: process.env.FIREBASE_ADMIN_PROJECT_ID,
+  private_key_id: process.env.FIREBASE_ADMIN_PRIVATE_KEY_ID,
+  private_key: process.env.FIREBASE_ADMIN_PRIVATE_KEY,
+  client_email: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+  client_id: process.env.FIREBASE_ADMIN_CLIENT_ID,
+  auth_uri: process.env.FIREBASE_ADMIN_AUTH_URI,
+  token_uri: process.env.FIREBASE_ADMIN_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.FIREBASE_ADMIN_AUTH_CERT_URL,
+  client_x509_cert_url: process.env.FIREBASE_ADMIN_CLIENT_CERT_URL,
 } as ServiceAccount;
 
-
-/**
- * Initialize the Firebase Admin SDK
- */
-
-
-
+// Initialize the Firebase Admin SDK
 const appName = "VAKS-APP-ADMIN";
 
-export const app = getApps().find((it) => it.name === appName) || initializeApp
-  (
-    {
-      credential: cert(serviceAccount),
-      databaseURL: process.env.FIREBASE_ADMIN_DATABASE_URL as string,
-      projectId: process.env.FIREBASE_ADMIN_PROJECT_ID as string,
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET as string,
-    },
-    appName
-  )
-
-/**
- * Initialize the Firebase Admin SDK
- */
+export const app = getApps().find((it) => it.name === appName) || initializeApp(
+  {
+    credential: cert(serviceAccount),
+    databaseURL: process.env.FIREBASE_ADMIN_DATABASE_URL,
+    projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  },
+  appName
+);
 
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
 export const database = getDatabase(app);
 export const storage = getStorage(app);
 
-
-
-
-
-
-
-/**
- * ALL FUNCTIONS BELOW CAN BE USED IN SERVER-SIDE CODE ONLY
- */
-
-
-
-/**
- * Get a user from firebase auth by email
- * @param email String
- * @returns Promise<UserRecord>
- */
+// User management functions
 const getByEmail = cache(async (email: string): Promise<UserRecord> => {
   return await auth.getUserByEmail(email);
-})
+});
 
-/**
- * Get a user from firebase auth by phone number
- * @param phoneNumber String
- * @returns Promise<UserRecord>
- */
 const getByPhoneNumber = cache(async (phoneNumber: string): Promise<UserRecord> => {
   return await auth.getUserByPhoneNumber(phoneNumber);
-})
+});
 
-/**
- * Get a user from firebase auth by uid
- * @param uid String
- * @returns Promise<UserRecord>
- */
 const getByUid = cache(async (uid: string): Promise<UserRecord> => {
   return await auth.getUser(uid);
-})
-
-
+});
 
 type UserInput = {
   email: string;
@@ -112,33 +64,23 @@ type UserInput = {
   password: string;
   role: Role;
   displayName: string;
-}
+};
 
-/**
- * Create a user in firebase auth
- * @param data UserInput
- * @returns Promise<UserRecord>
- */
 const create = cache(async (data: UserInput): Promise<UserRecord> => {
-  const user = await auth.createUser(
-    {
-      email: data.email,
-      phoneNumber: data?.phoneNumber || "",
-      password: data.password,
-      displayName: data.displayName,
-      emailVerified: false, // Default to false for email verification
-      disabled: false, // Default to false for account status (active)
-    }
-  );
+  const user = await auth.createUser({
+    email: data.email,
+    phoneNumber: data.phoneNumber || "",
+    password: data.password,
+    displayName: data.displayName,
+    emailVerified: false,
+    disabled: false,
+  });
 
   await auth.setCustomUserClaims(user.uid, { role: data.role });
-
   await generateEmailVerificationLink(data.email, data.displayName);
 
   return user;
-})
-
-
+});
 
 type UserUpdateInput = {
   email: string;
@@ -147,125 +89,54 @@ type UserUpdateInput = {
   photoURL: string;
   emailVerified: boolean;
   disabled: boolean;
-}
-
-/**
- * Update a user in firebase auth
- * @param uid String
- * @param data UserUpdateInput
- * @returns Promise<UserRecord>
- */
+};
 
 const update = cache(async (uid: string, data: UserUpdateInput): Promise<UserRecord> => {
-  const user = await auth.updateUser(uid, {
-    email: data.email,
-    phoneNumber: data.phoneNumber,
-    displayName: data.displayName,
-    photoURL: data.photoURL,
-    emailVerified: data.emailVerified,
-    disabled: data.disabled
-  });
-  return user;
-})
-
-/**
- * Delete a user from firebase auth
- * @param uid String
- * @returns Promise<void>
- */
+  return await auth.updateUser(uid, data);
+});
 
 const deleteById = cache(async (uid: string): Promise<void> => {
   await auth.deleteUser(uid);
-})
-
-/**
- * Get all users from firebase auth
- * @param size Number
- * @returns Promise<UserRecord[]>
- */
+});
 
 const getAll = cache(async (size: number): Promise<UserRecord[]> => {
-  const listUsers = await auth.listUsers(
-    size,
-
-  );
+  const listUsers = await auth.listUsers(size);
   return listUsers.users;
-})
+});
 
-
-/**
- * Generate a link to verefy a user's email
- * @param email String
- * @returns Promise<string>
- */
-const generateEmailVerificationLink = async (email: string, name?:string|undefined): Promise<string> => {
-
-  let username = name as string;
-  if(!name || name === ""){
-    const user = await getByEmail(email);
-    username = (user.displayName || user.email) as string;
-  }
+const generateEmailVerificationLink = async (email: string, name?: string): Promise<string> => {
+  const username = name || (await getByEmail(email)).displayName || email;
   const link = await auth.generateEmailVerificationLink(email);
-  await sendEmail(
-    {
-      email, 
-      username, 
-      link
-    }, 
-    "VERIFY_EMAIL"
-  )
-  return "Email verification link sent to user's email."
-}
-
-
-
-/**
- * Generate a link to reset a user's password
- * @param email String
- * @returns Promise<string>
- */
+  await sendEmail({ email, username, link }, "VERIFY_EMAIL");
+  return "Email verification link sent to user's email.";
+};
 
 const generatePasswordResetLink = async (email: string): Promise<string> => {
   try {
     const user = await getByEmail(email);
-    const name = (user.displayName || user.email) as string;
+    const name = user.displayName || user.email || '';
     const link = await auth.generatePasswordResetLink(email);
-    await sendEmail({email, name, link}, "RESET_PASSWORD")
-    return "Password reset link sent to user's email."
+    await sendEmail({ email, name, link }, "RESET_PASSWORD");
+    return "Password reset link sent to user's email.";
   } catch (e) {
-    throw new Error("No user found with this email address: " + email + ". " +
-      "Please check the email address and try again. If you continue to have issues, " +
-      "please contact support."
-    );
+    throw new Error("No user found with this email address. Please check the email address and try again.");
   }
-}
-
-/**
- * Generate a link to sign in with email link
- * @param email String
- * @returns Promise<string>
- */
+};
 
 const generateSignInWithEmailLink = async (email: string): Promise<string> => {
-  const link = await auth.generateSignInWithEmailLink(email, {
+  return await auth.generateSignInWithEmailLink(email, {
     url: process.env.FIREBASE_AUTH_REDIRECT_URL as string,
     handleCodeInApp: true
   });
-  return link;
-}
-
+};
 
 const requiredVerifyEmail = async (email: string): Promise<void> => {
   const user = await getByEmail(email);
   if (!user.emailVerified) {
     await generateEmailVerificationLink(email);
-    throw new Error("Please verify your email before signing in! Check your email for a verification link.",
-      {
-        cause: "EmailNotVerified",
-      }
-    )
+    throw new Error("Please verify your email before signing in! Check your email for a verification link.");
   }
-}
+};
 
 export const authUserApi = {
   getByEmail,
@@ -281,25 +152,6 @@ export const authUserApi = {
   requiredVerifyEmail
 } as const;
 
-function getFirebaseAdminApp() {
-  const apps = getApps();
-  if (apps.length > 0) {
-    return apps[0];
-  }
-
-  const serviceAccount = {
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  };
-
-  return initializeApp({
-    credential: cert(serviceAccount),
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-  });
-}
-
 export function getFirestoreInstance(): Firestore {
-  const app = getFirebaseAdminApp();
-  return getFirestore(app);
+  return firestore;
 }

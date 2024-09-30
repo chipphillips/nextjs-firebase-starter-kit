@@ -8,34 +8,43 @@ import { Search } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { BlogPost } from '@/types/blog-post'
+import { HeaderComponent } from '@/components/Header'  // Import the HeaderComponent
 
 type BlogProps = {
-  initialPosts: BlogPost[]
-  recentPosts: BlogPost[]
+  posts: BlogPost[]
 }
 
-const Blog = ({ initialPosts, recentPosts }: BlogProps) => {
+const Blog = ({ posts }: BlogProps) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [posts, setPosts] = useState(initialPosts)
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([])
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([])
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/blog')
-      if (response.ok) {
-        const fetchedPosts = await response.json()
-        setPosts(fetchedPosts)
+      try {
+        const response = await fetch('/api/blog')
+        if (response.ok) {
+          const fetchedPosts = await response.json()
+          setAllPosts(fetchedPosts)
+          setRecentPosts(fetchedPosts.slice(0, 5))
+        } else {
+          console.error('Failed to fetch posts')
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error)
       }
     }
     fetchPosts()
   }, [])
 
-  const filteredPosts = posts.filter(post =>
+  const filteredPosts = allPosts.filter(post =>
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <HeaderComponent />  {/* Add the HeaderComponent here */}
       <section className="bg-muted py-16 w-full">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Constructiv AI Blog</h1>
@@ -100,7 +109,23 @@ const Blog = ({ initialPosts, recentPosts }: BlogProps) => {
             )}
           </div>
           <aside className="lg:w-1/3">
-            {/* ... (rest of the aside content remains unchanged) ... */}
+            <h3 className="text-2xl font-bold mb-4">Recent Posts</h3>
+            <div className="space-y-4">
+              {recentPosts.map((post) => (
+                <Card key={post.slug}>
+                  <CardHeader>
+                    <CardTitle>
+                      <Link href={`/resources/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                        {post.title}
+                      </Link>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </aside>
         </div>
       </main>
