@@ -10,10 +10,10 @@ export const metadata = {
 export default function About() {
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">About Constructiv AI</h1>
+      <h1 className="text-3xl font-bold mb-8 text-primary">About Constructiv AI</h1>
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-        <p className="text-lg">We're committed to revolutionizing the construction industry through AI...</p>
+        <h2 className="text-2xl font-semibold mb-4 text-secondary">Our Mission</h2>
+        <p className="text-lg text-foreground">We're committed to revolutionizing the construction industry through AI...</p>
       </section>
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Our Team</h2>

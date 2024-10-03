@@ -52,17 +52,18 @@ constructiv-ai/
 │   │   ├── input.tsx
 │   │   ├── textarea.tsx
 │   │   └── other UI components
-│   └
 ├── lib/
 │   ├── firebase.ts
 │   ├── firebaseAdmin.ts
 │   └── posts.ts
 ├── public/
-│   └── images/
-│       ├── constructiv-ai-logo.png
-│       ├── about-us.jpg
-│       ├── hero-image.png
-│       └── ... (other images)
+│   ├── images/
+│   │   ├── constructiv-ai-logo.png
+│   │   ├── about-us.jpg
+│   │   └── hero-image.png
+│   └── icons/
+│       ├── menu-icon.svg
+│       └── close-icon.svg
 ├── styles/
 │   └── globals.css
 ├── types/
@@ -71,7 +72,7 @@ constructiv-ai/
 │   ├── app/
 │   │   └── main.py
 │   ├── models/
-│   │   └── ... (Pydantic models)
+│   │   └── Pydantic models
 │   ├── routes/
 │   │   └── ... (API routes)
 │   ├── services/
