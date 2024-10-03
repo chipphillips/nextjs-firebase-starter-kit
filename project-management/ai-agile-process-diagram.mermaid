@@ -1,0 +1,25 @@
+graph TD
+    A[Project Initiation] -->|Create| B[Project Charter]
+    B --> C[Document Processing]
+    C --> D[Initial Code Review]
+    D --> E[Sprint Planning]
+    E --> F[Sprint Execution]
+    F --> G[Code Implementation]
+    G --> H[Continuous Review]
+    H --> I[Sprint Review & Retrospective]
+    I --> J[Project Documentation Update]
+    J -->|Next Sprint| E
+    J -->|Project Complete| K[Project Closure]
+
+    subgraph "Sprint Cycle"
+    E
+    F
+    G
+    H
+    I
+    end
+
+    B -.->|Reference| E
+    B -.->|Reference| F
+    C -.->|Provide Context| F
+    C -.->|Provide Context| G

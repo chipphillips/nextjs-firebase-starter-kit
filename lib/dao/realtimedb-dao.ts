@@ -1,51 +1,87 @@
-import { Reference } from 'firebase-admin/database';
-import { database } from '../config/firebase-server';
-import { DBCollectionType } from './db-collections';
-
+import { getDatabase, ref, set, get, push, remove, query, orderByChild, equalTo, Database } from 'firebase/database';
+import { db } from '../firebase';
 
 /**
- * RealtimeDbDao
- * 
- * This class is a DAO for Firebase Realtime Database. 
- * It provides a reference to a collection in the database.
- * 
- * @param collectionName: DBCollection
- * 
- * @return Reference
- * 
- * @see DBCollection
- * 
- * @example
- * 
- * const dao = new RealtimeDbDao(DBCollection.USERS);
- * 
- * const data = await dao.get();
- * 
+ * RealtimeDB DAO class to interact with Firebase Realtime Database
+ * @class
+ * @classdesc This class is used to interact with Firebase Realtime Database
+ * @export
  */
+export class RealtimeDbDao<T extends { id?: string }> {
+  private dbRef;
+  private database: Database;
 
-export class RealtimeDbDao {
-
-  db: Reference;
-
-  constructor(collectionName: DBCollectionType) {
-    this.db = database.ref(collectionName);
+  constructor(path: string) {
+    this.database = getDatabase();
+    this.dbRef = ref(this.database, path);
   }
 
-  async get() {
-    return (await this.db.get()).exists() ? (await this.db.get()).val() as any[] : [];
+  /**
+   * Create a new item in the database
+   * @param data - The data to be added
+   * @returns Promise<string> - The id of the newly created item
+   */
+  async create(data: Omit<T, 'id'>): Promise<string> {
+    const newRef = push(this.dbRef);
+    await set(newRef, data);
+    return newRef.key as string;
   }
 
-  async set(data: any) {
-    return this.db.set(data)
+  /**
+   * Read an item from the database by id
+   * @param id - The id of the item to read
+   * @returns Promise<T | null> - The item data or null if not found
+   */
+  async read(id: string): Promise<T | null> {
+    const snapshot = await get(ref(this.database, `${this.dbRef.key}/${id}`));
+    return snapshot.exists() ? { id: snapshot.key, ...snapshot.val() } as T : null;
   }
 
-  async update(data: any) {
-    return this.db.update(data)
+  /**
+   * Update an item in the database
+   * @param id - The id of the item to update
+   * @param data - The new data to update
+   * @returns Promise<void>
+   */
+  async update(id: string, data: Partial<T>): Promise<void> {
+    return set(ref(this.database, `${this.dbRef.key}/${id}`), data);
   }
 
-  async remove() {
-    return this.db.remove()
+  /**
+   * Delete an item from the database
+   * @param id - The id of the item to delete
+   * @returns Promise<void>
+   */
+  async delete(id: string): Promise<void> {
+    return remove(ref(this.database, `${this.dbRef.key}/${id}`));
   }
 
-  
+  /**
+   * List all items in the database
+   * @returns Promise<T[]> - An array of all items
+   */
+  async list(): Promise<T[]> {
+    const snapshot = await get(this.dbRef);
+    const items: T[] = [];
+    snapshot.forEach((childSnapshot) => {
+      items.push({ id: childSnapshot.key, ...childSnapshot.val() } as T);
+    });
+    return items;
+  }
+
+  /**
+   * Query items based on a specific field and value
+   * @param field - The field to query on
+   * @param value - The value to match
+   * @returns Promise<T[]> - An array of matching items
+   */
+  async queryByField(field: keyof T, value: any): Promise<T[]> {
+    const queryRef = query(this.dbRef, orderByChild(field as string), equalTo(value));
+    const snapshot = await get(queryRef);
+    const items: T[] = [];
+    snapshot.forEach((childSnapshot) => {
+      items.push({ id: childSnapshot.key, ...childSnapshot.val() } as T);
+    });
+    return items;
+  }
 }

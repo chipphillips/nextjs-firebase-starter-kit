@@ -1,15 +1,18 @@
 // lib/types/blog-post.ts
-import { Timestamp } from 'firebase/firestore';
-
 export interface BlogPost {
     id: string;
-    slug: string;
     title: string;
-    date: Timestamp;
-    author: string;
-    excerpt: string;
     content: string;
-    coverImage: string;
-    tags: string[];
-    status: 'published' | 'draft';
+    author: {
+        name: string;
+        avatar: string;
+        title: string;
+    };
+    createdAt: Date;
+    date: Date;
+    excerpt?: string;
+    coverImage?: string;
+    slug: string;
+    published: boolean;
+    category: string;
 }

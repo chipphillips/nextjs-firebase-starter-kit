@@ -1,9 +1,9 @@
 // lib/dao/db-collections.ts
 
-export const DB_COLLECTIONS = {
-  USERS: 'users',
-  POSTS: 'posts',
-} as const;
+export enum DB_COLLECTIONS {
+  POSTS = 'blogPosts',
+  // Add other collection names here as needed
+}
 
 // Type for the values of DB_COLLECTIONS
 export type DBCollectionType = typeof DB_COLLECTIONS[keyof typeof DB_COLLECTIONS];

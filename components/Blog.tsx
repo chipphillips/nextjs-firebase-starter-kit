@@ -1,50 +1,38 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import React, { useMemo, useState } from 'react'
+import { db } from '@/lib/config/firebase-client';
+import { collection, query, orderBy, limit } from 'firebase/firestore'
+import { Button } from './ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
+import { Input } from './ui/input'
 import { Search } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { BlogPost } from '@/types/blog-post'
-import { HeaderComponent } from '@/components/Header'  // Import the HeaderComponent
+import { DB_COLLECTIONS } from '@/lib/dao/db-collections'
 
 type BlogProps = {
   posts: BlogPost[]
+  recentPosts: BlogPost[]
 }
 
-const Blog = ({ posts }: BlogProps) => {
+const Blog = ({ posts, recentPosts }: BlogProps) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [allPosts, setAllPosts] = useState<BlogPost[]>([])
-  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([])
+  const [allPosts, setAllPosts] = useState<BlogPost[]>(posts)
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/blog')
-        if (response.ok) {
-          const fetchedPosts = await response.json()
-          setAllPosts(fetchedPosts)
-          setRecentPosts(fetchedPosts.slice(0, 5))
-        } else {
-          console.error('Failed to fetch posts')
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error)
-      }
-    }
-    fetchPosts()
-  }, [])
+  const recentPostsQuery = useMemo(() => {
+    return query(collection(db, DB_COLLECTIONS.POSTS), orderBy('createdAt', 'desc'), limit(5));
+  }, []);
 
   const filteredPosts = allPosts.filter(post =>
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()))
   )
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <HeaderComponent />  {/* Add the HeaderComponent here */}
+    
       <section className="bg-muted py-16 w-full">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Constructiv AI Blog</h1>
@@ -68,30 +56,32 @@ const Blog = ({ posts }: BlogProps) => {
             {filteredPosts.length > 0 ? (
               <div className="grid gap-8">
                 {filteredPosts.map((post) => (
-                  <Card key={post.slug} className="overflow-hidden">
+                  <Card key={post.id} className="overflow-hidden">
                     <div className="md:flex">
-                      <Image
-                        src={post.coverImage}
-                        alt={`Cover image for ${post.title}`}
-                        width={350}
-                        height={250}
-                        className="w-full md:w-auto object-cover"
-                      />
+                      {post.coverImage && (
+                        <Image
+                          src={post.coverImage}
+                          alt={`Cover image for ${post.title}`}
+                          width={350}
+                          height={250}
+                          className="w-full md:w-auto object-cover"
+                        />
+                      )}
                       <div className="p-6 flex flex-col justify-between">
                         <div>
                           <CardTitle className="text-2xl mb-2">
-                            <Link href={`/resources/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                            <Link href={`/resources/blog/${post.id}`} className="hover:text-primary transition-colors">
                               {post.title}
                             </Link>
                           </CardTitle>
-                          <CardDescription className="mb-4">Posted on {post.date.toDate().toISOString()} by {post.author}</CardDescription>
+                          <CardDescription className="mb-4">Posted on {post.date.toDateString()} by {post.author.name}</CardDescription>
                           <div className="text-muted-foreground">
                             <p>{post.excerpt}</p>
                           </div>
                         </div>
                         <div className="mt-4">
                           <Button variant="outline" asChild>
-                            <Link href={`/resources/blog/${post.slug}`}>Read More</Link>
+                            <Link href={`/resources/blog/${post.id}`}>Read More</Link>
                           </Button>
                         </div>
                       </div>
@@ -112,10 +102,10 @@ const Blog = ({ posts }: BlogProps) => {
             <h3 className="text-2xl font-bold mb-4">Recent Posts</h3>
             <div className="space-y-4">
               {recentPosts.map((post) => (
-                <Card key={post.slug}>
+                <Card key={post.id}>
                   <CardHeader>
                     <CardTitle>
-                      <Link href={`/resources/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                      <Link href={`/resources/blog/${post.id}`} className="hover:text-primary transition-colors">
                         {post.title}
                       </Link>
                     </CardTitle>

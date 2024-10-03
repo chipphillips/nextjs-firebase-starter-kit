@@ -3,21 +3,21 @@ import Link from 'next/link'
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-secondary-light-gray">
       {/* Hero Section */}
-      <section className="bg-blue-600 text-white py-20">
+      <section className="bg-primary-blue text-white py-32 min-h-[600px] flex items-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 font-display">
             Helping Builders Save Time with the Power of AI Magic
           </h1>
           <p className="text-xl md:text-2xl mb-8">
             From Blueprint to Build, Enhance Every Step with AI-Driven Solutions Designed for Construction Success
           </p>
           <div className="space-x-4">
-            <Link href="/signup" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-100 transition duration-300">
+            <Link href="/signup" className="bg-white text-primary-blue px-6 py-3 rounded-lg font-semibold hover:bg-blue-very-light transition duration-300">
               Get Started
             </Link>
-            <Link href="/ai-tools/beta-signup" className="bg-transparent border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+            <Link href="/ai-tools/beta-signup" className="bg-transparent border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-blue transition duration-300">
               Free AI Readiness Report
             </Link>
           </div>
@@ -27,13 +27,13 @@ const LandingPage = () => {
       {/* Features Overview */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Our AI-Powered Tools</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center font-display">Our AI-Powered Tools</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {['Project Planning', 'Resource Optimization', 'Risk Assessment'].map((feature, index) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">{feature}</h3>
+                <h3 className="text-xl font-semibold mb-4 font-display">{feature}</h3>
                 <p className="text-gray-600 mb-4">Leverage AI to streamline your construction processes and boost efficiency.</p>
-                <Link href="/ai-tools" className="text-blue-600 hover:underline">Learn more</Link>
+                <Link href="/ai-tools" className="text-primary-blue hover:underline">Learn more</Link>
               </div>
             ))}
           </div>
@@ -77,11 +77,11 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="bg-primary-blue text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Construction Process?</h2>
+          <h2 className="text-3xl font-bold mb-4 font-display">Ready to Transform Your Construction Process?</h2>
           <p className="text-xl mb-8">Join our beta program and experience the future of AI in construction.</p>
-          <Link href="/ai-tools/beta-signup" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-100 transition duration-300">
+          <Link href="/ai-tools/beta-signup" className="bg-white text-primary-blue px-8 py-3 rounded-lg font-semibold hover:bg-blue-very-light transition duration-300">
             Join Beta Waitlist
           </Link>
         </div>

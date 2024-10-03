@@ -7,63 +7,35 @@ import { Button } from "@/components/ui/button"
 import { ChevronDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-export function HeaderComponent() {
+export function Header() {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
   const router = useRouter()
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/constructiv AI square 50 logo.svg"
-                alt="Constructiv AI Logo"
-                width={50}
-                height={50}
-                priority
-              />
-              <span className="ml-2 text-black font-bold text-xl" style={{ fontFamily: 'Avenir, sans-serif' }}>
-                Constructiv AI
-              </span>
-            </Link>
-          </div>
-          
-          <nav className="hidden md:flex space-x-8 items-center">
-            <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
-            <Link href="/services" className="text-gray-600 hover:text-gray-900">Services</Link>
-            <div className="relative group">
-              <button 
-                className="text-gray-600 hover:text-gray-900 flex items-center"
-                onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-              >
-                Resources
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-              {isResourcesOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <Link href="/resources" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Resources</Link>
-                    <Link href="/resources/blog" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Blog</Link>
-                  </div>
-                </div>
-              )}
-            </div>
-            <Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link>
-          </nav>
-          
-          <div className="flex items-center">
-            <Button 
-              variant="outline" 
-              className="text-blue-600 border-blue-600 hover:bg-blue-50"
-              onClick={() => router.push('/signin')}
-            >
-              Log In / Sign Up
-            </Button>
-          </div>
+    <header className="bg-white shadow-sm">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/constructiv AI square 50 logo.svg"
+            alt="Constructiv AI Logo"
+            width={50}
+            height={50}
+            className="mr-2"
+          />
+          <span className="text-2xl font-bold">Constructiv AI</span>
+        </Link>
+        <ul className="flex space-x-4">
+          <li><Link href="/ai-tools">AI Tools</Link></li>
+          <li><Link href="/services">Services</Link></li>
+          <li><Link href="/about">About</Link></li>
+          <li><Link href="/resources/blog">Blog</Link></li>
+          <li><Link href="/contact">Contact</Link></li>
+        </ul>
+        <div className="flex space-x-2">
+          <Link href="/signin" className="bg-secondary text-white rounded-md px-4 py-2 hover:bg-opacity-90">Log In</Link>
+          <Link href="/signup" className="bg-primary text-white rounded-md px-4 py-2 hover:bg-opacity-90">Sign Up</Link>
         </div>
-      </div>
+      </nav>
     </header>
   )
 }

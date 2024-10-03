@@ -42,7 +42,7 @@ const AdminPostsListPage = () => {
     <div className="max-w-4xl mx-auto py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Blog Posts</h1>
-        <Link href="/admin/add-post" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+        <Link href="/@admin/add-post" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
           Add New Post
         </Link>
       </div>
@@ -68,7 +68,7 @@ const AdminPostsListPage = () => {
                     </p>
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                    <Link href={`/admin/edit-post/${post.id}`} className="text-indigo-600 hover:text-indigo-900 mr-4">
+                    <Link href={`/@admin/edit-post/${post.id}`} className="text-indigo-600 hover:text-indigo-900 mr-4">
                       Edit
                     </Link>
                     <button

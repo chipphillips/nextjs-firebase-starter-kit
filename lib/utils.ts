@@ -1,7 +1,7 @@
+import { auth } from './config/firebase-client';
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { auth } from '@/lib/config/firebase-client';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -17,5 +17,5 @@ export const signIn = async (email: string, password: string) => {
 };
 
 export const logOut = async () => {
-  return await signOut(auth);
+  return await firebaseSignOut(auth);
 };

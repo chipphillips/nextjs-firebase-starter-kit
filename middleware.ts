@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import admin from '@/lib/config/firebaseAdmin';
+import { getAdminAuth } from '@/lib/config/firebase-admin';
 
 // Allow access to the admin login page
 export async function middleware(req: NextRequest) {
@@ -16,7 +16,8 @@ export async function middleware(req: NextRequest) {
     }
 
     try {
-      const decodedToken = await admin.auth().verifyIdToken(token);
+      const adminAuth = getAdminAuth();
+      const decodedToken = await adminAuth.verifyIdToken(token);
       if (!decodedToken.admin) {
         throw new Error('User is not an admin');
       }

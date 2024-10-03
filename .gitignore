@@ -39,7 +39,7 @@ next-env.d.ts
 
 # Ignore specific directory
 /lib
-
+/scripts
 # Alternative: Ignore lib folder relative to project root
 # /lib
 
