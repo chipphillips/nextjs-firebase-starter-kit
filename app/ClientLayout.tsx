@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import AuthWrapper from './AuthWrapper';
 import { useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
-import { initializeApp, FirebaseApp } from 'firebase/app';
+import { initializeApp, FirebaseApp, getApps } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
 const inter = Inter({ 
@@ -20,18 +20,9 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    // Initialize Firebase when the component mounts
-    const initFirebase = async () => {
-      try {
-        initializeFirebaseApp();
-        const auth = getAuth();
-        console.log('Firebase initialized successfully');
-      } catch (error) {
-        console.error('Error initializing Firebase:', error);
-      }
-    };
-
-    initFirebase();
+    if (!getApps().length) {
+      initializeFirebaseApp();
+    }
   }, []);
 
   return (

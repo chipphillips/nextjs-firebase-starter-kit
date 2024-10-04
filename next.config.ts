@@ -11,11 +11,18 @@ const nextConfig: NextConfig = {
         ...config.resolve,
         fallback: {
           ...(config.resolve?.fallback || {}),
-          stream: false,
-          crypto: false,
           fs: false,
-          os: false,
-          path: false,
+          net: false,
+          tls: false,
+          crypto: require.resolve('crypto-browserify'),
+          stream: require.resolve('stream-browserify'),
+          url: require.resolve('url/'),
+          zlib: require.resolve('browserify-zlib'),
+          http: require.resolve('stream-http'),
+          https: require.resolve('https-browserify'),
+          assert: require.resolve('assert/'),
+          os: require.resolve('os-browserify/browser'),
+          path: require.resolve('path-browserify'),
         },
       };
       if (config.optimization) {
@@ -25,7 +32,6 @@ const nextConfig: NextConfig = {
           minSize: 20000,
         };
       }
-      config.plugins?.push(new NodePolyfillPlugin());
     }
     return config;
   },

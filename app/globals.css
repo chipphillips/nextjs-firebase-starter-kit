@@ -56,11 +56,27 @@
 }
 
 @layer base {
-  * {
+  /* Apply border to specific elements instead of using the universal selector */
+  .bordered-element {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Ensure proper text color contrast */
+  .text-primary {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .text-secondary {
+    @apply text-gray-600 dark:text-gray-300;
   }
 }
 

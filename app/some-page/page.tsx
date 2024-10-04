@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { BlogPost } from '@/components/BlogPost';
+import { impor } from '@/components/BlogPost';
 
 export const metadata: Metadata = {
   title: 'Some Page | Constructiv AI',

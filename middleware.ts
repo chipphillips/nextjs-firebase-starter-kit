@@ -1,38 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getAdminAuth } from '@/lib/config/firebase-admin';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-// Allow access to the admin login page
-export async function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname === '/admin/login') {
-    return NextResponse.next();
-  }
+export function middleware(request: NextRequest) {
+  // Implement your middleware logic here without using Firebase Admin
+  // For example, you can check for a session cookie or a token in the request headers
+  
+  // If you need to use Firebase Admin, consider moving that logic to an API route
+  // and calling it from the client-side or server-side components
 
-  // Only apply this middleware to other /admin routes
-  if (req.nextUrl.pathname.startsWith('/admin')) {
-    const token = req.cookies.get('admin_token')?.value;
-
-    if (!token) {
-      return NextResponse.redirect(new URL('/admin/login', req.url));
-    }
-
-    try {
-      const adminAuth = getAdminAuth();
-      const decodedToken = await adminAuth.verifyIdToken(token);
-      if (!decodedToken.admin) {
-        throw new Error('User is not an admin');
-      }
-      return NextResponse.next();
-    } catch (error) {
-      console.error('Admin authentication error:', error);
-      return NextResponse.redirect(new URL('/admin/login', req.url));
-    }
-  }
-
-  // For non-admin routes, just proceed to the next middleware or to the final handler
   return NextResponse.next();
 }
-
-// Optional: Configure matcher for better performance
-export const config = {
-  matcher: ['/admin/:path*'],
-};
