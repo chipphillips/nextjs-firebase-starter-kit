@@ -2,9 +2,8 @@
 
 import React from 'react'
 import ErrorBoundary from '@/components/ErrorBoundary';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Zap, Clock, Users } from 'lucide-react'
+import { ArrowRight, CheckCircle, Zap, Clock } from 'lucide-react'
 
 // Define the feature type
 type Feature = {
@@ -59,7 +58,7 @@ const steps: Step[] = [
 const LandingPage: React.FC = () => {
   return (
     <ErrorBoundary fallback={<div>There was an error loading the landing page. Please refresh the page.</div>}>
-      <div className="flex flex-col bg-background-light">
+      <div className="flex flex-col">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-secondary to-secondary-dark text-white py-20 md:py-32">
           {/* ... (keep the existing content) */}
@@ -67,7 +66,7 @@ const LandingPage: React.FC = () => {
 
         <div className="min-h-screen">
           {/* Features Overview */}
-          <section className="py-20 bg-background">
+          <section className="py-20">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl font-bold text-center mb-12">Features Overview</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

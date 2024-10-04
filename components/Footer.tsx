@@ -22,7 +22,7 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="bg-secondary-dark text-white py-8 flex-shrink-0">
+    <footer className="bg-BrightNavyBlue-900 !bg-BrightNavyBlue-900 text-white py-8 flex-shrink-0">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="space-y-2">
@@ -62,7 +62,7 @@ export const Footer = () => {
                 <a
                   key={label}
                   href="#"
-                  className="text-gray-400 hover:text-white transition duration-300"
+                  className="text-muted-foreground hover:text-white transition duration-300"
                   aria-label={`Follow us on ${label}`}
                 >
                   <Icon size={24} />
@@ -73,7 +73,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-base font-semibold mb-2">Newsletter</h3>
             {subscribed ? (
-              <p className="text-green-400 text-sm">Thank you for subscribing!</p>
+              <p className="text-accent-green text-sm">Thank you for subscribing!</p>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-2">
                 <input
@@ -82,26 +82,26 @@ export const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-3 py-1 text-sm bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-1 text-sm bg-secondary text-foreground rounded focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
                 <button
                   type="submit"
-                  className="w-full px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+                  className="w-full px-3 py-1 text-sm bg-primary text-primary-foreground rounded hover:bg-primary-dark transition duration-300"
                 >
                   Subscribe
                 </button>
               </form>
             )}
-            <p className="mt-1 text-xs text-gray-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
             </p>
           </div>
         </div>
-        <div className="mt-6 pt-6 border-t border-gray-700">
+        <div className="mt-6 pt-6 border-t border-muted">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-xs text-gray-400">&copy; {currentYear} Constructiv AI. All rights reserved.</p>
-            <div className="flex flex-wrap gap-4 text-xs text-gray-400 mt-2 md:mt-0">
+            <p className="text-xs text-muted-foreground">&copy; {currentYear} Constructiv AI. All rights reserved.</p>
+            <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mt-2 md:mt-0">
               {/* ... Footer links ... */}
             </div>
           </div>
