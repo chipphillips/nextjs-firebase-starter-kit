@@ -1,49 +1,76 @@
-# Current Sprint: Sprint 1 - Foundation Optimization
+# Current Sprint: Sprint 3 - Error Handling, Accessibility, and Testing
 
 ## Sprint Goal
-Optimize the foundation of the application by implementing Server Components, improving image handling, and enhancing SEO.
+Improve application robustness, accessibility, and implement a testing framework.
 
 ## Sprint Duration
-Start Date: 2024-10-02 
-End Date: 2024-07-26
+Start Date: 2024-07-27
+End Date: 2024-08-09
 
 ## Team Members
-- Frontend Developer
-- Full Stack Developer
-- UI/UX Designer
+- Frontend Developer (FD)
+- Full Stack Developer (FSD)
+- UI/UX Designer (UX)
+- QA Engineer (QA)
 
 ## Sprint Backlog
 
-### Server Components Implementation
-- [ ] Review current component structure
-- [ ] Identify components that can be converted to Server Components
-- [ ] Refactor identified components to Server Components
-- [ ] Test and verify functionality of refactored components
+### Error Handling and Loading States
+- [x] Implement error boundaries for top-level components (FSD)
+- [x] Create custom error pages (404, 500) (FD)
+- [x] Add loading states for asynchronous operations (FD)
+- [x] Implement retry mechanisms for failed API calls (FSD)
+- [x] Implement logging for failed API calls (FSD)
+- [x] Add unit tests for apiUtils functions (FSD)
 
-### Image Optimization
-- [ ] Implement Next.js Image component for all images
-- [ ] Optimize image sizes and formats
-- [ ] Test image loading performance
+### Accessibility Enhancements
+- [ ] Conduct initial accessibility audit (UX)
+- [ ] Improve keyboard navigation (FD)
+- [ ] Enhance screen reader compatibility (FD)
+- [ ] Implement ARIA attributes where necessary (FD)
+- [ ] Ensure proper color contrast throughout the application (UX)
 
-### SEO Enhancement
-- [ ] Implement Next.js 14 metadata API for all pages
-- [ ] Create a sitemap
-- [ ] Implement structured data where applicable
+### Testing Setup and Implementation
+- [x] Set up Jest and React Testing Library (QA)
+- [ ] Write unit tests for utility functions (FSD)
+- [ ] Implement component tests for key UI elements (FD)
+- [ ] Create integration tests for main user flows (QA)
+- [ ] Set up CI/CD pipeline for automated testing (FSD)
 
-### Documentation
-- [ ] Update component documentation to reflect Server Component usage
-- [ ] Document image optimization guidelines
-- [ ] Create SEO best practices guide for the project
+### Performance Audit
+- [ ] Conduct comprehensive performance audit (QA)
+- [ ] Identify and fix performance bottlenecks (FSD)
+- [ ] Optimize React component rendering (FD)
+- [ ] Implement code splitting for large components/pages (FSD)
 
 ## Useful Documentation
-- Next.js 14 Documentation: https://nextjs.org/docs
-- Next.js Image Component: https://nextjs.org/docs/api-reference/next/image
-- Next.js Metadata API: https://nextjs.org/docs/app/api-reference/functions/generate-metadata
-- React Server Components: https://react.dev/blog/2020/12/21/data-fetching-with-react-server-components
+- Jest Documentation: https://jestjs.io/docs/getting-started
+- React Testing Library: https://testing-library.com/docs/react-testing-library/intro/
+- Web Accessibility Initiative (WAI): https://www.w3.org/WAI/
+- React Error Boundaries: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
 
 ## Blockers
 - None currently identified
 
 ## Notes
 - Daily stand-up meetings at 9:30 AM
-- Sprint review and retrospective scheduled for the last day of the sprint
+- Mid-sprint review scheduled for 2024-08-02
+- Sprint review and retrospective scheduled for 2024-08-09
+
+## Task Distribution Summary
+- Frontend Developer (FD): 6 tasks
+- Full Stack Developer (FSD): 8 tasks
+- UI/UX Designer (UX): 2 tasks
+- QA Engineer (QA): 3 tasks
+
+This distribution aims to balance the workload while aligning tasks with each team member's expertise. The Frontend and Full Stack Developers have the most tasks due to the nature of the sprint goals. The UI/UX Designer focuses on accessibility-related tasks, while the QA Engineer leads the testing efforts and performance audit.
+
+## Updates
+- Implemented error boundaries for top-level components (RootLayout and LandingPage)
+- Created a reusable ErrorBoundary component for future use
+- Created custom 404 and 500 error pages
+- Implemented loading states for asynchronous operations using Suspense and a LoadingSpinner component
+- Implemented retry mechanisms for failed API calls using a custom utility function
+- Added logging functionality for failed API calls to improve monitoring and debugging
+- Created unit tests for apiUtils functions to ensure reliability
+- Next steps: Focus on accessibility enhancements and component testing

@@ -1,32 +1,94 @@
-import type { Config } from "tailwindcss"
+// tailwind.config.ts
 
-// This configuration file defines the Tailwind CSS settings for your project
+import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
+
 const config: Config = {
-  // Enable dark mode using the 'class' strategy
-  darkMode: ["class"],
-  // Specify which files Tailwind should scan for classes
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        background: "hsl(var(--background))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          light: "hsl(var(--background-light))",
+          dark: "hsl(var(--background-dark))",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          light: "hsl(var(--primary-light))",
+          dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        // ... (other color definitions)
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          light: "hsl(var(--secondary-light))",
+          dark: "hsl(var(--secondary-dark))",
+          teal: "hsl(var(--secondary-teal))",
+          yellow: "hsl(var(--secondary-yellow))",
+          green: "hsl(var(--secondary-green))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        accent: {
+          blue: "hsl(var(--accent-blue))",
+          green: "hsl(var(--accent-green))",
+          yellow: "hsl(var(--accent-yellow))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        text: {
+          primary: "hsl(var(--text-primary))",
+          secondary: "hsl(var(--text-secondary))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", ...fontFamily.sans],
+        display: ["var(--font-oswald)", "sans-serif"],
+      },
+      spacing: {
+        "container-max": "1200px",
+        "container-padding": "50px",
+      },
+      boxShadow: {
+        custom: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
       },
       keyframes: {
         "accordion-down": {
@@ -42,60 +104,14 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      container: {
-        center: true,
-        padding: "2rem",
-        screens: {
-          "2xl": "1400px",
-        },
-      },
-      fontSize: {
-        "2xl": "2rem",
-        xl: "1.5rem",
-        lg: "1.25rem",
-        md: "1rem",
-        sm: "0.875rem",
-        xs: "0.75rem",
-      },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Merriweather", "serif"],
-        mono: ["Fira Code", "monospace"],
-        display: ["Oswald", "sans-serif"],
-        body: ["Open Sans", "sans-serif"],
-      },
-      spacing: {
-        "1": "0.25rem",
-        "2": "0.5rem",
-        "3": "0.75rem",
-        "4": "1rem",
-        "5": "1.25rem",
-        "6": "1.5rem",
-        "7": "1.75rem",
-        "8": "2rem",
-      },
-      screens: {
-        sm: {"min": "640px", "max": "767px"},
-        md: {"min": "768px", "max": "1023px"},
-        lg: {"min": "1024px", "max": "1279px"},
-        xl: {"min": "1280px", "max": "1535px"},
-        "2xl": {"min": "1536px"},
-      },
     },
   },
-  // Add the tailwindcss-animate plugin for additional animation utilities
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
   ],
-  // Add this to your config if needed
-  safelist: [
-    'bg-red-500',
-    'text-3xl',
-    'lg:text-4xl',
-  ],
-} as Config;
+}
 
-// Export the configuration for use in your Tailwind CSS setup
-export default config;
+export default config

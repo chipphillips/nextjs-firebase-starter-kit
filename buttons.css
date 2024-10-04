@@ -1,0 +1,25 @@
+@layer components {
+    .btn-primary {
+      @apply inline-flex items-center justify-center gap-2 px-6 text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap;
+      background-color: var(--color-BrightNavyBlue-500);
+      /* Debug Log */
+      content: "Primary button component applied";
+      &:hover {
+        background-color: var(--color-BrightNavyBlue-600);
+        /* Debug Log */
+        content: "Primary button hover state";
+      }
+      &:focus {
+        background-color: var(--color-BrightNavyBlue-700);
+        /* Debug Log */
+        content: "Primary button focus state";
+      }
+      &:disabled {
+        background-color: var(--color-BrightNavyBlue-200);
+        cursor: not-allowed;
+        /* Debug Log */
+        content: "Primary button disabled state";
+      }
+    }
+  }
+  

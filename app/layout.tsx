@@ -1,19 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientLayout from './ClientLayout';
-import { Footer } from '@/components/Footer';
-import '@/app/globals.css';
-import { Inter, Oswald } from 'next/font/google';
-import { Header } from '@/components/Header';
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Constructiv AI",
-    template: "%s | Constructiv AI"
-  },
+  title: "Constructiv AI",
   description: "AI-powered tools for the construction industry",
 };
 
@@ -23,11 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
-      <body className="flex flex-col min-h-screen bg-background text-foreground font-sans">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+    <html lang="en">
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

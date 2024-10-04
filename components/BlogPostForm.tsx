@@ -66,7 +66,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">
                   {post.title}
                 </h1>
-                <p className="text-gray-600 mb-4">
+                <p className="text-text-secondary mb-4">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center mb-4">
@@ -79,10 +79,10 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                   />
                   <div>
                     <div className="font-semibold">{post.author.name}</div>
-                    <div className="text-sm text-gray-600">{post.author.title}</div>
+                    <div className="text-text-secondary">{post.author.title}</div>
                   </div>
                 </div>
-                <div className="flex items-center text-sm text-gray-600 mb-6">
+                <div className="flex items-center text-sm text-text-secondary mb-6">
                   <CalendarIcon className="w-4 h-4 mr-2" />
                   <time>{new Date(post.date).toLocaleDateString()}</time>
                   <span className="mx-2">•</span>
@@ -111,8 +111,8 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <article>
-          <div className="bg-white rounded-lg shadow-sm border p-4 mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Key Takeaways</h2>
+          <div className="bg-background rounded-lg shadow-sm border p-4 mb-8">
+            <h2 className="text-xl font-semibold text-text-secondary mb-2">Key Takeaways</h2>
             <ul className="space-y-1">
               {['AI will revolutionize code generation', 'Automated testing will become more sophisticated', 'Personalized user experiences will be easier to implement'].map((takeaway, index) => (
                 <li key={index} className="flex items-start">
@@ -130,7 +130,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span className="text-gray-700 text-sm">{takeaway}</span>
+                  <span className="text-text-secondary text-sm">{takeaway}</span>
                 </li>
               ))}
             </ul>
@@ -145,8 +145,8 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
 
             <div className="lg:w-1/3">
               <div className="sticky top-4">
-                <div className="bg-white rounded-lg shadow-sm border p-4 mb-8">
-                  <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <div className="bg-background rounded-lg shadow-sm border p-4 mb-8">
+                  <h2 className="text-xl font-semibold text-text-secondary mb-4 flex items-center">
                     <List className="w-5 h-5 mr-2" />
                     Table of Contents
                   </h2>

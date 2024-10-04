@@ -31,13 +31,12 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
   )
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-    
-      <section className="bg-muted py-16 w-full">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="min-h-screen flex flex-col bg-background">
+      <section className="bg-muted py-16 flex-shrink-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <h1 className="text-4xl font-bold mb-4">Constructiv AI Blog</h1>
           <p className="text-xl text-muted-foreground mb-8">Empowering builders with AI-powered insights and tools</p>
-          <form className="max-w-md mx-auto flex items-center space-x-2" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex items-center space-x-2" onSubmit={(e) => e.preventDefault()}>
             <Input 
               placeholder="Search articles..." 
               className="flex-grow" 
@@ -49,54 +48,57 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
         </div>
       </section>
 
-      <main className="flex-grow max-w-6xl mx-auto px-4 py-12">
+      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-2/3">
             <h2 className="text-3xl font-bold mb-8">Latest Posts</h2>
-            {filteredPosts.length > 0 ? (
-              <div className="grid gap-8">
-                {filteredPosts.map((post) => (
-                  <Card key={post.id} className="overflow-hidden">
-                    <div className="md:flex">
-                      {post.coverImage && (
-                        <Image
-                          src={post.coverImage}
-                          alt={`Cover image for ${post.title}`}
-                          width={350}
-                          height={250}
-                          className="w-full md:w-auto object-cover"
-                        />
-                      )}
-                      <div className="p-6 flex flex-col justify-between">
-                        <div>
-                          <CardTitle className="text-2xl mb-2">
-                            <Link href={`/resources/blog/${post.id}`} className="hover:text-primary transition-colors">
-                              {post.title}
-                            </Link>
-                          </CardTitle>
-                          <CardDescription className="mb-4">Posted on {post.date.toDateString()} by {post.author.name}</CardDescription>
-                          <div className="text-muted-foreground">
-                            <p>{post.excerpt}</p>
+            <div className="space-y-8">
+              {filteredPosts.length > 0 ? (
+                <div className="grid gap-8">
+                  {filteredPosts.map((post) => (
+                    <Card key={post.id} className="overflow-hidden">
+                      <div className="md:flex">
+                        {post.coverImage && (
+                          <div className="md:w-1/3 aspect-w-16 aspect-h-9 md:aspect-h-full">
+                            <Image
+                              src={post.coverImage}
+                              alt={`Cover image for ${post.title}`}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 md:w-2/3 flex flex-col justify-between">
+                          <div>
+                            <CardTitle className="text-2xl mb-2">
+                              <Link href={`/resources/blog/${post.id}`} className="hover:text-primary transition-colors">
+                                {post.title}
+                              </Link>
+                            </CardTitle>
+                            <CardDescription className="mb-4">Posted on {post.date.toDateString()} by {post.author.name}</CardDescription>
+                            <div className="text-muted-foreground">
+                              <p>{post.excerpt}</p>
+                            </div>
+                          </div>
+                          <div className="mt-4">
+                            <Button variant="outline" asChild>
+                              <Link href={`/resources/blog/${post.id}`}>Read More</Link>
+                            </Button>
                           </div>
                         </div>
-                        <div className="mt-4">
-                          <Button variant="outline" asChild>
-                            <Link href={`/resources/blog/${post.id}`}>Read More</Link>
-                          </Button>
-                        </div>
                       </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-muted-foreground">No posts found.</p>
-            )}
-            {filteredPosts.length > 0 && (
-              <div className="mt-8 flex justify-center">
-                <Button variant="outline">Load More Posts</Button>
-              </div>
-            )}
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground">No posts found.</p>
+              )}
+              {filteredPosts.length > 0 && (
+                <div className="mt-8 flex justify-center">
+                  <Button variant="outline">Load More Posts</Button>
+                </div>
+              )}
+            </div>
           </div>
           <aside className="lg:w-1/3">
             <h3 className="text-2xl font-bold mb-4">Recent Posts</h3>
@@ -120,8 +122,8 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
         </div>
       </main>
 
-      <section className="bg-muted py-16 w-full">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+      <section className="bg-muted py-16 flex-shrink-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Construction Business?</h2>
           <p className="text-xl text-muted-foreground mb-8">Join thousands of builders who are already working smarter with Constructiv AI</p>
           <Button size="lg">Get Started Today</Button>

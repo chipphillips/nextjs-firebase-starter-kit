@@ -1,52 +1,70 @@
-import React from 'react';
-import { BlogPost as BlogPostType } from '../types/blog-post';
-import { getPostBySlug } from '../lib/dao/blog-post-dao';
+import Image from 'next/image';
+import { Suspense } from 'react';
+import LoadingSpinner from './LoadingSpinner';
+import { fetchWithRetryJSON } from '@/utils/apiUtils';
 
-interface BlogPostProps {
-  slug: string;
-}
-
-const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
-  const [post, setPost] = React.useState<BlogPostType | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const fetchedPost = await getPostBySlug(slug);
-        if (fetchedPost) {
-          setPost(fetchedPost);
-        } else {
-          setError('Post not found');
-        }
-      } catch (err) {
-        setError('Error fetching post');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPost();
-  }, [slug]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!post) return <div>Post not found</div>;
-
-  return (
-    <article className="prose lg:prose-xl">
-      <h1>{post.title}</h1>
-      <div>
-        <img src={post.author.avatar} alt={post.author.name} className="w-12 h-12 rounded-full" />
-        <p>By {post.author.name}, {post.author.title}</p>
-        <p>Published on {post.date.toLocaleDateString()}</p>
-      </div>
-      {post.coverImage && <img src={post.coverImage} alt={post.title} className="w-full h-auto" />}
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      <p>Category: {post.category}</p>
-    </article>
-  );
+// Define the BlogPost type
+type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  publishDate: string;
+  author: string;
+  coverImage: string;
+  authorAvatar: string;
 };
 
-export default BlogPost;
+async function getBlogPost(id: string): Promise<BlogPost> {
+  try {
+    return await fetchWithRetryJSON<BlogPost>(`https://api.example.com/posts/${id}`, {
+      retries: 3,
+      retryDelay: 1000,
+    });
+  } catch (error) {
+    console.error('Failed to fetch blog post after retries:', error);
+    throw error; // Re-throw the error to be handled by the error boundary
+  }
+}
+
+function BlogPostContent({ post }: { post: BlogPost }) {
+  return (
+    <article className="max-w-3xl mx-auto py-8 flex flex-col min-h-screen px-4 sm:px-6 lg:px-8">
+      <div className="aspect-w-16 aspect-h-9 mb-6 overflow-hidden rounded-lg">
+        <Image
+          src={post.coverImage}
+          alt={post.title}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+      <div className="flex-grow">
+        <h1 className="text-3xl font-bold mb-4 text-text-primary">{post.title}</h1>
+        <div className="flex items-center mb-4 space-x-4">
+          <Image
+            src={post.authorAvatar}
+            alt={post.author}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          <span className="text-text-secondary">{post.author}</span>
+          <span className="text-muted-foreground">{new Date(post.publishDate).toLocaleDateString()}</span>
+        </div>
+        <div className="prose max-w-none text-text-primary">
+          {/* Use a rich text renderer here for the post content */}
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export async function BlogPost({ id }: { id: string }) {
+  const post = await getBlogPost(id);
+
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <BlogPostContent post={post} />
+    </Suspense>
+  );
+}

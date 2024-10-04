@@ -42,16 +42,16 @@ const FirebaseTest: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Firebase Test</h2>
+      <h2 className="text-2xl font-bold text-text-primary">Firebase Test</h2>
       {!user ? (
-        <Button onClick={signIn}>Sign In with Google</Button>
+        <Button onClick={signIn} className="btn-primary">Sign In with Google</Button>
       ) : (
         <div>
-          <p>Signed in as: {user.displayName}</p>
-          <Button onClick={addDocument}>Add Test Document</Button>
+          <p className="text-text-secondary">Signed in as: {user.displayName}</p>
+          <Button onClick={addDocument} className="btn-secondary">Add Test Document</Button>
         </div>
       )}
-      {docId && <p>Document added with ID: {docId}</p>}
+      {docId && <p className="text-text-secondary">Document added with ID: {docId}</p>}
     </div>
   );
 };
