@@ -3,14 +3,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HardHat, Building, Building2, Mic, Laptop, Cog } from "lucide-react";
+import HeroSection from '@/components/HeroSection';
 
 export default function Services() {
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Our Services</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Add service package components */}
-          </div>
-      </main>
+    <main>
+      <HeroSection
+        title="Transforming Construction with"
+        highlightedText="AI-Powered Services"
+        description="Discover our range of innovative services designed to optimize your construction projects and boost efficiency."
+        primaryCTA={{ text: "Explore Services", href: "#services" }}
+        secondaryCTA={{ text: "Contact Us", href: "/contact" }}
+        imageSrc="/images/construction-services.png"
+        imageAlt="AI-powered construction services"
+      />
+      {/* ... rest of the component ... */}
+    </main>
   )
 }

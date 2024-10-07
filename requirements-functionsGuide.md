@@ -21,6 +21,8 @@ Historical project data
 Industry-specific parameters (e.g., material costs, labor rates)
 Supplier quotes and specifications
 Supplier historical performance data
+AI model performance metrics
+Task-specific AI requirements
 
 Required Output
 The application needs to provide:
@@ -34,6 +36,8 @@ Risk assessments and mitigation strategies
 Automated client communications and updates
 Comparative analysis of supplier quotes
 Recommendations for optimal supplier selection
+AI model selection recommendations
+Task routing optimizations
 
 Validity Criteria
 A valid answer or output from the system should:
@@ -54,7 +58,6 @@ AI processing time:
 Simple queries (e.g., document retrieval): < 1 second
 Complex analyses (e.g., cost estimation): < 30 seconds
 
-
 Real-time updates: Near-instantaneous for critical project data
 Scalability: Support up to 10,000 concurrent users without performance degradation
 Quote comparison processing time: < 1 minute for up to 10 quotes
@@ -62,7 +65,7 @@ Quote comparison processing time: < 1 minute for up to 10 quotes
 Resource Availability
 
 Cloud Infrastructure: AWS services for scalability and reliability
-Database: PostgreSQL for structured data storage
+Database: PostgreSQL for structured data storage, Firebase Firestore for real-time data
 AI/ML Resources: TensorFlow and scikit-learn for model development and deployment
 Development Team: Initially limited, with plans to expand as the product grows
 Budget: $500,000 for initial development, with additional funding based on growth
@@ -74,36 +77,30 @@ Construction Company Owners
 Purpose: Overall business management and strategic decision-making
 Expectations: High-level insights, financial projections, competitive advantage
 
-
 Project Managers
 
 Purpose: Efficient project planning and execution
 Expectations: Optimized schedules, resource allocation, risk management
-
 
 Estimators
 
 Purpose: Accurate cost estimation and bidding
 Expectations: AI-assisted cost predictions, historical data analysis
 
-
 Site Supervisors
 
 Purpose: On-site management and progress tracking
 Expectations: Mobile-friendly interface, real-time updates, resource management
-
 
 Clients
 
 Purpose: Project updates and communication
 Expectations: Clear progress reports, easy communication channels
 
-
 Procurement Managers
 
 Purpose: Efficient and effective supplier selection
 Expectations: Comprehensive quote comparisons, data-driven supplier recommendations
-
 
 High-Level System Design
 Modules
@@ -119,6 +116,7 @@ Risk Management
 Client Communication
 Integration Hub
 Quote Comparison
+AI Model Selection and Task Routing
 
 Classes and Methods
 pythonCopyclass User:
@@ -158,7 +156,7 @@ class CostEstimator:
         analyze_historical_data()
         predict_cost_overruns()
         compare_bids()
-        optimize_supplier_selection()  # New method
+        optimize_supplier_selection()
 
 class ResourceAllocator:
     methods:
@@ -206,6 +204,16 @@ class QuoteManager:
         generate_comparison_report()
         recommend_optimal_suppliers()
 
+class AIModelSelector:
+    methods:
+        select_model(task_type, complexity, time_constraint)
+        update_performance_metrics(model, task, performance_data)
+
+class TaskRouter:
+    methods:
+        route_task(task_data)
+        handle_api_failure(task, error)
+
 Key Algorithms
 
 Document Classification: Machine learning algorithm for categorizing construction documents
@@ -216,6 +224,8 @@ Natural Language Processing: For handling client inquiries and generating respon
 Anomaly Detection: For identifying unusual patterns in project data that may indicate issues
 Multi-criteria Decision Making: For comparing and ranking supplier quotes based on multiple factors
 Supplier Performance Analysis: For evaluating historical performance of suppliers
+AI Model Selection: For choosing the most appropriate AI model based on task requirements
+Task Routing: For efficiently directing tasks to the appropriate processing pipeline
 
 User Interaction Flow
 
@@ -239,6 +249,20 @@ Prioritize features for MVP development
 Implement core functionality in short development sprints
 Regular user feedback sessions to refine features
 Continuous integration and deployment for rapid updates
+
+AI Integration
+
+Model Selection:
+- Implement a decision-making algorithm for selecting between OpenAI and Claude 3.5 models
+- Consider task complexity, response time requirements, and cost factors
+
+Task Routing:
+- Develop a system to route tasks to the appropriate AI model or processing pipeline
+- Implement fallback mechanisms for API failures or unexpected results
+
+Performance Monitoring:
+- Track AI model performance metrics (accuracy, response time, cost)
+- Implement a feedback loop for continuous improvement of model selection and task routing
 
 Construction Quote Comparison Tool
 Description

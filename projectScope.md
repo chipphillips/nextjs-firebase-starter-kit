@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-Constructiv AI is an innovative platform designed to revolutionize the construction industry by providing AI-powered tools and services for small to midsize builders and contractors. This project scope encompasses a hybrid architecture with a Next.js frontend, a Python/FastAPI backend, and Firebase for authentication and primary database services, with PostgreSQL as an optional backup database. The AI components utilize both OpenAI and Anthropic's Claude 3.5 API, with task-specific model assignment to optimize results.
+Constructiv AI is an innovative platform designed to revolutionize the construction industry by providing AI-powered tools and services for small to midsize builders and contractors. This project scope encompasses a hybrid architecture with a Next.js 14 frontend, Firebase for backend services (including Firestore, Authentication, Storage, and Functions), and additional Python/FastAPI backend services for AI processing. The AI components utilize both OpenAI and Anthropic's Claude 3.5 API, with task-specific model assignment to optimize results.
 
 ## 2. Core Features and Functionalities
 
@@ -13,11 +13,11 @@ Constructiv AI is an innovative platform designed to revolutionize the construct
 
 ### 2.2 AI Readiness Survey
 - Design an interactive survey interface to assess AI readiness
-- Implement backend logic using Python/FastAPI for processing survey responses
+- Implement backend logic using Firebase Functions and/or Python/FastAPI for processing survey responses
 - Create a results page to display the custom report generated based on survey data
 
 ### 2.3 AI Tools Dashboard
-- Develop an intuitive dashboard interface with backend integration:
+- Develop an intuitive dashboard interface with Firebase integration:
   - Available Tools Section
     - AI Readiness Survey tool
     - Custom report viewer
@@ -27,24 +27,24 @@ Constructiv AI is an innovative platform designed to revolutionize the construct
 
 ### 2.4 Consulting Services Showcase
 - Create detailed pages for each consulting package (Basic, Standard, Premium)
-- Implement a request for contact form with backend processing
+- Implement a request for contact form with Firebase Functions processing
 
 ### 2.5 Resource Center
-- Develop a blog interface with search functionality
+- Develop a blog interface with search functionality using Firebase Firestore for content management
 - Create a downloadable resources section for whitepapers and case studies
 
 ### 2.6 Real-time Communication
-- Design and implement an in-app messaging system for client-consultant communication
+- Design and implement an in-app messaging system using Firebase Realtime Database
 - Develop a notification system for updates, new tools, and survey completions
 
 ### 2.7 Data Analytics and Reporting
 - Create customizable dashboard interfaces for visualizing key performance indicators
-- Develop backend logic for generating AI-powered insights
+- Develop backend logic for generating AI-powered insights using Firebase Functions and/or FastAPI
 - Implement interactive charts and graphs for displaying insights
 
 ### 2.8 Integration Capabilities
 - Design and implement an interface for API key management and documentation
-- Develop RESTful API endpoints for third-party integrations
+- Develop RESTful API endpoints for third-party integrations using Firebase Functions and/or FastAPI
 
 ### 2.9 AI-Powered Tools
 - Implement AI Readiness Survey tool
@@ -81,18 +81,21 @@ Constructiv AI is an innovative platform designed to revolutionize the construct
 ## 5. Technical Stack
 
 ### 5.1 Frontend Technologies
-- Framework: Next.js 14 (React)
+- Framework: Next.js 14 (React 18)
 - Language: TypeScript
 - Styling: Tailwind CSS
-- UI Components: Shadcn
+- UI Components: shadcn/ui
 - State Management: React Context API and SWR for data fetching
-- Blog Content: MDX for creating interactive blog posts
+- Icons: Lucide React
+- Blog Content: Firebase Firestore for content management
 
 ### 5.2 Backend Technologies
-- Framework: FastAPI (Python)
-- Database: Firebase Realtime Database or Firestore (primary), PostgreSQL (optional backup)
-- Authentication: Firebase Authentication
-- Server-side Logic: Python
+- Firebase Services:
+  - Firestore: Primary database for storing application data
+  - Firebase Authentication: User authentication and management
+  - Firebase Storage: For storing user-generated content
+  - Firebase Functions: Serverless compute for backend logic
+- Additional Backend: FastAPI (Python) for AI processing and complex operations
 - AI Integration: OpenAI API and Anthropic Claude 3.5 API
 
 ### 5.3 Shared Technologies
@@ -101,17 +104,19 @@ Constructiv AI is an innovative platform designed to revolutionize the construct
 
 ### 5.4 Development Tools
 - ESLint and Prettier for frontend code formatting and linting
+- TypeScript for static type checking
+- ts-node for running TypeScript files directly
 - Black and isort for Python code formatting
-- Jest and React Testing Library for frontend testing
+- Jest for frontend testing
 - Pytest for backend testing
 
 ### 5.5 Performance Optimization
 - Next.js Image component for optimized image loading
 - Code splitting and lazy loading for optimal frontend performance
-- FastAPI's built-in performance optimizations for backend
+- Firebase performance optimization best practices
 
 ### 5.6 Monitoring and Analytics
-- Google Analytics for user behavior tracking
+- Firebase Analytics for user behavior tracking
 - Sentry for error tracking and performance monitoring (both frontend and backend)
 
 ### 5.7 AI Technologies

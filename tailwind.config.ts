@@ -23,13 +23,13 @@ const config: Config = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))", // #RRGGBB
-        input: "hsl(var(--input))", // #RRGGBB
-        ring: "hsl(var(--ring))", // #RRGGBB
+        border: "hsl(var(--border))", 
+        input: "hsl(var(--input))", 
+        ring: "hsl(var(--ring))", 
         background: {
-          DEFAULT: "hsl(var(--background))", // #RRGGBB
-          light: "hsl(var(--background-light))", // #RRGGBB
-          dark: "hsl(var(--background-dark))", // #RRGGBB
+          DEFAULT: "hsl(var(--background))",
+          light: "hsl(var(--background-light))", 
+          dark: "hsl(var(--background-dark))", 
         },
         foreground: "hsl(var(--foreground))",
         primary: {

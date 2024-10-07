@@ -4,6 +4,7 @@ import React from 'react'
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Zap, Clock } from 'lucide-react'
+import HeroSection from '@/components/HeroSection';
 
 // Define the feature type
 type Feature = {
@@ -60,15 +61,23 @@ const LandingPage: React.FC = () => {
     <ErrorBoundary fallback={<div>There was an error loading the landing page. Please refresh the page.</div>}>
       <div className="flex flex-col">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-secondary to-secondary-dark text-white py-20 md:py-32">
-          {/* ... (keep the existing content) */}
-        </section>
+        <HeroSection
+          title="Revolutionize Your Construction Projects with"
+          highlightedText="AI-Powered Solutions"
+          description="Streamline your workflows, increase efficiency, and make data-driven decisions with Constructiv AI's cutting-edge technology tailored for the construction industry."
+          primaryCTA={{ text: "Join Waitlist", href: "/waitlist" }}
+          secondaryCTA={{ text: "Request a Demo", href: "/demo" }}
+          imageSrc="/images/construction-site.png"
+          imageAlt="AI-powered construction site management"
+        />
 
         <div className="min-h-screen">
           {/* Features Overview */}
           <section className="py-20">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">Features Overview</h2>
+              <h2 className="text-3xl font-bold text-center mb-12">
+                Revolutionize Your <span className="text-primary">Construction Projects</span>
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {features.map((feature, index) => (
                   <div 
@@ -103,21 +112,21 @@ const LandingPage: React.FC = () => {
           </section>
 
           {/* CTA Section */}
-          <section className="bg-gradient-to-br from-secondary to-secondary-dark py-16">
+          <section className="bg-gradient-to-br from-primary to-primary-dark py-16">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">Ready to Get Started?</h2>
-              <p className="text-xl mb-8 text-gray-800">Join Constructiv AI today and revolutionize your construction projects.</p>
+              <h2 className="text-3xl font-bold mb-4 text-white">Ready to Transform Your Construction Projects?</h2>
+              <p className="text-xl mb-8 text-white/80">Join Constructiv AI today and experience the power of AI-driven solutions.</p>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link 
                   href="/waitlist" 
-                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-dark bg-white hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                 >
                   Join Waitlist
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link 
                   href="/demo" 
-                  className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white/10 transition-all duration-300 hover:scale-105"
                 >
                   Request a Demo
                 </Link>
