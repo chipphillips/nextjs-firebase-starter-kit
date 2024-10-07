@@ -1,23 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { auth, db } from '@/lib/firebase';
-import { signInWithPopup, GoogleAuthProvider, User } from 'firebase/auth';
+import { auth, firestore } from '@/lib/firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 import { Button } from './ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/useToast'; // Ensure this hook is created
 
 const FirebaseTest: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuth();
   const [docId, setDocId] = useState<string | null>(null);
+  const { showToast } = useToast();
 
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
-      console.log('Signed in successfully:', result.user);
+      await signInWithPopup(auth, provider);
     } catch (error) {
       console.error('Error signing in with Google', error);
+      showToast('Error signing in. Please try again.');
     }
   };
 
@@ -28,7 +30,7 @@ const FirebaseTest: React.FC = () => {
     }
 
     try {
-      const docRef = await addDoc(collection(db, 'test-collection'), {
+      const docRef = await addDoc(collection(firestore, 'test-collection'), {
         userId: user.uid,
         timestamp: new Date(),
         message: 'Test document'
@@ -37,6 +39,7 @@ const FirebaseTest: React.FC = () => {
       console.log('Document written with ID: ', docRef.id);
     } catch (error) {
       console.error('Error adding document: ', error);
+      showToast('Error adding document. Please try again.');
     }
   };
 

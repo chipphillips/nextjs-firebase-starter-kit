@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router'
 import { createPost } from '@/lib/dao/blog-post-dao';
 import { BlogPost } from '@/types/blog-post';
 

@@ -1,5 +1,5 @@
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, QueryConstraint } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../config/firebase-client';
 import { DBCollectionType } from './db-collections';
 
 /**

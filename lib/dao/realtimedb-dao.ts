@@ -1,5 +1,5 @@
 import { getDatabase, ref, set, get, push, remove, query, orderByChild, equalTo, Database } from 'firebase/database';
-import { db } from '../firebase';
+import { db } from '../config/firebase-client';
 
 /**
  * RealtimeDB DAO class to interact with Firebase Realtime Database

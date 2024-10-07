@@ -4,6 +4,8 @@ const require = createRequire(import.meta.url);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+  },
   images: {
     domains: [
       'hebbkx1anhila5yf.public.blob.vercel-storage.com',

@@ -4,10 +4,8 @@ import { jest } from '@jest/globals';
 import { fetchWithRetry, fetchWithRetryJSON } from '../utils/apiUtils';
 import { logger } from '../utils/logger';
 
-
-
 // Mock the global fetch function
-global.fetch = jest.fn() as jest.Mock;
+global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
 
 // Mock the logger
 jest.mock('../utils/logger', () => ({
@@ -25,8 +23,9 @@ describe('apiUtils', () => {
 
   describe('fetchWithRetry', () => {
     it('should return response on successful fetch', async () => {
-      const mockResponse = { ok: true, json: jest.fn().mockResolvedValue({ data: 'test' }) };
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+      const mockData = { data: 'test' };
+      const mockResponse = new Response(JSON.stringify(mockData), { status: 200 });
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue(mockResponse);
 
       const result = await fetchWithRetry('https://api.example.com/data');
       expect(result).toBe(mockResponse);
@@ -36,9 +35,9 @@ describe('apiUtils', () => {
     });
 
     it('should retry on failure and succeed', async () => {
-      const mockErrorResponse = { ok: false, status: 500 };
-      const mockSuccessResponse = { ok: true, json: jest.fn().mockResolvedValue({ data: 'test' }) };
-      (global.fetch as jest.Mock)
+      const mockErrorResponse = new Response(null, { status: 500 });
+      const mockSuccessResponse = new Response(JSON.stringify({ data: 'test' }), { status: 200 });
+      (global.fetch as jest.MockedFunction<typeof fetch>)
         .mockRejectedValueOnce(new Error('Network error'))
         .mockResolvedValueOnce(mockErrorResponse)
         .mockResolvedValueOnce(mockSuccessResponse);
@@ -51,7 +50,7 @@ describe('apiUtils', () => {
     });
 
     it('should throw error after max retries', async () => {
-      (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockRejectedValue(new Error('Network error'));
 
       await expect(fetchWithRetry('https://api.example.com/data')).rejects.toThrow('Network error');
       expect(global.fetch).toHaveBeenCalledTimes(3);
@@ -63,8 +62,8 @@ describe('apiUtils', () => {
   describe('fetchWithRetryJSON', () => {
     it('should return JSON data on successful fetch', async () => {
       const mockData = { data: 'test' };
-      const mockResponse = { ok: true, json: jest.fn().mockResolvedValue(mockData) };
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+      const mockResponse = new Response(JSON.stringify(mockData), { status: 200 });
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue(mockResponse);
 
       const result = await fetchWithRetryJSON('https://api.example.com/data');
       expect(result).toEqual(mockData);

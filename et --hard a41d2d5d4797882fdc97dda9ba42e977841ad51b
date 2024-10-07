@@ -1,0 +1,117 @@
+[33mcommit a41d2d5d4797882fdc97dda9ba42e977841ad51b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Mon Oct 7 12:37:24 2024 -0400
+
+    monday lunch break
+
+[33mcommit 22e3f2fedbcd9fc5d4fdb0b8c984e0abd53e1507[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Fri Oct 4 16:59:49 2024 -0400
+
+    end of day friday
+
+[33mcommit e64fb498e8361a0e10f2fda099cce6df54489330[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Fri Oct 4 15:21:19 2024 -0400
+
+    afternoon break
+
+[33mcommit 4f14e603f06456f92c450d6824ac2301fa452f3d[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Fri Oct 4 14:14:42 2024 -0400
+
+    lunch break
+
+[33mcommit 342e6d7660021aab867a3ac462b98471eaafd2ca[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Thu Oct 3 12:45:26 2024 -0400
+
+    lunch break backup
+
+[33mcommit 1980c1aed439bf71edca4a2e721b66ce957dee77[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Thu Oct 3 09:55:27 2024 -0400
+
+    update after adding ai agents and getting firbase correctly working.
+    Also added style guide and brand colors and specifics to the tailwind config. but need to add to the globals.css
+
+[33mcommit cc5258aa887f602933091e2a6ae2d1b299a442dd[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Mon Sep 30 16:57:14 2024 -0400
+
+    end of day 9/30.
+
+[33mcommit 9fe1a9547c6958975bc72509ffe060d876ece2fe[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Mon Sep 30 16:55:50 2024 -0400
+
+    End of day 9/30
+    Firebase connected and working.
+
+[33mcommit 1b9fb2e05c6b5450e314ca74fc9d2fe5e43a3e3e[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Fri Sep 27 17:18:04 2024 -0400
+
+    end of day friday almost have blog set up with firebase
+
+[33mcommit 1fd8f0a0e218ea852f6217d12a9c9e215010f993[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Fri Sep 27 09:47:59 2024 -0400
+
+    Set up of first pages
+    On branch main
+    Your branch is up to date with 'origin/main'.
+    Changes to be committed:
+        deleted:    .env.example
+        modified:   app/about/page.tsx
+        modified:   app/ai-tools/beta-signup/page.tsx
+        modified:   app/page.tsx
+        modified:   app/signin/page.tsx
+        modified:   app/signup/page.tsx
+        new file:   components/ProtectedRoute.tsx
+        new file:   components/SignInButton.tsx
+        new file:   components/header.tsx
+        new file:   components/ui/button.tsx
+        new file:   components/ui/card.tsx
+        modified:   lib/config/firebase-client.ts
+        new file:   lib/context/FirebaseAuthContext.tsx
+        modified:   next.config.mjs
+        modified:   package-lock.json
+        modified:   package.json
+        new file:   public/constructiv AI square 50 logo.svg
+
+[33mcommit 9a53a4b85bfb6e25f01f6f2e6c94e3e88ebdd8a6[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Thu Sep 26 10:50:09 2024 -0400
+
+    This is the commit for setting up the inital file stucutre for the project
+
+[33mcommit fa0b4a7ecfa541fd3742fa088894c2a6d963fd55[m
+Author: chipphillips <chip.phillips32@gmail.com>
+Date:   Wed Sep 25 16:25:29 2024 -0400
+
+    design docs added
+
+[33mcommit cd19b2dd6b7cd8f4a8ab67e1d339891cb92f7d84[m
+Author: VAKAKS <107339853+vakaks@users.noreply.github.com>
+Date:   Sun Jul 28 02:36:31 2024 +0000
+
+    first commit
+
+[33mcommit a692d16c61622b7cdf5826d7b62657763f93b44b[m
+Author: Joseph Watzson <49710538+joe-watson-sbf@users.noreply.github.com>
+Date:   Sat Jul 27 21:33:15 2024 -0500
+
+    readme added
+
+[33mcommit 1932ca012d3de77898fd1e6e62e97e2329d81d80[m
+Author: Joseph Watzson <49710538+joe-watson-sbf@users.noreply.github.com>
+Date:   Sat Jul 27 21:28:30 2024 -0500
+
+    first commit
+
+[33mcommit 4d47dc94abe5a1437075213de2ed32f6b7f667e1[m
+Author: Joseph Watzson <49710538+joe-watson-sbf@users.noreply.github.com>
+Date:   Sat Jul 27 19:41:09 2024 -0500
+
+    Initial commit from Create Next App

@@ -1,29 +1,24 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut } from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
-import { initializeFirebaseApp, getFirebaseAuth } from '../config/firebase-client';
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
+  signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-  signInWithGoogle: async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Error signing in with Google', error);
-    }
-  },
+  signInWithGoogle: async () => {},
+  signUpWithEmail: async () => {},
+  signInWithEmail: async () => {},
   logout: async () => {},
 });
 
@@ -53,6 +48,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signUpWithEmail = async (email: string, password: string) => {
+    const auth = getAuth();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Error signing up with email', error);
+      throw error; // Rethrow the error so it can be handled by the component
+    }
+  };
+
+  const signInWithEmail = async (email: string, password: string) => {
+    const auth = getAuth();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Error signing in with email', error);
+      throw error; // Rethrow the error so it can be handled by the component
+    }
+  };
+
   const logout = async () => {
     const auth = getAuth();
     try {
@@ -63,7 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signUpWithEmail, signInWithEmail, logout }}>
       {children}
     </AuthContext.Provider>
   );

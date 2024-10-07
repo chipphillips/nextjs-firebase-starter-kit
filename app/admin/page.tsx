@@ -1,4 +1,4 @@
-import { initializeFirebaseAdmin } from '@/lib/firebase-admin';
+import initializeFirebaseAdmin from '@/lib/config/firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
 import AdminPageClient from '@/components/AdminPageClient';
 
