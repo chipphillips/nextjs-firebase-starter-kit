@@ -5,11 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
-import { useRouter } from 'next/router'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const router = useRouter()
 
   return (
     <header className="bg-background-light shadow-custom py-4">

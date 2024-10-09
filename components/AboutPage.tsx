@@ -30,9 +30,9 @@ export default function AboutPage() {
   return (
     <main className="flex-grow">
       <HeroSection
-        title="Building the Future of Construction,"
-        highlightedText="One AI-Powered Solution at a Time"
-        description="Empowering builders with cutting-edge AI technology for smarter, faster, and more efficient construction management."
+        title="Your 24/7 Assistant:,"
+        highlightedText="AI Tools That Work While You Build "
+        description="Constructiv AI isn't just software—it's your round-the-clock partner in profitability. Our AI-powered tools handle time-consuming tasks, allowing you to focus on what you do best: delivering exceptional projects and growing your business."
         primaryCTA={{ text: "Schedule Your Demo", href: "#join" }}
         secondaryCTA={{ text: "Explore Our Story", href: "#story" }}
         imageSrc="/images/ai-construction-hero.jpg"
