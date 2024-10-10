@@ -5,11 +5,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Facebook, Twitter, Instagram, Linkedin, ArrowUp } from 'lucide-react'
 
+// This component represents the footer of the website
 export const Footer = () => {
+  // State for managing the email input and subscription status
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  
+  // Get the current year for the copyright notice
   const currentYear = new Date().getFullYear()
 
+  // Function to handle newsletter subscription
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // TODO: Implement newsletter signup logic
@@ -17,6 +22,7 @@ export const Footer = () => {
     setEmail('')
   }
 
+  // Function to scroll the page to the top smoothly
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -25,6 +31,7 @@ export const Footer = () => {
     <footer className="bg-BrightNavyBlue-900 !bg-BrightNavyBlue-900 text-white py-8 flex-shrink-0">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Company information section */}
           <div className="space-y-2">
             <Link href="/" className="flex items-center">
               <Image src="/placeholder.svg?height=40&width=40" alt="Constructiv AI Logo" width={40} height={40} />
@@ -35,6 +42,7 @@ export const Footer = () => {
             <p className="text-sm">info@constructivai.com</p>
             <p className="text-sm">+1 (555) 123-4567</p>
           </div>
+          {/* Quick links section */}
           <div>
             <h3 className="text-base font-semibold mb-2">Quick Links</h3>
             <ul className="space-y-1">
@@ -50,6 +58,7 @@ export const Footer = () => {
               ))}
             </ul>
           </div>
+          {/* Social media links section */}
           <div>
             <h3 className="text-base font-semibold mb-2">Follow Us</h3>
             <div className="flex space-x-4">
@@ -70,6 +79,7 @@ export const Footer = () => {
               ))}
             </div>
           </div>
+          {/* Newsletter subscription section */}
           <div>
             <h3 className="text-base font-semibold mb-2">Newsletter</h3>
             {subscribed ? (
@@ -98,6 +108,7 @@ export const Footer = () => {
             </p>
           </div>
         </div>
+        {/* Copyright and additional links section */}
         <div className="mt-6 pt-6 border-t border-muted">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-muted-foreground">&copy; {currentYear} Constructiv AI. All rights reserved.</p>

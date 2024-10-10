@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Define color variables for light mode */
     --background: hsl(0, 0%, 100%);
     --foreground: hsl(222.2, 84%, 4.9%);
     --card: hsl(0, 0%, 100%);
@@ -26,7 +27,7 @@
     --ring: hsl(222.2, 84%, 4.9%);
     --radius: 0.5rem;
 
-    /* Custom color variables */
+    /* Custom color variables for the Bright Navy Blue palette */
     --color-BrightNavyBlue-200: hsl(217, 91%, 85%);
     --color-BrightNavyBlue-500: hsl(217, 91%, 60%);
     --color-BrightNavyBlue-600: hsl(217, 91%, 50%);
@@ -34,6 +35,7 @@
   }
 
   .dark {
+    /* Override color variables for dark mode */
     --background: hsl(222.2, 84%, 4.9%);
     --foreground: hsl(210, 40%, 98%);
     --card: hsl(222.2, 84%, 4.9%);
@@ -57,21 +59,23 @@
 }
 
 @layer base {
-  /* Apply border to specific elements instead of using the universal selector */
+  /* Apply border to specific elements for better control */
   .bordered-element {
     @apply border-border;
   }
 
+  /* Set default styles for the body */
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
+  /* Apply display font to headings */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
 
-  /* Ensure proper text color contrast */
+  /* Ensure proper text color contrast for primary and secondary text */
   .text-primary {
     @apply text-blue-600 dark:text-blue-400;
   }
@@ -80,17 +84,19 @@
     @apply text-gray-600 dark:text-gray-300;
   }
 
-  /* Ensure no conflicting styles for the footer */
+  /* Set background color for footer */
   footer {
     @apply bg-BrightNavyBlue-900;
   }
 }
 
 @layer components {
+  /* Define reusable component styles */
   .container {
     @apply max-w-container-max mx-auto px-8;
   }
 
+  /* Create a responsive grid system */
   .row {
     @apply grid gap-6 grid-cols-4 md:grid-cols-8 lg:grid-cols-12;
   }
@@ -99,7 +105,7 @@
     @apply col-span-4 md:col-span-2 lg:col-span-1;
   }
 
-  /* Custom button styles */
+  /* Custom button styles with hover, focus, and disabled states */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap;
     background-color: var(--color-BrightNavyBlue-500);

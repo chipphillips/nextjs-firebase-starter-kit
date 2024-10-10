@@ -1,6 +1,9 @@
+// Import necessary components and icons
 import Image from 'next/image'
 import { DollarSign, Hammer, TrendingUp, Brain } from 'lucide-react'
 
+// Define an array of features, each with an icon, title, and description
+// This allows for easy addition or modification of features in the future
 const features = [
   {
     icon: <DollarSign className="h-6 w-6 text-primary" />,
@@ -24,9 +27,11 @@ const features = [
   }
 ]
 
+// Main component for the Features section
 export default function Component() {
   return (
     <section className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      {/* Hero image container */}
       <div className="relative aspect-w-16 aspect-h-7 mb-8">
         <Image
           src="/placeholder.svg?height=400&width=800"
@@ -37,7 +42,9 @@ export default function Component() {
         />
       </div>
 
+      {/* Main content grid */}
       <div className="mt-5 lg:mt-16 grid lg:grid-cols-3 gap-8 lg:gap-12">
+        {/* Left column: Title and description */}
         <div className="lg:col-span-1">
           <h2 className="font-bold text-2xl md:text-3xl text-gray-800 dark:text-gray-200">
             Reclaim Your Time and Boost Your Bottom Line with AI
@@ -47,13 +54,17 @@ export default function Component() {
           </p>
         </div>
 
+        {/* Right column: Features grid */}
         <div className="lg:col-span-2">
           <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
+            {/* Map through the features array to render each feature */}
             {features.map((feature, index) => (
               <div key={index} className="flex gap-x-5">
+                {/* Icon container */}
                 <div className="flex-shrink-0 mt-1">
                   {feature.icon}
                 </div>
+                {/* Feature text content */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                     {feature.title}

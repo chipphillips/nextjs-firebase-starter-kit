@@ -1,28 +1,39 @@
+// This component represents a blog post form and display
+// It's marked with 'use client' for client-side rendering in Next.js
 'use client'
 
+// Importing necessary dependencies and components
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CalendarIcon, Clock, Twitter, Linkedin, Facebook, Share2, ArrowUp, Mail, List } from 'lucide-react'
 import { BlogPost } from '@/types/blog-post'
 
+// Main component function that takes a blog post as a prop
 export default function BlogPostForm({ post }: { post: BlogPost }) {
+  // State for managing the visibility of the "Back to Top" button
   const [showBackToTop, setShowBackToTop] = useState(false)
+  // State for managing the email input in the newsletter form
   const [email, setEmail] = useState('')
 
+  // Effect hook to handle scroll events for showing/hiding the "Back to Top" button
   useEffect(() => {
     const handleScroll = () => {
+      // Show the button when user has scrolled down 300px
       setShowBackToTop(window.scrollY > 300)
     }
 
     window.addEventListener('scroll', handleScroll)
+    // Cleanup function to remove the event listener
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Function to scroll the page to the top smoothly
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // Function to scroll to a specific section of the page
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
@@ -30,12 +41,14 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
     }
   }
 
+  // Function to estimate reading time based on content length
   const estimateReadingTime = (content: string) => {
     const wordsPerMinute = 200
     const wordCount = content.split(/\s+/).length
     return Math.ceil(wordCount / wordsPerMinute)
   }
 
+  // Function to handle newsletter form submission
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log('Submitted email:', email)
@@ -43,13 +56,16 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
     alert('Thank you for subscribing to our newsletter!')
   }
 
+  // Calculate the estimated reading time for the blog post
   const readingTime = estimateReadingTime(post.content)
 
   return (
     <div className="bg-white">
+      {/* Hero section with post details */}
       <div className="w-full bg-[#e8f2fc] py-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:gap-8">
+            {/* Cover image */}
             <div className="lg:w-1/2 mb-6 lg:mb-0">
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#1d81dc]">
                 <Image
@@ -60,6 +76,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                 />
               </div>
             </div>
+            {/* Post details */}
             <div className="lg:w-1/2">
               <header>
                 <div className="text-pink-600 font-semibold mb-2">{post.category}</div>
@@ -69,6 +86,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                 <p className="text-text-secondary mb-4">
                   {post.excerpt}
                 </p>
+                {/* Author information */}
                 <div className="flex items-center mb-4">
                   <Image
                     src={post.author.avatar || "/placeholder.svg?height=40&width=40"}
@@ -82,6 +100,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                     <div className="text-text-secondary">{post.author.title}</div>
                   </div>
                 </div>
+                {/* Post metadata */}
                 <div className="flex items-center text-sm text-text-secondary mb-6">
                   <CalendarIcon className="w-4 h-4 mr-2" />
                   <time>{new Date(post.date).toLocaleDateString()}</time>
@@ -89,6 +108,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                   <Clock className="w-4 h-4 mr-2" />
                   <span>{readingTime} min read</span>
                 </div>
+                {/* Social sharing buttons */}
                 <div className="flex space-x-4">
                   <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">
                     <Twitter className="w-5 h-5 text-blue-400" />
@@ -109,8 +129,10 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
         </div>
       </div>
 
+      {/* Main content area */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <article>
+          {/* Key takeaways section */}
           <div className="bg-background rounded-lg shadow-sm border p-4 mb-8">
             <h2 className="text-xl font-semibold text-text-secondary mb-2">Key Takeaways</h2>
             <ul className="space-y-1">
@@ -136,15 +158,19 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
             </ul>
           </div>
 
+          {/* Main content and sidebar layout */}
           <div className="lg:flex lg:gap-8">
+            {/* Main content */}
             <div className="lg:w-2/3">
               <div className="prose prose-lg max-w-none mb-12">
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
               </div>
             </div>
 
+            {/* Sidebar */}
             <div className="lg:w-1/3">
               <div className="sticky top-4">
+                {/* Table of Contents */}
                 <div className="bg-background rounded-lg shadow-sm border p-4 mb-8">
                   <h2 className="text-xl font-semibold text-text-secondary mb-4 flex items-center">
                     <List className="w-5 h-5 mr-2" />
@@ -168,7 +194,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
             </div>
           </div>
 
-          {/* About the Author */}
+          {/* About the Author section */}
           <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">About the Author</h2>
             <div className="flex items-center mb-4">
@@ -201,7 +227,7 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
             </div>
           </div>
 
-          {/* Related Posts */}
+          {/* Related Posts section */}
           <div className="border-t border-gray-200 pt-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

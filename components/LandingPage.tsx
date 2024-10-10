@@ -1,5 +1,6 @@
 'use client'
 
+// Import necessary dependencies and components
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,6 +9,8 @@ import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import ConstructivAIGuide from './ConstructivAIGuide'
 
+// Define an array of features for the landing page
+// Each feature has an icon, title, and description
 const features = [
   {
     icon: CheckCircle,
@@ -26,16 +29,20 @@ const features = [
   },
 ]
 
+// Define animation variants for container elements
+// These will be used with Framer Motion for smooth animations
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.1 // Adds a staggered effect to child animations
     }
   }
 }
 
+// Define animation variants for individual items
+// These create a spring-like animation effect for each item
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -48,10 +55,11 @@ const itemVariants = {
   }
 }
 
+// Main LandingPage component
 const LandingPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section with smoother angled shape */}
+      {/* Hero Section with gradient background and angled shape */}
       <section className="relative bg-gradient-to-b from-[#101c2e] to-[#1c3a5e] text-white overflow-hidden">
         <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 relative z-10 max-w-[1200px]">
           <div className="grid gap-8 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_450px] items-center">
@@ -82,18 +90,20 @@ const LandingPage: React.FC = () => {
                   objectFit="cover"
                   className="rounded-lg"
                 />
+                {/* Overlay gradient for better text visibility */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#101c2e]/50 to-[#101c2e]/0" />
               </div>
             </div>
           </div>
         </div>
-        {/* Smoother angled shape */}
+        {/* Smoother angled shape at the bottom of the hero section */}
         <div className="absolute bottom-0 left-0 right-0 h-16">
           <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
             <path d="M0 100 C 20 0 50 0 100 100 Z" fill="#edf1f8" />
           </svg>
         </div>
       </section>
+
       {/* Problem Statement Section */}
       <section className="bg-white py-16">
         <div className="container mx-auto px-4 max-w-[1250px]">
@@ -102,21 +112,22 @@ const LandingPage: React.FC = () => {
               Is Paperwork Eating Your Profits and Stealing Your Time?
             </h2>
             <p className="text-lg text-gray-600">
-            You didn’t get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that’s all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week. Imagine what you could do with that extra time—perfecting the details on site, closing the next big deal, or simply getting home on time.
+            You didn't get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that's all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week. Imagine what you could do with that extra time—perfecting the details on site, closing the next big deal, or simply getting home on time.
             </p>
           </div>
         </div>
       </section>
+
       {/* How It Works Section */}
       <section className="bg-[#edf1f8] py-16">
-        <div className="container mx-auto px-4 max-w-[1200px]">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">How It Works</h2>
+        <div className="container mx-auto px-4 max-w-[1250px]">
           <ConstructivAIGuide />
         </div>
       </section>
-      {/* Features Section */}
+
+      {/* Features Section with animated cards */}
       <section className="bg-white py-16">
-        <div className="container mx-auto px-4 max-w-[1200px]">
+        <div className="container mx-auto px-4 max-w-[1250px]">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Key Features</h2>
           <motion.div 
             className="grid gap-8 md:grid-cols-3"
@@ -140,7 +151,8 @@ const LandingPage: React.FC = () => {
           </motion.div>
         </div>
       </section>
-      {/* AI Readiness Report Section */}
+
+      {/* AI Readiness Report Section with animated content */}
       <section className="bg-gray-100 py-16">
         <div className="container mx-auto px-4 max-w-[1200px]">
           <motion.div 
@@ -176,7 +188,7 @@ const LandingPage: React.FC = () => {
               variants={itemVariants}
             >
               <Image
-                src="/images/ai-report-mockup.jpg" // Make sure to add this image to your public/images folder
+                src="/images/ai-report-mockup.jpg"
                 alt="AI Readiness Report Mockup"
                 width={500}
                 height={500}
@@ -187,7 +199,7 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Call-to-Action (CTA) Section */}
       <section className="bg-gradient-to-br from-[#101c2e] to-[#1c3a5e] text-white py-16">
         <div className="container mx-auto px-4 text-center max-w-[1250px]">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Construction Business?</h2>

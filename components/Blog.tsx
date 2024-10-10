@@ -1,3 +1,5 @@
+// This component represents the main blog page of the Constructiv AI website
+// It displays a list of blog posts, allows searching, and shows recent posts
 'use client'
 
 import React, { useMemo, useState } from 'react'
@@ -12,19 +14,24 @@ import Image from "next/image"
 import { BlogPost } from '@/types/blog-post'
 import { DB_COLLECTIONS } from '@/lib/dao/db-collections'
 
+// Define the props expected by the Blog component
 type BlogProps = {
   posts: BlogPost[]
   recentPosts: BlogPost[]
 }
 
 const Blog = ({ posts, recentPosts }: BlogProps) => {
+  // State for managing the search query and all posts
   const [searchQuery, setSearchQuery] = useState('')
   const [allPosts, setAllPosts] = useState<BlogPost[]>(posts)
 
+  // Memoized query for fetching recent posts from Firestore
+  // This query is created once and reused unless its dependencies change
   const recentPostsQuery = useMemo(() => {
     return query(collection(db, DB_COLLECTIONS.POSTS), orderBy('createdAt', 'desc'), limit(5));
   }, []);
 
+  // Filter posts based on the search query
   const filteredPosts = allPosts.filter(post =>
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -32,6 +39,7 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Hero section with search functionality */}
       <section className="bg-muted py-16 flex-shrink-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <h1 className="text-4xl font-bold mb-4">Constructiv AI Blog</h1>
@@ -48,13 +56,16 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
         </div>
       </section>
 
+      {/* Main content area */}
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
+          {/* Latest posts section */}
           <div className="lg:w-2/3">
             <h2 className="text-3xl font-bold mb-8">Latest Posts</h2>
             <div className="space-y-8">
               {filteredPosts.length > 0 ? (
                 <div className="grid gap-8">
+                  {/* Map through filtered posts and render each as a card */}
                   {filteredPosts.map((post) => (
                     <Card key={post.id} className="overflow-hidden">
                       <div className="md:flex">
@@ -93,6 +104,7 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
               ) : (
                 <p className="text-center text-muted-foreground">No posts found.</p>
               )}
+              {/* Load More Posts button */}
               {filteredPosts.length > 0 && (
                 <div className="mt-8 flex justify-center">
                   <Button variant="outline">Load More Posts</Button>
@@ -100,9 +112,11 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
               )}
             </div>
           </div>
+          {/* Sidebar with recent posts */}
           <aside className="lg:w-1/3">
             <h3 className="text-2xl font-bold mb-4">Recent Posts</h3>
             <div className="space-y-4">
+              {/* Map through recent posts and render each as a card */}
               {recentPosts.map((post) => (
                 <Card key={post.id}>
                   <CardHeader>
@@ -122,6 +136,7 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
         </div>
       </main>
 
+      {/* Call-to-action section */}
       <section className="bg-muted py-16 flex-shrink-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Construction Business?</h2>
