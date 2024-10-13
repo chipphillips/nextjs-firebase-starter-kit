@@ -23,21 +23,29 @@ const config: Config = {
     },
     extend: {
       colors: {
+        // Define color variables using HSL values for easy manipulation
         border: "hsl(var(--border))", 
         input: "hsl(var(--input))", 
         ring: "hsl(var(--ring))", 
+        // Updated background colors
         background: {
           DEFAULT: "hsl(var(--background))",
-          light: "hsl(var(--background-light))", 
-          dark: "hsl(var(--background-dark))", 
+          light: "hsl(var(--background-light))",
+          dark: "hsl(var(--background-dark))",
+          muted: "hsl(var(--background-muted))",
         },
-        foreground: "hsl(var(--foreground))",
+        // Updated foreground colors
+        foreground: {
+          DEFAULT: "hsl(var(--foreground))",
+          muted: "hsl(var(--foreground-muted))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           light: "hsl(var(--primary-light))",
           dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        // Secondary colors
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           background: "hsl(var(--secondary-background))",
@@ -48,29 +56,72 @@ const config: Config = {
           green: "hsl(var(--secondary-green))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        // Accent colors with a range of shades
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          blue: "hsl(var(--accent-blue))",
-          green: "hsl(var(--accent-green))",
-          yellow: "hsl(var(--accent-yellow))",
-          foreground: "hsl(var(--accent-foreground))",
+          50: "hsl(var(--accent-50))",
+          100: "hsl(var(--accent-100))",
+          200: "hsl(var(--accent-200))",
+          300: "hsl(var(--accent-300))",
+          400: "hsl(var(--accent-400))",
+          500: "hsl(var(--accent-500))",
+          600: "hsl(var(--accent-600))",
+          700: "hsl(var(--accent-700))",
+          800: "hsl(var(--accent-800))",
+          900: "hsl(var(--accent-900))",
+          950: "hsl(var(--accent-950))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+        // Grey scale for various UI elements
+        grey: {
+          50: "hsl(var(--grey-50))",
+          100: "hsl(var(--grey-100))",
+          200: "hsl(var(--grey-200))",
+          300: "hsl(var(--grey-300))",
+          400: "hsl(var(--grey-400))",
+          500: "hsl(var(--grey-500))",
+          600: "hsl(var(--grey-600))",
+          700: "hsl(var(--grey-700))",
+          800: "hsl(var(--grey-800))",
+          900: "hsl(var(--grey-900))",
+          950: "hsl(var(--grey-950))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        // Semantic colors for different states and notifications
+        success: {
+          50: "hsl(var(--success-50))",
+          100: "hsl(var(--success-100))",
+          500: "hsl(var(--success-500))",
+          900: "hsl(var(--success-900))",
+        },
+        warning: {
+          50: "hsl(var(--warning-50))",
+          100: "hsl(var(--warning-100))",
+          500: "hsl(var(--warning-500))",
+          900: "hsl(var(--warning-900))",
+        },
+        error: {
+          50: "hsl(var(--error-50))",
+          100: "hsl(var(--error-100))",
+          500: "hsl(var(--error-500))",
+          900: "hsl(var(--error-900))",
+        },
+        info: {
+          50: "hsl(var(--info-50))",
+          100: "hsl(var(--info-100))",
+          500: "hsl(var(--info-500))",
+          900: "hsl(var(--info-900))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        // Keep existing color palettes
         BrightNavyBlue: {
           50: "hsl(208, 86%, 95%)",
           100: "hsl(208, 83%, 91%)",
@@ -184,17 +235,46 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        'none': '0',
+        'xs': '2px',
+        'full': '9999px',
       },
       fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
-        display: ["var(--font-oswald)", "sans-serif"],
+        // Use string for font family names to avoid TypeScript errors
+        sans: ["var(--font-inter)", ...fontFamily.sans] as string[],
+        display: ["var(--font-oswald)", "sans-serif"] as string[],
       },
       spacing: {
         "container-max": "1200px",
         "container-padding": "50px",
+        "4": "4px",
+        "8": "8px",
+        "12": "12px",
+        "16": "16px",
+        "24": "24px",
+        "32": "32px",
+        "40": "40px",
+        "48": "48px",
+        "64": "64px",
+        "80": "80px",
+      },
+      fontSize: {
+        'xs': '12px',
+        'sm': '14px',
+        'base': '16px',
+        'lg': '18px',
+        'xl': '20px',
+        '2xl': '24px',
+        '3xl': '30px',
+        '4xl': '36px',
+        '5xl': '48px',
+        '6xl': '60px', // Added a larger font size option
       },
       boxShadow: {
-        custom: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
       keyframes: {
         "accordion-down": {
@@ -220,4 +300,5 @@ const config: Config = {
   ],
 }
 
+// Export the configuration for use in the project
 export default config

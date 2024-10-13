@@ -8,6 +8,7 @@ import { ArrowRight, CheckCircle, Zap, Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import ConstructivAIGuide from './ConstructivAIGuide'
+import ProblemStatement from './ProblemStatement'
 
 // Define an array of features for the landing page
 // Each feature has an icon, title, and description
@@ -64,7 +65,7 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 relative z-10 max-w-[1200px]">
           <div className="grid gap-8 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_450px] items-center">
             <div className="flex flex-col justify-center space-y-6">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl/tight">
+              <h1 className="hero-header">
                 Helping Builders <span className="text-[#b1ddf6]">Save Time</span> with the Power of AI Magic
               </h1>
               <p className="max-w-[500px] text-gray-300 text-lg md:text-xl">
@@ -103,6 +104,9 @@ const LandingPage: React.FC = () => {
           </svg>
         </div>
       </section>
+
+      {/* Problem Statement Section */}
+      <ProblemStatement />
 
       {/* Problem Statement Section */}
       <section className="bg-white py-16">

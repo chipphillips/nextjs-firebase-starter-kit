@@ -1,54 +1,101 @@
 // Import necessary React and UI components
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 // Define an array of common pain points in the construction industry
-// This allows for easy modification and expansion of the list in the future
 const painPoints = [
-  "Excessive time spent on administrative tasks like managing project documentation, quotes, and schedules, pulling you away from actual building.",
-  "Communication breakdowns with subcontractors and clients leading to costly delays and misunderstandings.",
-  "Difficulty managing multiple projects simultaneously with limited staff and resources.",
-  "Project delays due to unforeseen scheduling conflicts, resource shortages, or inefficient task management.",
-  "Risk management becomes overwhelming with site safety, compliance, and liability issues."
+  {
+    title: "Administrative Overload",
+    description: "Excessive time spent on managing project documentation, quotes, and schedules, pulling you away from actual building."
+  },
+  {
+    title: "Communication Breakdowns",
+    description: "Miscommunication with subcontractors and clients leading to costly delays and misunderstandings."
+  },
+  {
+    title: "Resource Management",
+    description: "Difficulty managing multiple projects simultaneously with limited staff and resources."
+  },
+  {
+    title: "Project Delays",
+    description: "Unforeseen scheduling conflicts, resource shortages, or inefficient task management causing setbacks."
+  },
+  {
+    title: "Risk Management",
+    description: "Overwhelming challenges with site safety, compliance, and liability issues."
+  },
+  {
+    title: "Profitability Pressure",
+    description: "Inefficiencies and delays negatively impacting project profitability and overall business success."
+  }
 ];
 
 // ProblemStatement component: Displays common challenges faced by construction businesses
 export const ProblemStatement = () => {
   return (
-    // Use a Card component to create a visually distinct section
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        {/* Title with an alert icon to draw attention */}
-        <CardTitle className="text-3xl font-bold text-primary flex items-center gap-3">
-          <AlertTriangle className="w-8 h-8 text-warning" />
-          Struggling with Inefficient Processes?
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        {/* Introductory text explaining the purpose of this section */}
-        <p className="text-lg text-muted-foreground mb-6">
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+        <div>
+          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-red-900 uppercase rounded-full bg-red-accent-400">
+            Industry Challenges
+          </p>
+        </div>
+        <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+          <span className="relative inline-block">
+            <svg
+              viewBox="0 0 52 24"
+              fill="currentColor"
+              className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
+            >
+              <defs>
+                <pattern
+                  id="7e5e8ff8-1960-4094-a63a-2a0c0f922d69"
+                  x="0"
+                  y="0"
+                  width=".135"
+                  height=".30"
+                >
+                  <circle cx="1" cy="1" r=".7" />
+                </pattern>
+              </defs>
+              <rect
+                fill="url(#7e5e8ff8-1960-4094-a63a-2a0c0f922d69)"
+                width="52"
+                height="24"
+              />
+            </svg>
+            <span className="relative">Struggling</span>
+          </span>{' '}
+          with Inefficient Processes in Construction?
+        </h2>
+        <p className="text-base text-gray-700 md:text-lg">
           Many construction businesses face challenges that slow down their projects and negatively impact their profitability. Here are some common pain points:
         </p>
-        {/* Container for individual pain points */}
-        <div className="space-y-4">
-          {/* Map through the painPoints array to create an Alert for each point */}
-          {painPoints.map((point, index) => (
-            <Alert key={index} variant="default">
-              <AlertTitle className="font-semibold">Pain Point {index + 1}</AlertTitle>
-              <AlertDescription>{point}</AlertDescription>
-            </Alert>
-          ))}
-        </div>
-        {/* Concluding statement to emphasize the need for a solution */}
-        <Alert className="mt-6">
-          <AlertDescription className="text-lg font-semibold">
-            These issues consume valuable time and resources, making it harder to complete projects on time and within budget. You need a better way to manage these challenges.
-          </AlertDescription>
-        </Alert>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="grid gap-8 row-gap-5 mb-8 md:row-gap-8 lg:grid-cols-2">
+        {painPoints.map((point, index) => (
+          <div key={index} className="duration-300 transform bg-white border-l-4 border-deep-purple-accent-400 hover:-translate-y-2">
+            <div className="h-full p-5 border border-l-0 rounded-r shadow-sm">
+              <h6 className="mb-2 font-semibold leading-5 flex items-center">
+                <AlertTriangle className="w-5 h-5 text-deep-purple-accent-400 mr-2" />
+                {point.title}
+              </h6>
+              <p className="text-sm text-gray-900">
+                {point.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center">
+        <a
+          href="/"
+          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+        >
+          Learn How We Can Help
+        </a>
+      </div>
+    </div>
   );
 };
 

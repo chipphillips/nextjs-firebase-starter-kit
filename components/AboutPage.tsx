@@ -6,6 +6,29 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Clock, Settings, Zap, Users, BarChart, Shield } from "lucide-react"
+import { motion } from 'framer-motion'
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100
+    }
+  }
+}
 
 export default function AboutPage() {
   const [activeSection, setActiveSection] = useState('story')
@@ -28,10 +51,10 @@ export default function AboutPage() {
   ]
 
   return (
-    <main className="flex-grow">
+    <main className="flex-grow bg-background text-foreground">
       <HeroSection
-        title="Your 24/7 Assistant:,"
-        highlightedText="AI Tools That Work While You Build "
+        title="Your 24/7 Assistant:"
+        highlightedText="AI Tools That Work While You Build"
         description="Constructiv AI isn't just software—it's your round-the-clock partner in profitability. Our AI-powered tools handle time-consuming tasks, allowing you to focus on what you do best: delivering exceptional projects and growing your business."
         primaryCTA={{ text: "Schedule Your Demo", href: "#join" }}
         secondaryCTA={{ text: "Explore Our Story", href: "#story" }}
@@ -62,7 +85,7 @@ export default function AboutPage() {
 
       <section id="story" className="py-20 bg-gradient-to-r from-primary/5 to-secondary/5">
         <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Our Story: From Hard Hats to AI Innovators</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-primary">Our Story: From Hard Hats to AI Innovators</h2>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <div className="md:w-1/2">
               <p className="text-lg sm:text-xl mb-6 leading-relaxed">
@@ -104,30 +127,42 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="advantages" className="py-12 sm:py-16 md:py-20">
+      <section id="advantages" className="py-12 sm:py-16 md:py-20 bg-muted">
         <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">The Constructiv AI Advantage</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-primary">The Constructiv AI Advantage</h2>
+          <motion.div 
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {advantages.map((advantage, index) => (
-              <Card key={index} className="flex flex-col h-full">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-center text-lg sm:text-xl">
-                    {advantage.icon}
-                    <span className="ml-2">{advantage.title}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-center text-sm sm:text-base">{advantage.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div 
+                key={index}
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Card className="flex flex-col h-full bg-card text-card-foreground">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-center text-lg sm:text-xl">
+                      {advantage.icon}
+                      <span className="ml-2">{advantage.title}</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-center text-sm sm:text-base">{advantage.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section id="services" className="bg-muted py-12 sm:py-16 md:py-20">
+      <section id="services" className="bg-background py-12 sm:py-16 md:py-20">
         <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">Our Services</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-primary">Our Services</h2>
           <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
             {services.map((service, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
@@ -139,7 +174,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="join" className="py-20 bg-gradient-to-r from-primary to-primary-dark text-white">
+      <section id="join" className="py-20 bg-primary text-primary-foreground">
         <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Join the Construction Revolution</h2>
           <div className="text-center max-w-3xl mx-auto">
@@ -158,7 +193,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-primary text-primary-foreground py-8 sm:py-12">
+      <section className="bg-accent text-accent-foreground py-8 sm:py-12">
         <div className="container px-4 sm:px-6 max-w-6xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">Constructiv AI: Building Smarter, Together.</h2>
         </div>

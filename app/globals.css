@@ -1,126 +1,310 @@
+/* Import Tailwind CSS base styles, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Define custom styles and variables */
 @layer base {
   :root {
-    /* Define color variables for light mode */
-    --background: hsl(0, 0%, 100%);
-    --foreground: hsl(222.2, 84%, 4.9%);
-    --card: hsl(0, 0%, 100%);
-    --card-foreground: hsl(222.2, 84%, 4.9%);
-    --popover: hsl(0, 0%, 100%);
-    --popover-foreground: hsl(222.2, 84%, 4.9%);
-    --primary: hsl(222.2, 47.4%, 11.2%);
-    --primary-foreground: hsl(210, 40%, 98%);
-    --secondary: hsl(210, 40%, 96.1%);
-    --secondary-foreground: hsl(222.2, 47.4%, 11.2%);
-    --secondary-background: hsl(220, 42%, 15%);
-    --muted: hsl(210, 40%, 96.1%);
-    --muted-foreground: hsl(215.4, 16.3%, 46.9%);
-    --accent: hsl(210, 40%, 96.1%);
-    --accent-foreground: hsl(222.2, 47.4%, 11.2%);
-    --destructive: hsl(0, 84.2%, 60.2%);
-    --destructive-foreground: hsl(210, 40%, 98%);
-    --border: hsl(214.3, 31.8%, 91.4%);
-    --input: hsl(214.3, 31.8%, 91.4%);
-    --ring: hsl(222.2, 84%, 4.9%);
-    --radius: 0.5rem;
+    /* Primary color palette: Bright Navy Blue
+       These colors are used for main UI elements and branding */
+    --primary-50: 208 86% 95%;  /* Lightest shade, good for backgrounds */
+    --primary-100: 208 83% 91%;
+    --primary-200: 209 76% 80%;
+    --primary-300: 209 76% 74%;
+    --primary-400: 209 76% 66%;
+    --primary-500: 209 77% 49%;  /* Base color, used for primary buttons and accents */
+    --primary-600: 209 76% 40%;
+    --primary-700: 209 76% 29%;
+    --primary-800: 209 76% 20%;
+    --primary-900: 209 76% 13%;
+    --primary-950: 209 76% 7%;   /* Darkest shade, good for text on light backgrounds */
 
-    /* Custom color variables for the Bright Navy Blue palette */
-    --color-BrightNavyBlue-200: hsl(217, 91%, 85%);
-    --color-BrightNavyBlue-500: hsl(217, 91%, 60%);
-    --color-BrightNavyBlue-600: hsl(217, 91%, 50%);
-    --color-BrightNavyBlue-700: hsl(217, 91%, 40%);
+    /* Secondary color palettes */
+    /* IndigoRainbow: Used for secondary UI elements and to complement the primary color */
+    --secondary-indigo-50: 225 54% 93%;
+    --secondary-indigo-100: 223 53% 85%;
+    --secondary-indigo-200: 223 53% 71%;
+    --secondary-indigo-300: 223 54% 55%;
+    --secondary-indigo-400: 224 54% 41%;
+    --secondary-indigo-500: 224 54% 27%;  /* Base color for secondary elements */
+    --secondary-indigo-600: 224 54% 23%;
+    --secondary-indigo-700: 224 54% 16%;
+    --secondary-indigo-800: 224 54% 11%;
+    --secondary-indigo-900: 224 54% 6%;
+    --secondary-indigo-950: 224 54% 4%;
+
+    /* CoralRed: Used for highlights, warnings, or to draw attention */
+    --secondary-coral-50: 2 100% 95%;
+    --secondary-coral-100: 2 100% 89%;
+    --secondary-coral-200: 2 100% 84%;
+    --secondary-coral-300: 2 100% 77%;
+    --secondary-coral-400: 2 100% 67%;
+    --secondary-coral-500: 2 100% 59%;  /* Base color for coral accents */
+    --secondary-coral-600: 357 100% 47%;
+    --secondary-coral-700: 357 100% 36%;
+    --secondary-coral-800: 357 100% 24%;
+    --secondary-coral-900: 357 100% 13%;
+    --secondary-coral-950: 357 100% 6%;
+
+    /* Accent color palettes: Used to add variety and visual interest to the design */
+    /* Eucalyptus: A fresh, natural green for eco-friendly or growth-related elements */
+    --accent-eucalyptus-50: 162 100% 95%;
+    --accent-eucalyptus-100: 162 100% 89%;
+    --accent-eucalyptus-200: 162 100% 84%;
+    --accent-eucalyptus-300: 162 100% 77%;
+    --accent-eucalyptus-400: 162 100% 67%;
+    --accent-eucalyptus-500: 162 100% 59%;  /* Base color for eucalyptus accents */
+    --accent-eucalyptus-600: 154 100% 47%;
+    --accent-eucalyptus-700: 154 100% 36%;
+    --accent-eucalyptus-800: 154 100% 24%;
+    --accent-eucalyptus-900: 154 100% 13%;
+    --accent-eucalyptus-950: 154 100% 6%;
+
+    /* BrilliantAzure: A vibrant blue for calls-to-action or important UI elements */
+    --accent-azure-50: 217 100% 96%;
+    --accent-azure-100: 217 100% 92%;
+    --accent-azure-200: 217 100% 86%;
+    --accent-azure-300: 217 100% 81%;
+    --accent-azure-400: 217 100% 74%;
+    --accent-azure-500: 217 100% 66%;  /* Base color for azure accents */
+    --accent-azure-600: 216 100% 47%;
+    --accent-azure-700: 216 100% 36%;
+    --accent-azure-800: 216 100% 24%;
+    --accent-azure-900: 216 100% 12%;
+    --accent-azure-950: 216 100% 6%;
+
+    /* Dandelion: A cheerful yellow for positive messages or highlights */
+    --accent-dandelion-50: 198 100% 96%;
+    --accent-dandelion-100: 253 100% 90%;
+    --accent-dandelion-200: 282 100% 86%;
+    --accent-dandelion-300: 326 100% 73%;
+    --accent-dandelion-400: 21 100% 66%;
+    --accent-dandelion-500: 63 80% 56%;  /* Base color for dandelion accents */
+    --accent-dandelion-600: 18 100% 45%;
+    --accent-dandelion-700: 326 100% 34%;
+    --accent-dandelion-800: 288 100% 22%;
+    --accent-dandelion-900: 240 100% 1%;
+    --accent-dandelion-950: 196 100% 6%;
+
+    /* UFOGreen: An eye-catching green for innovative or tech-related elements */
+    --accent-ufo-50: 344 100% 95%;
+    --accent-ufo-100: 312 100% 93%;
+    --accent-ufo-200: 267 100% 80%;
+    --accent-ufo-300: 227 100% 74%;
+    --accent-ufo-400: 187 100% 66%;
+    --accent-ufo-500: 149 77% 49%;  /* Base color for UFO green accents */
+    --accent-ufo-600: 188 100% 39%;
+    --accent-ufo-700: 225 100% 29%;
+    --accent-ufo-800: 270 100% 20%;
+    --accent-ufo-900: 300 100% 20%;
+    --accent-ufo-950: 330 100% 10%;
+
+    /* Text color palettes */
+    /* Primary text color: A darker shade for main content and headings */
+    --text-primary-50: 220 20% 95%;
+    --text-primary-100: 220 20% 90%;
+    --text-primary-200: 220 20% 80%;
+    --text-primary-300: 220 20% 70%;
+    --text-primary-400: 220 20% 60%;
+    --text-primary-500: 220 20% 50%;
+    --text-primary-600: 220 20% 40%;
+    --text-primary-700: 220 20% 30%;
+    --text-primary-800: 220 20% 20%;  /* Recommended for body text */
+    --text-primary-900: 220 20% 10%;
+    --text-primary-950: 220 20% 5%;
+
+    /* Secondary text color: Snow white for text on dark backgrounds */
+    --text-secondary-50: 0 0% 100%;  /* Pure white */
+    --text-secondary-100: 0 0% 100%;
+    --text-secondary-200: 0 0% 100%;
+    --text-secondary-300: 0 1% 99%;
+    --text-secondary-400: 0 1% 99%;
+    --text-secondary-500: 0 1% 99%;
+    --text-secondary-600: 1 64% 78%;
+    --text-secondary-700: 3 72% 59%;
+    --text-secondary-800: 5 75% 41%;
+    --text-secondary-900: 6 78% 20%;
+    --text-secondary-950: 7 80% 10%;
+
+    /* Other utility colors for various UI elements */
+    --background: 0 0% 100%;  /* White background */
+    --foreground: 222.2 84% 4.9%;  /* Very dark blue-gray for text */
+    --card: 0 0% 100%;  /* White background for cards */
+    --card-foreground: 222.2 84% 4.9%;  /* Dark text for cards */
+    --popover: 0 0% 100%;  /* White background for popovers */
+    --popover-foreground: 222.2 84% 4.9%;  /* Dark text for popovers */
+    --muted: 210 40% 96.1%;  /* Light gray for muted elements */
+    --muted-foreground: 215.4 16.3% 46.9%;  /* Muted text color */
+    --accent: 210 40% 96.1%;  /* Light accent color */
+    --accent-foreground: 222.2 47.4% 11.2%;  /* Dark text on accent background */
+    --destructive: 0 84.2% 60.2%;  /* Red for destructive actions */
+    --destructive-foreground: 210 40% 98%;  /* Light text on destructive background */
+    --border: 214.3 31.8% 91.4%;  /* Light border color */
+    --input: 214.3 31.8% 91.4%;  /* Light input background */
+    --ring: 222.2 84% 4.9%;  /* Dark ring color for focus states */
+    --radius: 0.5rem;  /* Default border radius */
   }
 
+  /* Dark mode color overrides */
   .dark {
-    /* Override color variables for dark mode */
-    --background: hsl(222.2, 84%, 4.9%);
-    --foreground: hsl(210, 40%, 98%);
-    --card: hsl(222.2, 84%, 4.9%);
-    --card-foreground: hsl(210, 40%, 98%);
-    --popover: hsl(222.2, 84%, 4.9%);
-    --popover-foreground: hsl(210, 40%, 98%);
-    --primary: hsl(210, 40%, 98%);
-    --primary-foreground: hsl(222.2, 47.4%, 11.2%);
-    --secondary: hsl(217.2, 32.6%, 17.5%);
-    --secondary-foreground: hsl(210, 40%, 98%);
-    --muted: hsl(217.2, 32.6%, 17.5%);
-    --muted-foreground: hsl(215, 20.2%, 65.1%);
-    --accent: hsl(217.2, 32.6%, 17.5%);
-    --accent-foreground: hsl(210, 40%, 98%);
-    --destructive: hsl(0, 62.8%, 30.6%);
-    --destructive-foreground: hsl(210, 40%, 98%);
-    --border: hsl(217.2, 32.6%, 17.5%);
-    --input: hsl(217.2, 32.6%, 17.5%);
-    --ring: hsl(212.7, 26.8%, 83.9%);
-  }
-}
-
-@layer base {
-  /* Apply border to specific elements for better control */
-  .bordered-element {
-    @apply border-border;
+    --background: 222.2 84% 4.9%;  /* Dark background */
+    --foreground: 210 40% 98%;  /* Light text for dark mode */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 
-  /* Set default styles for the body */
+  /* Apply default styles to the body */
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-BrightNavyBlue-900;
+    font-feature-settings: "rlig" 1, "calt" 1;  /* Enable font ligatures and contextual alternates */
   }
 
-  /* Apply display font to headings */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+  h1 {
+    @apply text-4xl font-display font-bold text-BrightNavyBlue-900 mb-4;
   }
 
-  /* Ensure proper text color contrast for primary and secondary text */
-  .text-primary {
-    @apply text-blue-600 dark:text-blue-400;
+  h2 {
+    @apply text-3xl font-display font-semibold uppercase text-[--accent-azure-500] mb-3;
   }
 
-  .text-secondary {
-    @apply text-gray-600 dark:text-gray-300;
+  h3 {
+    @apply text-3xl font-display font-semibold capitalize text-[--accent-azure-500] mb-3;
   }
 
-  /* Set background color for footer */
-  footer {
-    @apply bg-BrightNavyBlue-900;
+  h4 {
+    @apply text-xl font-sans font-medium text-BrightNavyBlue-600 mb-2;
+  }
+
+  h5 {
+    @apply text-lg font-sans font-medium text-BrightNavyBlue-500 mb-1;
+  }
+
+  h6 {
+    @apply text-base font-sans font-medium text-BrightNavyBlue-400 mb-1;
+  }
+
+  /* Hero header class for hero sections */
+  .hero-header {
+    @apply text-3xl font-bold tracking-tighter text-white sm:text-5xl xl:text-6xl/none mb-6 leading-tight;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
+/* Define reusable component styles */
 @layer components {
-  /* Define reusable component styles */
+  /* Container for limiting content width and centering */
   .container {
     @apply max-w-container-max mx-auto px-8;
   }
 
-  /* Create a responsive grid system */
+  /* Grid system for responsive layouts */
   .row {
     @apply grid gap-6 grid-cols-4 md:grid-cols-8 lg:grid-cols-12;
   }
 
+  /* Column styles for the grid system */
   .column {
     @apply col-span-4 md:col-span-2 lg:col-span-1;
   }
 
-  /* Custom button styles with hover, focus, and disabled states */
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap;
-    background-color: var(--color-BrightNavyBlue-500);
-
-    &:hover {
-      background-color: var(--color-BrightNavyBlue-600);
-    }
-
-    &:focus {
-      background-color: var(--color-BrightNavyBlue-700);
-    }
-
-    &:disabled {
-      background-color: var(--color-BrightNavyBlue-200);
-      @apply cursor-not-allowed;
-    }
+  /* Base button styles */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium tracking-wide transition duration-300 rounded-md;
   }
+
+  /* Primary button style */
+  .btn-primary {
+    @apply btn text-white bg-BrightNavyBlue-500 hover:bg-BrightNavyBlue-600 focus:bg-BrightNavyBlue-700 disabled:bg-BrightNavyBlue-200 disabled:cursor-not-allowed;
+  }
+
+  /* Secondary button style */
+  .btn-secondary {
+    @apply btn text-BrightNavyBlue-700 bg-BrightNavyBlue-100 hover:bg-BrightNavyBlue-200 focus:bg-BrightNavyBlue-300 disabled:bg-BrightNavyBlue-50 disabled:text-BrightNavyBlue-300 disabled:cursor-not-allowed;
+  }
+
+  /* Card component style */
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+
+  /* Input field style */
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-BrightNavyBlue-500 focus:border-transparent;
+  }
+}
+
+/* Define custom utility classes */
+@layer utilities {
+  /* Text shadow utilities for adding depth to text */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 15px 30px rgba(0,0,0,0.11), 0 5px 15px rgba(0,0,0,0.08);
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Add these new styles */
+.text-primary {
+  @apply text-BrightNavyBlue-600 dark:text-BrightNavyBlue-400;
+}
+
+.bg-primary {
+  @apply bg-BrightNavyBlue-600 dark:bg-BrightNavyBlue-400;
+}
+
+.text-accent {
+  @apply text-UFOGreen-500 dark:text-UFOGreen-400;
+}
+
+.bg-accent {
+  @apply bg-UFOGreen-500 dark:bg-UFOGreen-400;
 }

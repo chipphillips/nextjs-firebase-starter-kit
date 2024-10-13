@@ -44,7 +44,7 @@ export default function HeroSection({
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               {/* Main title with highlighted text */}
-              <h1 className="text-3xl font-bold tracking-tighter text-white sm:text-5xl xl:text-6xl/none">
+              <h1 className="hero-header">
                 {title} <span className="text-[#b1ddf6]">{highlightedText}</span>
               </h1>
               {/* Description text */}
