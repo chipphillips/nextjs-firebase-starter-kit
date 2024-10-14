@@ -13,7 +13,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-background-light shadow-custom py-4">
+    <header className="bg-white shadow-custom py-4">
       <nav className="container mx-auto px-container-padding max-w-container-max">
         <div className="flex items-center justify-between">
           {/* Logo and company name */}
@@ -25,17 +25,17 @@ export function Header() {
               height={50}
               className="mr-2"
             />
-            <span className="text-2xl font-bold text-text-primary">Constructiv AI</span>
+            <span className="text-2xl font-bold text-primary-900">Constructiv AI</span>
           </Link>
 
           {/* Desktop Navigation - hidden on mobile, visible on medium screens and up */}
           <ul className="hidden md:flex space-x-6">
             {/* Navigation links */}
-            <li><Link href="/ai-tools" className="text-secondary hover:text-secondary-dark">AI Tools</Link></li>
-            <li><Link href="/services" className="text-secondary hover:text-secondary-dark">Services</Link></li>
-            <li><Link href="/about" className="text-secondary hover:text-secondary-dark">About</Link></li>
-            <li><Link href="/resources/blog" className="text-secondary hover:text-secondary-dark">Blog</Link></li>
-            <li><Link href="/contact" className="text-secondary hover:text-secondary-dark">Contact</Link></li>
+            <li><Link href="/ai-tools" className="text-primary-700 hover:text-primary-900">AI Tools</Link></li>
+            <li><Link href="/services" className="text-primary-700 hover:text-primary-900">Services</Link></li>
+            <li><Link href="/about" className="text-primary-700 hover:text-primary-900">About</Link></li>
+            <li><Link href="/resources/blog" className="text-primary-700 hover:text-primary-900">Blog</Link></li>
+            <li><Link href="/contact" className="text-primary-700 hover:text-primary-900">Contact</Link></li>
           </ul>
 
           {/* Login and Sign Up buttons - hidden on mobile, visible on medium screens and up */}
@@ -46,7 +46,7 @@ export function Header() {
 
           {/* Mobile menu button - visible on mobile, hidden on medium screens and up */}
           <button
-            className="md:hidden text-text-primary"
+            className="md:hidden text-primary-900"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {/* Toggle between menu and close icons based on menu state */}
@@ -59,11 +59,11 @@ export function Header() {
           <div className="md:hidden mt-4 animate-fade-in-down">
             <ul className="flex flex-col space-y-2">
               {/* Mobile navigation links */}
-              <li><Link href="/ai-tools" className="block text-secondary hover:text-secondary-dark">AI Tools</Link></li>
-              <li><Link href="/services" className="block text-secondary hover:text-secondary-dark">Services</Link></li>
-              <li><Link href="/about" className="block text-secondary hover:text-secondary-dark">About</Link></li>
-              <li><Link href="/resources/blog" className="block text-secondary hover:text-secondary-dark">Blog</Link></li>
-              <li><Link href="/contact" className="block text-secondary hover:text-secondary-dark">Contact</Link></li>
+              <li><Link href="/ai-tools" className="block text-primary-700 hover:text-primary-900">AI Tools</Link></li>
+              <li><Link href="/services" className="block text-primary-700 hover:text-primary-900">Services</Link></li>
+              <li><Link href="/about" className="block text-primary-700 hover:text-primary-900">About</Link></li>
+              <li><Link href="/resources/blog" className="block text-primary-700 hover:text-primary-900">Blog</Link></li>
+              <li><Link href="/contact" className="block text-primary-700 hover:text-primary-900">Contact</Link></li>
             </ul>
             {/* Mobile login and sign up buttons */}
             <div className="mt-4 space-y-2">

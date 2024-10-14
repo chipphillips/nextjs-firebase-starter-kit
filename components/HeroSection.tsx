@@ -1,31 +1,19 @@
-'use client'
-
-// Import necessary components and icons
+import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight, FileText } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ArrowRight } from 'lucide-react'
+import { Button } from "@/components/ui/button"
 
-// Define the structure for Call-to-Action (CTA) props
-interface CTAProps {
-  text: string
-  href: string
-}
-
-// Define the structure for the main HeroSection component props
-interface HeroProps {
+interface HeroSectionProps {
   title: string
   highlightedText: string
   description: string
-  primaryCTA?: CTAProps
-  secondaryCTA?: CTAProps
+  primaryCTA: { text: string; href: string }
+  secondaryCTA: { text: string; href: string }
   imageSrc: string
   imageAlt: string
 }
 
-// HeroSection component: Displays a prominent area at the top of the page
-// It includes a title, description, CTAs, and a featured image
-export default function HeroSection({
+const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   highlightedText,
   description,
@@ -33,64 +21,50 @@ export default function HeroSection({
   secondaryCTA,
   imageSrc,
   imageAlt
-}: HeroProps) {
+}) => {
   return (
-    // Main container for the hero section with a dark blue background
-    <section className="relative w-full py-12 md:py-24 lg:py-32 bg-[#101c2e]">
-      <div className="container px-4 md:px-6">
-        {/* Grid layout for responsive design */}
-        <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-          {/* Left column: Text content and CTAs */}
-          <div className="flex flex-col justify-center space-y-4">
-            <div className="space-y-2">
-              {/* Main title with highlighted text */}
-              <h1 className="hero-header">
-                {title} <span className="text-[#b1ddf6]">{highlightedText}</span>
-              </h1>
-              {/* Description text */}
-              <p className="max-w-[600px] text-gray-300 md:text-xl">
-                {description}
-              </p>
-            </div>
-            {/* CTA buttons container */}
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              {/* Primary CTA button */}
-              {primaryCTA && (
-                <Button asChild className="bg-blue-500 text-white hover:bg-blue-600">
-                  <Link href={primaryCTA.href}>
-                    {primaryCTA.text}
-                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </Button>
-              )}
-              {/* Secondary CTA button */}
-              {secondaryCTA && (
-                <Button asChild variant="outline" className="bg-white text-[#101c2e] border-white hover:bg-gray-100">
-                  <Link href={secondaryCTA.href}>
-                    {secondaryCTA.text}
-                    <FileText className="ml-2 h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </Button>
-              )}
+    <section className="relative bg-gradient-to-br from-azure-800 to-primary-600 text-white overflow-hidden">
+      <div className="container py-12 md:py-16 lg:py-20 relative z-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12 items-center">
+          <div className="flex flex-col justify-center space-y-6 max-w-xl">
+            <h1 className="hero-header">
+              {title} <span className="text-dandelion-400">{highlightedText}</span>
+            </h1>
+            <p className="text-primary-100 text-lg md:text-xl">
+              {description}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button className="btn-primary w-full sm:w-auto">
+                {primaryCTA.text}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button variant="outline" className="bg-white text-primary-900 border-white hover:bg-primary-100 text-base py-4 px-6 w-full sm:w-auto">
+                {secondaryCTA.text}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
-          {/* Right column: Featured image */}
-          <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-sm lg:max-w-none aspect-video rounded-xl overflow-hidden shadow-2xl">
-              {/* Featured image with fallback to placeholder */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <div className="relative w-full max-w-lg aspect-[16/9] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <Image
-                src={imageSrc || '/images/placeholder.jpg'} // Provide a default placeholder
+                src={imageSrc}
                 alt={imageAlt}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover rounded-xl"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-lg filter brightness-110 contrast-110 saturate-120"
               />
-              {/* Overlay gradient for better text visibility */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#101c2e]/50 to-[#101c2e]/0" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary-900/30 to-primary-900/0 pointer-events-none" />
             </div>
           </div>
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-16">
+        <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+          <path d="M0 100 C 20 0 50 0 100 100 Z" fill="var(--primary-900)" />
+        </svg>
+      </div>
     </section>
   )
 }
+
+export default HeroSection

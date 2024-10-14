@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 import { Lightbulb, Wrench, Zap, Bot, TrendingUp } from 'lucide-react'
 
@@ -17,27 +16,27 @@ const steps: StepInfo[] = [
   {
     title: "Assess",
     description: "We analyze your unique business needs",
-    icon: <Lightbulb className="w-12 h-12" />
+    icon: <Lightbulb className="w-8 h-8" />
   },
   {
     title: "Customize",
     description: "AI tools tailored to your workflow",
-    icon: <Wrench className="w-12 h-12" />
+    icon: <Wrench className="w-8 h-8" />
   },
   {
     title: "Implement",
     description: "Seamless integration into your operations",
-    icon: <Zap className="w-12 h-12" />
+    icon: <Zap className="w-8 h-8" />
   },
   {
     title: "Assist",
     description: "AI guidance for your daily tasks",
-    icon: <Bot className="w-12 h-12" />
+    icon: <Bot className="w-8 h-8" />
   },
   {
     title: "Optimize",
     description: "Continuous improvement and updates",
-    icon: <TrendingUp className="w-12 h-12" />
+    icon: <TrendingUp className="w-8 h-8" />
   }
 ]
 
@@ -54,9 +53,9 @@ const containerVariants = {
 
 // Animation variants for individual items
 const itemVariants = {
-  hidden: { x: -50, opacity: 0 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
-    x: 0,
+    y: 0,
     opacity: 1,
     transition: {
       type: 'spring',
@@ -68,48 +67,44 @@ const itemVariants = {
 
 // Main component for the Constructiv AI Guide
 export const ConstructivAIGuide: React.FC = () => {
-  const { theme } = useTheme()
-  const isDarkMode = theme === 'dark'
-
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 py-16">
-      <motion.h2 
-        className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-12"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        How Constructiv AI Works
-      </motion.h2>
-      
-      <motion.div
-        className="flex flex-col items-center space-y-8"
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="max-w-xl mb-10 sm:mx-auto">
+        <motion.h2 
+          className="font-display text-3xl font-bold leading-tight tracking-tight text-primary-900 sm:text-4xl sm:text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          How Constructiv AI Works{' '}
+          <span className="inline-block text-azure-500">
+            for Your Business
+          </span>
+        </motion.h2>
+      </div>
+      <motion.div 
+        className="grid gap-12 row-gap-8 lg:grid-cols-3"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {steps.map((step, index) => (
-          <motion.div
-            key={index}
-            className="flex items-center w-full max-w-3xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
-            variants={itemVariants}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className={`w-32 h-32 flex-shrink-0 flex items-center justify-center text-white
-              ${isDarkMode ? 'bg-blue-600' : 'bg-blue-500'}
-              `}
-            >
-              {step.icon}
+          <motion.div key={index} className="flex" variants={itemVariants}>
+            <div className="mr-4">
+              <div className="flex items-center justify-center w-10 h-10 mb-3 rounded-full bg-azure-100">
+                {React.cloneElement(step.icon as React.ReactElement, { className: "text-azure-500" })}
+              </div>
             </div>
-            <div className="p-6 flex-grow">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">{step.title}</h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300">{step.description}</p>
+            <div>
+              <h6 className="mb-2 font-semibold leading-5 text-primary-900">{step.title}</h6>
+              <p className="text-sm text-primary-700">
+                {step.description}
+              </p>
             </div>
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    </div>
   )
 }
 

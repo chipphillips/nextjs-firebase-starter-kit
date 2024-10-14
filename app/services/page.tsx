@@ -104,7 +104,7 @@ export default function Services() {
         description="Discover our range of innovative services designed to optimize your construction projects and boost efficiency."
         primaryCTA={{ text: "Explore Services", href: "#services" }}
         secondaryCTA={{ text: "Contact Us", href: "/contact" }}
-        imageSrc="/images/construction-services.png"
+        imageSrc="/ghostover2.png"
         imageAlt="AI-powered construction services"
       />
 

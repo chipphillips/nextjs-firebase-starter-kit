@@ -22,110 +22,83 @@
 
     /* Secondary color palettes */
     /* IndigoRainbow: Used for secondary UI elements and to complement the primary color */
-    --secondary-indigo-50: 225 54% 93%;
-    --secondary-indigo-100: 223 53% 85%;
-    --secondary-indigo-200: 223 53% 71%;
-    --secondary-indigo-300: 223 54% 55%;
-    --secondary-indigo-400: 224 54% 41%;
-    --secondary-indigo-500: 224 54% 27%;  /* Base color for secondary elements */
-    --secondary-indigo-600: 224 54% 23%;
-    --secondary-indigo-700: 224 54% 16%;
-    --secondary-indigo-800: 224 54% 11%;
-    --secondary-indigo-900: 224 54% 6%;
-    --secondary-indigo-950: 224 54% 4%;
+    --secondary-50: 225 54% 93%;
+    --secondary-100: 223 53% 85%;
+    --secondary-200: 223 53% 71%;
+    --secondary-300: 223 54% 55%;
+    --secondary-400: 224 54% 41%;
+    --secondary-500: 224 54% 27%;  /* Base color for secondary elements */
+    --secondary-600: 224 54% 23%;
+    --secondary-700: 224 54% 16%;
+    --secondary-800: 224 54% 11%;
+    --secondary-900: 224 54% 6%;
+    --secondary-950: 224 54% 4%;
 
     /* CoralRed: Used for highlights, warnings, or to draw attention */
-    --secondary-coral-50: 2 100% 95%;
-    --secondary-coral-100: 2 100% 89%;
-    --secondary-coral-200: 2 100% 84%;
-    --secondary-coral-300: 2 100% 77%;
-    --secondary-coral-400: 2 100% 67%;
-    --secondary-coral-500: 2 100% 59%;  /* Base color for coral accents */
-    --secondary-coral-600: 357 100% 47%;
-    --secondary-coral-700: 357 100% 36%;
-    --secondary-coral-800: 357 100% 24%;
-    --secondary-coral-900: 357 100% 13%;
-    --secondary-coral-950: 357 100% 6%;
+    --accent-50: 2 100% 95%;
+    --accent-100: 2 100% 89%;
+    --accent-200: 2 100% 84%;
+    --accent-300: 2 100% 77%;
+    --accent-400: 2 100% 67%;
+    --accent-500: 2 100% 59%;  /* Base color for coral accents */
+    --accent-600: 357 100% 47%;
+    --accent-700: 357 100% 36%;
+    --accent-800: 357 100% 24%;
+    --accent-900: 357 100% 13%;
+    --accent-950: 357 100% 6%;
 
     /* Accent color palettes: Used to add variety and visual interest to the design */
     /* Eucalyptus: A fresh, natural green for eco-friendly or growth-related elements */
-    --accent-eucalyptus-50: 162 100% 95%;
-    --accent-eucalyptus-100: 162 100% 89%;
-    --accent-eucalyptus-200: 162 100% 84%;
-    --accent-eucalyptus-300: 162 100% 77%;
-    --accent-eucalyptus-400: 162 100% 67%;
-    --accent-eucalyptus-500: 162 100% 59%;  /* Base color for eucalyptus accents */
-    --accent-eucalyptus-600: 154 100% 47%;
-    --accent-eucalyptus-700: 154 100% 36%;
-    --accent-eucalyptus-800: 154 100% 24%;
-    --accent-eucalyptus-900: 154 100% 13%;
-    --accent-eucalyptus-950: 154 100% 6%;
+    --eucalyptus-50: 162 100% 95%;
+    --eucalyptus-100: 162 100% 89%;
+    --eucalyptus-200: 162 100% 84%;
+    --eucalyptus-300: 162 100% 77%;
+    --eucalyptus-400: 162 100% 67%;
+    --eucalyptus-500: 162 100% 59%;  /* Base color for eucalyptus accents */
+    --eucalyptus-600: 154 100% 47%;
+    --eucalyptus-700: 154 100% 36%;
+    --eucalyptus-800: 154 100% 24%;
+    --eucalyptus-900: 154 100% 13%;
+    --eucalyptus-950: 154 100% 6%;
 
     /* BrilliantAzure: A vibrant blue for calls-to-action or important UI elements */
-    --accent-azure-50: 217 100% 96%;
-    --accent-azure-100: 217 100% 92%;
-    --accent-azure-200: 217 100% 86%;
-    --accent-azure-300: 217 100% 81%;
-    --accent-azure-400: 217 100% 74%;
-    --accent-azure-500: 217 100% 66%;  /* Base color for azure accents */
-    --accent-azure-600: 216 100% 47%;
-    --accent-azure-700: 216 100% 36%;
-    --accent-azure-800: 216 100% 24%;
-    --accent-azure-900: 216 100% 12%;
-    --accent-azure-950: 216 100% 6%;
+    --azure-50: 217 100% 96%;
+    --azure-100: 217 100% 92%;
+    --azure-200: 217 100% 86%;
+    --azure-300: 217 100% 81%;
+    --azure-400: 217 100% 74%;
+    --azure-500: 217 100% 66%;  /* Base color for azure accents */
+    --azure-600: 216 100% 47%;
+    --azure-700: 216 100% 36%;
+    --azure-800: 216 100% 24%;
+    --azure-900: 216 100% 12%;
+    --azure-950: 216 100% 6%;
 
     /* Dandelion: A cheerful yellow for positive messages or highlights */
-    --accent-dandelion-50: 198 100% 96%;
-    --accent-dandelion-100: 253 100% 90%;
-    --accent-dandelion-200: 282 100% 86%;
-    --accent-dandelion-300: 326 100% 73%;
-    --accent-dandelion-400: 21 100% 66%;
-    --accent-dandelion-500: 63 80% 56%;  /* Base color for dandelion accents */
-    --accent-dandelion-600: 18 100% 45%;
-    --accent-dandelion-700: 326 100% 34%;
-    --accent-dandelion-800: 288 100% 22%;
-    --accent-dandelion-900: 240 100% 1%;
-    --accent-dandelion-950: 196 100% 6%;
+    --dandelion-50: 63 80% 96%;
+    --dandelion-100: 63 80% 90%;
+    --dandelion-200: 63 80% 86%;
+    --dandelion-300: 63 80% 73%;
+    --dandelion-400: 63 80% 64%;
+    --dandelion-500: 63 80% 56%;  /* Base color for dandelion accents */
+    --dandelion-600: 63 80% 45%;
+    --dandelion-700: 63 80% 34%;
+    --dandelion-800: 63 80% 22%;
+    --dandelion-900: 63 80% 1%;
+    --dandelion-950: 63 80% 6%;
 
     /* UFOGreen: An eye-catching green for innovative or tech-related elements */
-    --accent-ufo-50: 344 100% 95%;
-    --accent-ufo-100: 312 100% 93%;
-    --accent-ufo-200: 267 100% 80%;
-    --accent-ufo-300: 227 100% 74%;
-    --accent-ufo-400: 187 100% 66%;
-    --accent-ufo-500: 149 77% 49%;  /* Base color for UFO green accents */
-    --accent-ufo-600: 188 100% 39%;
-    --accent-ufo-700: 225 100% 29%;
-    --accent-ufo-800: 270 100% 20%;
-    --accent-ufo-900: 300 100% 20%;
-    --accent-ufo-950: 330 100% 10%;
-
-    /* Text color palettes */
-    /* Primary text color: A darker shade for main content and headings */
-    --text-primary-50: 220 20% 95%;
-    --text-primary-100: 220 20% 90%;
-    --text-primary-200: 220 20% 80%;
-    --text-primary-300: 220 20% 70%;
-    --text-primary-400: 220 20% 60%;
-    --text-primary-500: 220 20% 50%;
-    --text-primary-600: 220 20% 40%;
-    --text-primary-700: 220 20% 30%;
-    --text-primary-800: 220 20% 20%;  /* Recommended for body text */
-    --text-primary-900: 220 20% 10%;
-    --text-primary-950: 220 20% 5%;
-
-    /* Secondary text color: Snow white for text on dark backgrounds */
-    --text-secondary-50: 0 0% 100%;  /* Pure white */
-    --text-secondary-100: 0 0% 100%;
-    --text-secondary-200: 0 0% 100%;
-    --text-secondary-300: 0 1% 99%;
-    --text-secondary-400: 0 1% 99%;
-    --text-secondary-500: 0 1% 99%;
-    --text-secondary-600: 1 64% 78%;
-    --text-secondary-700: 3 72% 59%;
-    --text-secondary-800: 5 75% 41%;
-    --text-secondary-900: 6 78% 20%;
-    --text-secondary-950: 7 80% 10%;
+    --ufo-50: 149 77% 85%;
+    --ufo-100: 149 77% 81%;
+    --ufo-200: 149 77% 73%;
+    --ufo-300: 149 77% 65%;
+    --ufo-400: 149 77% 57%;
+    --ufo-500: 149 77% 49%;  /* Base color for UFO green accents */
+    --ufo-600: 149 77% 44%;
+    --ufo-700: 149 77% 39%;
+    --ufo-800: 149 77% 34%;
+    --ufo-900: 149 77% 29%;
+    --ufo-950: 149 77% 27%;
 
     /* Other utility colors for various UI elements */
     --background: 0 0% 100%;  /* White background */
@@ -171,32 +144,32 @@
 
   /* Apply default styles to the body */
   body {
-    @apply bg-background text-BrightNavyBlue-900;
+    @apply bg-background text-primary-900;
     font-feature-settings: "rlig" 1, "calt" 1;  /* Enable font ligatures and contextual alternates */
   }
 
   h1 {
-    @apply text-4xl font-display font-bold text-BrightNavyBlue-900 mb-4;
+    @apply text-4xl font-display font-bold text-primary-900 mb-4;
   }
 
   h2 {
-    @apply text-3xl font-display font-semibold uppercase text-[--accent-azure-500] mb-3;
+    @apply text-3xl font-display font-bold uppercase text-azure-800 mb-3;
   }
 
   h3 {
-    @apply text-3xl font-display font-semibold capitalize text-[--accent-azure-500] mb-3;
+    @apply text-3xl font-display font-bold capitalize text-azure-500 mb-3;
   }
 
   h4 {
-    @apply text-xl font-sans font-medium text-BrightNavyBlue-600 mb-2;
+    @apply text-xl font-sans font-medium text-primary-900 mb-2;
   }
 
   h5 {
-    @apply text-lg font-sans font-medium text-BrightNavyBlue-500 mb-1;
+    @apply text-lg font-sans font-medium text-primary-900 mb-1;
   }
 
   h6 {
-    @apply text-base font-sans font-medium text-BrightNavyBlue-400 mb-1;
+    @apply text-base font-sans font-medium text-primary-900 mb-1;
   }
 
   /* Hero header class for hero sections */
@@ -230,12 +203,12 @@
 
   /* Primary button style */
   .btn-primary {
-    @apply btn text-white bg-BrightNavyBlue-500 hover:bg-BrightNavyBlue-600 focus:bg-BrightNavyBlue-700 disabled:bg-BrightNavyBlue-200 disabled:cursor-not-allowed;
+    @apply btn text-white bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 disabled:bg-primary-200 disabled:cursor-not-allowed;
   }
 
   /* Secondary button style */
   .btn-secondary {
-    @apply btn text-BrightNavyBlue-700 bg-BrightNavyBlue-100 hover:bg-BrightNavyBlue-200 focus:bg-BrightNavyBlue-300 disabled:bg-BrightNavyBlue-50 disabled:text-BrightNavyBlue-300 disabled:cursor-not-allowed;
+    @apply btn text-primary-700 bg-primary-100 hover:bg-primary-200 focus:bg-primary-300 disabled:bg-primary-50 disabled:text-primary-300 disabled:cursor-not-allowed;
   }
 
   /* Card component style */
@@ -245,7 +218,7 @@
 
   /* Input field style */
   .input {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-BrightNavyBlue-500 focus:border-transparent;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
   }
 }
 
@@ -270,41 +243,42 @@
 }
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-hsl: 222.2 84% 4.9%;
+  --background-start-hsl: 210 40% 98%;
+  --background-end-hsl: 0 0% 100%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-hsl: 210 40% 98%;
+    --background-start-hsl: 222.2 84% 4.9%;
+    --background-end-hsl: 222.2 84% 4.9%;
   }
 }
+
 body {
-  color: rgb(var(--foreground-rgb));
+  color: hsl(var(--foreground-hsl));
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      hsl(var(--background-end-hsl))
     )
-    rgb(var(--background-start-rgb));
+    hsl(var(--background-start-hsl));
 }
 
 /* Add these new styles */
 .text-primary {
-  @apply text-BrightNavyBlue-600 dark:text-BrightNavyBlue-400;
+  @apply text-primary-600 dark:text-primary-400;
 }
 
 .bg-primary {
-  @apply bg-BrightNavyBlue-600 dark:bg-BrightNavyBlue-400;
+  @apply bg-primary-600 dark:bg-primary-400;
 }
 
 .text-accent {
-  @apply text-UFOGreen-500 dark:text-UFOGreen-400;
+  @apply text-accent-500 dark:text-accent-400;
 }
 
 .bg-accent {
-  @apply bg-UFOGreen-500 dark:bg-UFOGreen-400;
+  @apply bg-accent-500 dark:bg-accent-400;
 }
