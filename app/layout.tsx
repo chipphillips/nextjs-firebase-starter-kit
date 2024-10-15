@@ -9,27 +9,27 @@ import { ReactNode } from 'react'
 // Initialize the Inter font with Latin subset
 const inter = Inter({ subsets: ['latin'] })
 
-// Define metadata for the application
-export const metadata: Metadata = {
-  title: 'Constructiv AI',
-  description: 'AI-powered tools for the construction industry',
-  // ... other metadata
-}
-
 // Define props for the Section component
 interface SectionProps {
   children: ReactNode
   className?: string
   maxWidth?: 'default' | 'narrow'
+  background?: 'white' | 'primary-50' | 'gradient'
 }
 
 // Section component for consistent layout structure
-const Section: React.FC<SectionProps> = ({ children, className = '', maxWidth = 'default' }) => (
-  <section className={`py-12 md:py-16 lg:py-20 ${className}`}>
-    <div className={`mx-auto px-4 ${maxWidth === 'narrow' ? 'max-w-[1100px]' : 'max-w-[1200px]'}`}>
+export const Section: React.FC<SectionProps> = ({ children, className = '', maxWidth = 'default', background = 'white' }) => (
+  <div className={`py-16 ${
+    background === 'white' 
+      ? 'bg-background' 
+      : background === 'primary-50' 
+        ? 'bg-primary-50' 
+        : ''
+  } ${className}`}>
+    <div className={`py-12 my-9 mx-auto px-4 sm:px-6 lg:px-8 ${maxWidth === 'narrow' ? 'max-w-3xl' : 'max-w-7xl'}`}>
       {children}
     </div>
-  </section>
+  </div>
 )
 
 // Define props for the RootLayout component

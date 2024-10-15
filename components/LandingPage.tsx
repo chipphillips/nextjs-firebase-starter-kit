@@ -10,26 +10,8 @@ import { Button } from "@/components/ui/button"
 import HeroSection from '@/components/HeroSection'
 import ConstructivAIGuide from './ConstructivAIGuide'
 import ProblemStatement from './ProblemStatement'
-
-// Define an array of features for the landing page
-// Each feature has an icon, title, and description
-const features = [
-  {
-    icon: CheckCircle,
-    title: "AI-Powered Planning",
-    description: "Optimize project schedules and resource allocation with our advanced AI algorithms."
-  },
-  {
-    icon: Zap,
-    title: "Real-time Analytics",
-    description: "Get instant insights into project performance and make data-driven decisions."
-  },
-  {
-    icon: Clock,
-    title: "Time Tracking",
-    description: "Accurately track time spent on tasks and improve overall project efficiency."
-  },
-]
+import FeaturesSection from './FeaturesSection'
+import { Section } from '@/app/layout'
 
 // Define animation variants for container elements
 // These will be used with Framer Motion for smooth animations
@@ -71,94 +53,65 @@ const LandingPage: React.FC = () => {
         imageAlt="AI-powered construction site management"
       />
 
-      {/* Problem Statement Section */}
-      <ProblemStatement />
+      <Section>
+        <ProblemStatement />
+      </Section>
 
-      {/* How It Works Section */}
-      <section className="bg-primary-50 py-16">
-        <div className="container">
-          <ConstructivAIGuide />
-        </div>
-      </section>
+      <Section background="primary-50">
+        <ConstructivAIGuide />
+      </Section>
 
-      {/* Features Section with animated cards */}
-      <section className="bg-white py-16">
-        <div className="container">
-          <h2 className="text-3xl font-display font-semibold uppercase text-secondary-800 mb-3 text-center">Key Features</h2>
+      <Section>
+        <FeaturesSection />
+      </Section>
+
+      <Section background="primary-50">
+        <motion.div 
+          className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div 
-            className="grid gap-8 md:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            className="md:w-1/2"
+            variants={itemVariants}
           >
-            {features.map((feature, index) => (
-              <motion.div 
-                key={index}
-                className="flex flex-col items-center space-y-4 bg-white rounded-xl p-6 shadow-md transition-all duration-200 hover:shadow-lg"
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <feature.icon className="h-12 w-12 text-azure-600" />
-                <h3 className="text-xl font-bold text-primary-900 text-center">{feature.title}</h3>
-                <p className="text-primary-700 text-center text-base">{feature.description}</p>
-              </motion.div>
-            ))}
+            <h2 className="text-3xl font-display font-semibold uppercase text-secondary-800 mb-3">Unlock Your Construction Business's AI Potential</h2>
+            <p className="prose-45 text-primary-700 mb-6">
+              In today's fast-paced construction industry, AI isn't just an option—it's a game-changer. Our comprehensive AI Readiness Report is your roadmap to increased efficiency and profitability. Here's what you'll discover:
+            </p>
+            <ul className="list-disc list-inside text-primary-700 mb-6 space-y-2">
+              <li>Eye-opening insights on time-saving opportunities</li>
+              <li>Strategies to optimize your resources and boost your bottom line</li>
+              <li>25 practical AI prompts to transform your daily operations</li>
+              <li>A customized action plan to integrate AI into your workflow</li>
+            </ul>
+            <p className="text-primary-700 mb-8">
+              Plus, you'll be first in line when we launch our innovative AI tools. Don't miss this opportunity to revolutionize your business!
+            </p>
+            <Button className="btn-primary">
+              GET MY FREE AI REPORT
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </motion.div>
-        </div>
-      </section>
-
-      {/* AI Readiness Report Section with animated content */}
-      <section className="bg-primary-50 py-16">
-        <div className="container">
           <motion.div 
-            className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            className="md:w-1/2"
+            variants={itemVariants}
           >
-            <motion.div 
-              className="md:w-1/2"
-              variants={itemVariants}
-            >
-              <h2 className="text-3xl font-display font-semibold uppercase text-secondary-800 mb-3">Unlock Your Construction Business's AI Potential</h2>
-              <p className="text-primary-700 mb-6">
-                In today's fast-paced construction industry, AI isn't just an option—it's a game-changer. Our comprehensive AI Readiness Report is your roadmap to increased efficiency and profitability. Here's what you'll discover:
-              </p>
-              <ul className="list-disc list-inside text-primary-700 mb-6 space-y-2">
-                <li>Eye-opening insights on time-saving opportunities</li>
-                <li>Strategies to optimize your resources and boost your bottom line</li>
-                <li>25 practical AI prompts to transform your daily operations</li>
-                <li>A customized action plan to integrate AI into your workflow</li>
-              </ul>
-              <p className="text-primary-700 mb-8">
-                Plus, you'll be first in line when we launch our innovative AI tools. Don't miss this opportunity to revolutionize your business!
-              </p>
-              <Button className="btn-primary">
-                GET MY FREE AI REPORT
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-            <motion.div 
-              className="md:w-1/2"
-              variants={itemVariants}
-            >
-              <Image
-                src="/images/ai-report-mockup.jpg"
-                alt="AI Readiness Report Mockup"
-                width={500}
-                height={500}
-                className="rounded-lg shadow-lg"
-              />
-            </motion.div>
+            <Image
+              src="/images/ai-report-mockup.jpg"
+              alt="AI Readiness Report Mockup"
+              width={500}
+              height={500}
+              className="rounded-lg shadow-lg"
+            />
           </motion.div>
-        </div>
-      </section>
+        </motion.div>
+      </Section>
 
-      {/* Call-to-Action (CTA) Section */}
-      <section className="bg-gradient-to-br from-primary-900 to-primary-700 text-white py-16">
-        <div className="container text-center">
-          <h2 className="text-3xl font-display font-semibold uppercase text-white mb-3">Ready to Transform Your Construction Business?</h2>
+      <Section className="bg-gradient-to-br from-primary-900 to-primary-700 text-white">
+        <div className="text-center">
+          <h2 className="text-3xl font-display font-semibold uppercase mb-3">Ready to Transform Your Construction Business?</h2>
           <p className="max-w-2xl mx-auto text-lg mb-8 text-primary-100">
             Join our beta program today and be at the forefront of AI-driven construction innovation. Don't miss this opportunity to revolutionize your workflow and boost productivity.
           </p>
@@ -167,7 +120,7 @@ const LandingPage: React.FC = () => {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
-      </section>
+      </Section>
     </div>
   )
 }

@@ -30,7 +30,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <h1 className="hero-header">
               {title} <span className="text-dandelion-400">{highlightedText}</span>
             </h1>
-            <p className="text-primary-100 text-lg md:text-xl">
+            <p className="prose-45 text-primary-100 text-lg md:text-xl">
               {description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">

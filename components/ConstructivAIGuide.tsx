@@ -68,20 +68,18 @@ const itemVariants = {
 // Main component for the Constructiv AI Guide
 export const ConstructivAIGuide: React.FC = () => {
   return (
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div className="max-w-xl mb-10 sm:mx-auto">
-        <motion.h2 
-          className="font-display text-3xl font-bold leading-tight tracking-tight text-primary-900 sm:text-4xl sm:text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          How Constructiv AI Works{' '}
-          <span className="inline-block text-azure-500">
-            for Your Business
-          </span>
-        </motion.h2>
-      </div>
+    <>
+      <motion.h2 
+        className="font-display text-3xl font-bold leading-tight tracking-tight text-primary-900 sm:text-4xl sm:text-center mb-10"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        How Constructiv AI Works{' '}
+        <span className="inline-block text-azure-500">
+          for Your Business
+        </span>
+      </motion.h2>
       <motion.div 
         className="grid gap-12 row-gap-8 lg:grid-cols-3"
         variants={containerVariants}
@@ -97,14 +95,14 @@ export const ConstructivAIGuide: React.FC = () => {
             </div>
             <div>
               <h6 className="mb-2 font-semibold leading-5 text-primary-900">{step.title}</h6>
-              <p className="text-sm text-primary-700">
+              <p className="prose-45 text-sm text-primary-700">
                 {step.description}
               </p>
             </div>
           </motion.div>
         ))}
       </motion.div>
-    </div>
+    </>
   )
 }
 

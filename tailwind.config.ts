@@ -258,6 +258,12 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      // Add the new maxWidth utilities for character counts
+      maxWidth: {
+        'prose-45': '20em',  // Approximately 45 characters
+        'prose-60': '27.5em',  // Approximately 60 characters
+        'prose-75': '35em',  // Approximately 75 characters
+      },
     },
   },
   // Add Tailwind plugins for additional functionality

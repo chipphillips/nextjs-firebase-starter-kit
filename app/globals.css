@@ -148,16 +148,21 @@
     font-feature-settings: "rlig" 1, "calt" 1;  /* Enable font ligatures and contextual alternates */
   }
 
+  /* Update paragraph styles */
+  p {
+    @apply leading-normal max-w-prose-75 text-base font-normal;
+  }
+
   h1 {
     @apply text-4xl font-display font-bold text-primary-900 mb-4;
   }
 
   h2 {
-    @apply text-3xl font-display font-bold uppercase text-azure-800 mb-3;
+    @apply leading-tight text-3xl font-display font-bold uppercase text-azure-800 mb-3;
   }
 
   h3 {
-    @apply text-3xl font-display font-bold capitalize text-azure-500 mb-3;
+    @apply leading-tight text-3xl font-display font-bold capitalize text-azure-500 mb-3;
   }
 
   h4 {
@@ -239,6 +244,18 @@
 
   .text-shadow-none {
     text-shadow: none;
+  }
+
+  .section-padding {
+    @apply py-12 my-9;
+  }
+  
+  .section-content {
+    @apply mx-auto px-4 max-w-[1200px];
+  }
+  
+  .section-content-narrow {
+    @apply mx-auto px-4 max-w-[1100px];
   }
 }
 

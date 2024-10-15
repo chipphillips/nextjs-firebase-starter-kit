@@ -1,9 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { HardHat, Building, Building2, Mic, Laptop, Cog } from "lucide-react";
 import HeroSection from '@/components/HeroSection';
+import { Section } from '@/app/layout';
 
 const saasPlans = [
   {
@@ -108,96 +110,106 @@ export default function Services() {
         imageAlt="AI-powered construction services"
       />
 
-      <section id="saas-products" className="py-20 bg-gradient-to-r from-primary/5 to-secondary/5">
-        <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-primary">Our SaaS Products</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {saasPlans.map((plan, index) => (
-              <Card key={index} className="flex flex-col">
-                <CardHeader>
-                  <CardTitle>{plan.name}</CardTitle>
-                  <CardDescription>{plan.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-disc list-inside space-y-2">
-                    {plan.features.map((feature, fIndex) => (
-                      <li key={fIndex}>{feature}</li>
-                    ))}
-                  </ul>
-                  <div className="mt-4">
-                    <p><strong>Pricing:</strong></p>
-                    {plan.pricing.monthly && <p>{plan.pricing.monthly} (monthly)</p>}
-                    {plan.pricing.annual && <p>{plan.pricing.annual} (annual)</p>}
-                    {plan.pricing.custom && <p>{plan.pricing.custom}</p>}
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full">{plan.cta}</Button>
-                </CardFooter>
-              </Card>
-            ))}
+      <Section className="bg-gradient-to-r from-primary/5 to-secondary/5">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="md:w-1/2">
+            <h2 className="leading-tight text-3xl font-display font-bold uppercase text-azure-800 mb-3">Our SaaS Products</h2>
+            <p className="leading-normal prose prose-lg text-primary-700 mb-6">Empower your construction business with our cutting-edge AI-driven SaaS solutions.</p>
+            <Image
+              src="/cartoonplaceholder.png"
+              alt="SaaS Products Illustration"
+              width={500}
+              height={300}
+              className="rounded-lg shadow-md"
+            />
           </div>
-        </div>
-      </section>
-
-      <section id="consulting-services" className="py-20 bg-background">
-        <div className="container px-4 sm:px-6 max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-primary">Consulting Services</h2>
-          <p className="text-center mb-8 text-lg">Accelerate your AI adoption with our comprehensive consulting packages.</p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {consultingPackages.map((pkg, index) => (
-              <Card key={index} className="flex flex-col">
-                <CardHeader>
-                  <CardTitle>{pkg.name}</CardTitle>
-                  <CardDescription>{pkg.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p><strong>Duration:</strong> {pkg.duration}</p>
-                  <p><strong>Price:</strong> {pkg.price}</p>
-                  <ul className="list-disc list-inside space-y-2 mt-4">
-                    {pkg.features.map((feature, fIndex) => (
-                      <li key={fIndex}>{feature}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Link href={pkg.href} passHref>
-                    <Button className="w-full">{pkg.cta}</Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="faqs" className="py-20 bg-muted">
-        <div className="container px-4 sm:px-6 max-w-3xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-primary">Frequently Asked Questions</h2>
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Can I upgrade my plan at any time?</h3>
-              <p>Yes, you can upgrade or downgrade your subscription at any time, and the changes will take effect in the next billing cycle.</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Do you offer a free trial?</h3>
-              <p>Yes! All new users receive a 14-day free trial to explore our platform and experience the benefits firsthand.</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-2">How do I manage my billing or subscription?</h3>
-              <p>All billing and subscription management can be handled through your user dashboard. For Enterprise clients, dedicated support is available.</p>
+          <div className="md:w-1/2">
+            <div className="grid md:grid-cols-2 gap-4">
+              {saasPlans.map((plan, index) => (
+                <Card key={index} className="flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-semibold text-primary-900 mb-2">{plan.name}</CardTitle>
+                    <CardDescription className="prose text-primary-700">{plan.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <ul className="list-disc list-inside space-y-1 prose text-primary-700">
+                      {plan.features.slice(0, 2).map((feature, fIndex) => (
+                        <li key={fIndex}>{feature}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">{plan.cta}</Button>
+                  </CardFooter>
+                </Card>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className="bg-primary text-primary-foreground py-12">
-        <div className="container px-4 sm:px-6 max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Need help choosing the right plan?</h2>
-          <p className="mb-8">Contact our sales team, and we'll help you find the perfect fit for your business.</p>
+      <Section>
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="md:w-1/2">
+            <h2 className="leading-tight text-3xl font-display font-bold uppercase text-azure-800 mb-3">Consulting Services</h2>
+            <p className="leading-normal prose prose-lg text-primary-700 mb-6">Accelerate your AI adoption with our comprehensive consulting packages.</p>
+            <Image
+              src="/team-collaboration.png"
+              alt="Consulting Services Illustration"
+              width={500}
+              height={300}
+              className="rounded-lg shadow-md"
+            />
+          </div>
+          <div className="md:w-1/2">
+            <div className="grid md:grid-cols-2 gap-4">
+              {consultingPackages.map((pkg, index) => (
+                <Card key={index} className="flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-semibold text-primary-900 mb-2">{pkg.name}</CardTitle>
+                    <CardDescription className="prose text-primary-700">{pkg.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="prose text-primary-700"><strong>Duration:</strong> {pkg.duration}</p>
+                    <p className="prose text-primary-700"><strong>Price:</strong> {pkg.price}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Link href={pkg.href} passHref>
+                      <Button className="w-full">{pkg.cta}</Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="bg-muted">
+        <h2 className="leading-tight text-3xl font-display font-bold uppercase text-azure-800 mb-6 text-center">Frequently Asked Questions</h2>
+        <div className="space-y-8">
+          <div>
+            <h3 className="leading-tight text-3xl font-display font-bold capitalize text-azure-500 mb-3">Can I upgrade my plan at any time?</h3>
+            <p className="prose text-primary-700">Yes, you can upgrade or downgrade your subscription at any time, and the changes will take effect in the next billing cycle.</p>
+          </div>
+          <div>
+            <h3 className="leading-tight text-3xl font-display font-bold capitalize text-azure-500 mb-3">Do you offer a free trial?</h3>
+            <p className="prose text-primary-700">Yes! All new users receive a 14-day free trial to explore our platform and experience the benefits firsthand.</p>
+          </div>
+          <div>
+            <h3 className="leading-tight text-3xl font-display font-bold capitalize text-azure-500 mb-3">How do I manage my billing or subscription?</h3>
+            <p className="prose text-primary-700">All billing and subscription management can be handled through your user dashboard. For Enterprise clients, dedicated support is available.</p>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="bg-primary text-primary-foreground">
+        <div className="text-center">
+          <h2 className="leading-tight text-3xl font-display font-bold uppercase text-white mb-3">Need help choosing the right plan?</h2>
+          <p className="leading-normal prose prose-lg text-primary-100 mb-8">Contact our sales team, and we'll help you find the perfect fit for your business.</p>
           <Button variant="secondary" size="lg">Contact Sales</Button>
         </div>
-      </section>
+      </Section>
     </main>
   )
 }

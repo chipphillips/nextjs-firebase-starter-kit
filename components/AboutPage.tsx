@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Clock, Settings, Zap, Users, BarChart, Shield, Star, Heart, Lightbulb, Sliders, UserCheck, Gift, RefreshCw } from "lucide-react"
 import { motion } from 'framer-motion'
+import { Section } from '@/app/layout'
 
+// Define interfaces for our data structures
 interface Section {
   id: string;
   title: string;
@@ -34,6 +36,7 @@ interface Value {
   description: string;
 }
 
+// Define animation variants for container elements
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -44,6 +47,7 @@ const containerVariants = {
   }
 }
 
+// Define animation variants for individual items
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -57,18 +61,20 @@ const itemVariants = {
 }
 
 export default function AboutPage() {
+  // State to keep track of the active section
   const [activeSection, setActiveSection] = useState<string>('story');
 
+  // Define our advantages
   const advantages: Advantage[] = [
     { icon: Clock, title: "Time-Saving Magic", description: "Save up to 10 hours per week on tedious tasks. That's time you can use to perfect intricate details, meet with clients, or tackle challenging design problems." },
     { icon: Settings, title: "Customizable to Your World", description: "Every builder has unique needs. Our tools adapt to your specific requirements, whether it's local building codes, client quirks, or your secret sauce for success." },
     { icon: Zap, title: "Immediate Impact", description: "Start using our intuitive tools immediately. No time wasted on complicated new systems - just instant productivity gains." },
     { icon: Users, title: "Team Collaboration", description: "Enhance communication and coordination among your team members, subcontractors, and clients with our collaborative features." },
     { icon: BarChart, title: "Data-Driven Insights", description: "Make informed decisions with real-time analytics and reporting on project progress, resource allocation, and financial performance." },
-    { icon: Shield, title: "Enhanced Safety", description: "Improve on-site safety with AI-powered risk assessment tools and automated safety checklist generation." }]
+    { icon: Shield, title: "Enhanced Safety", description: "Improve on-site safety with AI-powered risk assessment tools and automated safety checklist generation." }
+  ];
 
-  ;
-
+  // Define our services
   const services: Service[] = [
     { title: "Project Management", description: "Streamline your project workflow from planning to completion." },
     { title: "Resource Allocation", description: "Optimize your team and equipment usage for maximum efficiency." },
@@ -77,6 +83,7 @@ export default function AboutPage() {
     { title: "Client Communication", description: "Keep your clients informed and happy with automated updates and easy collaboration tools." }
   ];
 
+  // Define our values
   const values: Value[] = [
     { icon: Star, title: "EMPOWER EXCELLENCE", description: "We enhance, not replace, builder expertise with cutting-edge AI tools." },
     { icon: Heart, title: "INTEGRITY", description: "We build trust through transparency and ethical actions." },
@@ -85,10 +92,9 @@ export default function AboutPage() {
     { icon: UserCheck, title: "CUSTOMER-CENTRIC", description: "We prioritize our customers' growth, saving them time and enhancing project quality." },
     { icon: Gift, title: "LAGNIAPPE", description: "We go the extra mile, offering that little something extra in every interaction." },
     { icon: RefreshCw, title: "SUSTAINABLE PARTNERSHIP", description: "We grow alongside our customers, continuously improving to meet evolving needs." }
-  ]
+  ];
 
-  ;
-
+  // Define our sections
   const sections: Section[] = [
     {
       id: 'story',
@@ -135,8 +141,8 @@ export default function AboutPage() {
     }
   ];
 
+  // Effect to smooth scroll to the active section
   useEffect(() => {
-    // Smooth scroll to the active section
     const element = document.getElementById(activeSection);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -174,89 +180,86 @@ export default function AboutPage() {
       </nav>
 
       {sections.map((section, index) => (
-        <section 
+        <Section 
           key={section.id} 
-          id={section.id} 
-          className={`py-20 ${index % 2 === 0 ? 'bg-primary-50' : 'bg-background'}`}
+          background={index % 2 === 0 ? 'primary-50' : 'white'}
         >
-          <div className="container mx-auto px-container-padding max-w-container-max">
-            <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
-              <div className="lg:w-1/2">
-                <h3 className="text-sm font-semibold text-primary mb-4 uppercase tracking-wide">{section.id}</h3>
-                <h2 className="text-4xl sm:text-5xl font-bold text-azure-800 mb-6">{section.title}</h2>
-                <div className="h-1 w-20 bg-primary mb-8"></div>
-                {typeof section.content === 'object' && !React.isValidElement(section.content) && Array.isArray(section.content) ? (
-                  section.id === 'advantages' ? (
-                    <motion.div 
-                      className="grid sm:grid-cols-2 gap-6 sm:gap-8"
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate="visible"
-                    >
-                      {(section.content as Array<{ icon: React.ElementType; title: string; description: string }>).map((advantage, idx) => (
-                        <motion.div 
-                          key={idx}
-                          variants={itemVariants}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <Card className="flex flex-col h-full bg-card text-card-foreground">
-                            <CardContent className="p-4">
-                              <div className="flex items-center mb-2">
-                                {advantage.icon && <advantage.icon className="h-6 w-6 text-primary mr-2" />}
-                                <h3 className="font-semibold">{advantage.title}</h3>
-                              </div>
-                              <p className="text-sm text-muted-foreground">{advantage.description}</p>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  ) : section.id === 'services' ? (
-                    <ul className="space-y-4">
-                      {(section.content as Array<{ title: string; description: string }>).map((service, idx) => (
-                        <li key={idx} className="bg-card p-4 rounded-lg shadow-md">
-                          <h3 className="font-semibold mb-2 text-azure-500">{service.title}</h3>
-                          <p className="text-sm text-muted-foreground">{service.description}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null
-                ) : (
-                  <div className="text-muted-foreground">{section.content}</div>
-                )}
-              </div>
-              <div className="lg:w-1/2">
-                {section.image && (
-                  <img src={section.image} alt={section.imageAlt} className="rounded-lg shadow-xl w-full h-auto" />
-                )}
-                {section.highlight && section.highlight}
-                {section.values && (
-                  <div className="grid gap-6 md:grid-cols-2">
-                    {section.values.map((value, idx) => (
-                      <div key={idx} className="flex gap-3">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                          <value.icon className="w-5 h-5 text-accent-foreground" />
-                        </span>
-                        <div>
-                          <h3 className="font-medium mb-1 text-azure-500">{value.title}</h3>
-                          <p className="text-sm text-muted-foreground">{value.description}</p>
-                        </div>
-                      </div>
+          <div id={section.id} className="flex flex-col lg:flex-row items-start justify-between gap-12">
+            <div className="lg:w-1/2">
+              <h3 className="text-sm font-semibold text-primary mb-4 uppercase tracking-wide">{section.id}</h3>
+              <h2 className="text-4xl sm:text-5xl font-bold text-azure-800 mb-6">{section.title}</h2>
+              <div className="h-1 w-20 bg-primary mb-8"></div>
+              {typeof section.content === 'object' && !React.isValidElement(section.content) && Array.isArray(section.content) ? (
+                section.id === 'advantages' ? (
+                  <motion.div 
+                    className="grid sm:grid-cols-2 gap-6 sm:gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {(section.content as Array<{ icon: React.ElementType; title: string; description: string }>).map((advantage, idx) => (
+                      <motion.div 
+                        key={idx}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Card className="flex flex-col h-full bg-card text-card-foreground">
+                          <CardContent className="p-4">
+                            <div className="flex items-center mb-2">
+                              {advantage.icon && <advantage.icon className="h-6 w-6 text-primary mr-2" />}
+                              <h3 className="font-semibold">{advantage.title}</h3>
+                            </div>
+                            <p className="prose-45 text-sm text-muted-foreground">{advantage.description}</p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
                     ))}
-                  </div>
-                )}
-              </div>
+                  </motion.div>
+                ) : section.id === 'services' ? (
+                  <ul className="space-y-4">
+                    {(section.content as Array<{ title: string; description: string }>).map((service, idx) => (
+                      <li key={idx} className="bg-card p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold mb-2 text-azure-500">{service.title}</h3>
+                        <p className="prose-45 text-sm text-muted-foreground">{service.description}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null
+              ) : (
+                <div className="text-muted-foreground">{section.content}</div>
+              )}
+            </div>
+            <div className="lg:w-1/2">
+              {section.image && (
+                <img src={section.image} alt={section.imageAlt} className="rounded-lg shadow-xl w-full h-auto" />
+              )}
+              {section.highlight && section.highlight}
+              {section.values && (
+                <div className="grid gap-6 md:grid-cols-2">
+                  {section.values.map((value, idx) => (
+                    <div key={idx} className="flex gap-3">
+                      <span className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                        <value.icon className="w-5 h-5 text-accent-foreground" />
+                      </span>
+                      <div>
+                        <h3 className="font-medium mb-1 text-azure-500">{value.title}</h3>
+                        <p className="prose-45 text-sm text-muted-foreground">{value.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        </section>
+        </Section>
       ))}
 
-      <section className="bg-accent text-accent-foreground py-8 sm:py-12">
-        <div className="container mx-auto px-container-padding max-w-container-max text-center">
+      <Section background="primary-50" className="text-accent-foreground">
+        <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">Constructiv AI: Building Smarter, Together.</h2>
         </div>
-      </section>
+      </Section>
     </main>
   )
 }

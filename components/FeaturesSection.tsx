@@ -1,83 +1,97 @@
 // Import necessary components and icons
+import React from 'react'
 import Image from 'next/image'
 import { DollarSign, Hammer, TrendingUp, Brain } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 // Define an array of features, each with an icon, title, and description
 // This allows for easy addition or modification of features in the future
 const features = [
   {
-    icon: <DollarSign className="h-6 w-6 text-primary" />,
+    icon: <DollarSign className="h-8 w-8 text-azure-500" />,
     title: "Instant ROI",
     description: "Start saving time and cutting costs from day one."
   },
   {
-    icon: <Hammer className="h-6 w-6 text-primary" />,
+    icon: <Hammer className="h-8 w-8 text-azure-500" />,
     title: "Built for Builders",
     description: "Tools designed to solve real construction challenges, not generic software."
   },
   {
-    icon: <TrendingUp className="h-6 w-6 text-primary" />,
+    icon: <TrendingUp className="h-8 w-8 text-azure-500" />,
     title: "Grow Without the Growing Pains",
     description: "Take on more projects without ballooning your overhead."
   },
   {
-    icon: <Brain className="h-6 w-6 text-primary" />,
+    icon: <Brain className="h-8 w-8 text-azure-500" />,
     title: "Enhance Your Expertise",
     description: "Focus on craftsmanship while AI handles the time-consuming details."
   }
 ]
 
 // Main component for the Features section
-export default function Component() {
-  return (
-    <section className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      {/* Hero image container */}
-      <div className="relative aspect-w-16 aspect-h-7 mb-8">
-        <Image
-          src="/placeholder.svg?height=400&width=800"
-          alt="Construction site with AI overlay"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-xl"
-        />
-      </div>
+export default function FeaturesSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
 
-      {/* Main content grid */}
-      <div className="mt-5 lg:mt-16 grid lg:grid-cols-3 gap-8 lg:gap-12">
-        {/* Left column: Title and description */}
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100
+      }
+    }
+  }
+
+  return (
+    <div className="container mx-auto">
+      <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
         <div className="lg:col-span-1">
-          <h2 className="font-bold text-2xl md:text-3xl text-gray-800 dark:text-gray-200">
+          <h2 className="leading-tight text-3xl font-display font-bold uppercase text-secondary-800 mb-2.5">
             Reclaim Your Time and Boost Your Bottom Line with AI
           </h2>
-          <p className="mt-2 md:mt-4 text-gray-500 dark:text-gray-400">
+          <p className="leading-normal prose prose-lg text-primary-700 mb-8">
             Constructiv AI empowers builders with cutting-edge tools that streamline operations, enhance productivity, and drive growth. Experience the future of construction management today.
           </p>
         </div>
 
-        {/* Right column: Features grid */}
-        <div className="lg:col-span-2">
-          <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
-            {/* Map through the features array to render each feature */}
-            {features.map((feature, index) => (
-              <div key={index} className="flex gap-x-5">
-                {/* Icon container */}
-                <div className="flex-shrink-0 mt-1">
-                  {feature.icon}
-                </div>
-                {/* Feature text content */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-1 text-gray-600 dark:text-gray-400">
-                    {feature.description}
-                  </p>
-                </div>
+        <motion.div 
+          className="lg:col-span-2 grid sm:grid-cols-2 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {features.map((feature, index) => (
+            <motion.div 
+              key={index} 
+              className="flex gap-x-4"
+              variants={itemVariants}
+            >
+              <div className="flex-shrink-0 mt-1">
+                {feature.icon}
               </div>
-            ))}
-          </div>
-        </div>
+              <div>
+                <h3 className="text-xl font-semibold text-primary-900 mb-2">
+                  {feature.title}
+                </h3>
+                <p className="prose text-primary-700">
+                  {feature.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </section>
+    </div>
   )
 }

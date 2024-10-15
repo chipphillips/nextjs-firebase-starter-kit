@@ -63,30 +63,30 @@ const itemVariants = {
 // ProblemStatement component: Displays common challenges faced by construction businesses
 export const ProblemStatement = () => {
   return (
-    <div className="container py-16">
-      <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-        <div>
+    <div className="container py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="break-normal flex flex-col items-center justify-center text-center mb-12">
           <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-accent-900 uppercase rounded-full bg-accent-400">
             Industry Challenges
           </p>
+          <h2 className="text-xl font-display font-semibold uppercase text-secondary-800 mb-6 sm:text-4xl">
+            Is Paperwork Eating Your Profits<br />and Stealing Your Time?
+          </h2>
+          <p className="leading-normal prose prose-lg text-primary-700 mx-auto mb-6">
+            You didn't get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that's all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week.
+          </p>
+          <blockquote className="prose prose-45 text-primary-700 mx-auto italic border-l-4 border-primary-400 pl-4 py-2 bg-primary-50">
+            Imagine what you could do with that extra time—perfecting the details on site, closing the next big deal, or simply getting home on time.
+          </blockquote>
         </div>
-        <h2 className="text-3xl font-display font-semibold uppercase text-secondary-800 mb-6 sm:text-4xl md:mx-auto">
-          Is Paperwork Eating Your Profits and Stealing Your Time?
-        </h2>
-        <p className="text-base text-primary-700 md:text-lg mb-8">
-          You didn't get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that's all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week.
-        </p>
-        <p className="text-base text-primary-700 md:text-lg italic">
-          Imagine what you could do with that extra time—perfecting the details on site, closing the next big deal, or simply getting home on time.
-        </p>
-      </div>
-      <div className="max-w-3xl mx-auto mb-10 text-center">
-        <p className="text-lg text-primary-700 font-semibold">
-          Many construction businesses face challenges that slow down their projects and negatively impact their profitability. Here are some common pain points:
-        </p>
+        <div className="text-center mb-12">
+          <p className="leading-snug prose prose-lg text-primary-700 font-semibold mx-auto my-6">
+            Many construction businesses face challenges that slow down their projects and negatively impact their profitability. Here are some common pain points:
+          </p>
+        </div>
       </div>
       <motion.div 
-        className="grid gap-8 row-gap-5 mb-8 md:row-gap-8 lg:grid-cols-2"
+        className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -94,7 +94,7 @@ export const ProblemStatement = () => {
         {painPoints.map((point, index) => (
           <motion.div 
             key={index} 
-            className="duration-300 transform bg-white border-l-4 border-primary-400 shadow-md rounded-r"
+            className="bg-white border-l-4 border-primary-400 shadow-md rounded-lg overflow-hidden"
             variants={itemVariants}
             whileHover={{ 
               scale: 1.03, 
@@ -102,28 +102,27 @@ export const ProblemStatement = () => {
               transition: { duration: 0.2 }
             }}
           >
-            <div className="h-full p-6 border border-l-0 rounded-r flex items-start">
-              <div className="flex-shrink-0 mr-6">
+            <div className="p-6">
+              <div className="flex items-center mb-4">
                 <motion.div
+                  className="mr-4"
                   whileHover={{ rotate: 360, transition: { duration: 0.5 } }}
                 >
-                  <point.icon className="w-16 h-16 text-primary-500" />
+                  <point.icon className="w-10 h-10 text-primary-500" />
                 </motion.div>
+                <h3 className="text-xl font-semibold text-primary-900">{point.title}</h3>
               </div>
-              <div>
-                <h6 className="mb-2 font-semibold leading-5 text-primary-900">{point.title}</h6>
-                <p className="text-sm text-primary-700">
-                  {point.description}
-                </p>
-              </div>
+              <p className="leading-normal prose text-balance text-primary-700">
+                {point.description}
+              </p>
             </div>
           </motion.div>
         ))}
       </motion.div>
-      <div className="text-center">
+      <div className="text-center mt-12">
         <motion.a
           href="/"
-          className="btn btn-primary"
+          className="inline-block px-8 py-3 text-lg font-semibold text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
