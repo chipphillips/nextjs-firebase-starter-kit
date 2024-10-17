@@ -1,29 +1,27 @@
 // Import necessary components and icons
 import React from 'react'
-import Image from 'next/image'
 import { DollarSign, Hammer, TrendingUp, Brain } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 // Define an array of features, each with an icon, title, and description
-// This allows for easy addition or modification of features in the future
 const features = [
   {
-    icon: <DollarSign className="h-8 w-8 text-azure-500" />,
+    icon: <DollarSign className="h-10 w-10 text-azure-500" />,
     title: "Instant ROI",
     description: "Start saving time and cutting costs from day one."
   },
   {
-    icon: <Hammer className="h-8 w-8 text-azure-500" />,
+    icon: <Hammer className="h-10 w-10 text-azure-500" />,
     title: "Built for Builders",
     description: "Tools designed to solve real construction challenges, not generic software."
   },
   {
-    icon: <TrendingUp className="h-8 w-8 text-azure-500" />,
+    icon: <TrendingUp className="h-10 w-10 text-azure-500" />,
     title: "Grow Without the Growing Pains",
     description: "Take on more projects without ballooning your overhead."
   },
   {
-    icon: <Brain className="h-8 w-8 text-azure-500" />,
+    icon: <Brain className="h-10 w-10 text-azure-500" />,
     title: "Enhance Your Expertise",
     description: "Focus on craftsmanship while AI handles the time-consuming details."
   }
@@ -54,44 +52,56 @@ export default function FeaturesSection() {
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-        <div className="lg:col-span-1">
-          <h2 className="leading-tight text-3xl font-display font-bold uppercase text-secondary-800 mb-2.5">
-            Reclaim Your Time and Boost Your Bottom Line with AI
-          </h2>
-          <p className="leading-normal prose prose-lg text-primary-700 mb-8">
-            Constructiv AI empowers builders with cutting-edge tools that streamline operations, enhance productivity, and drive growth. Experience the future of construction management today.
-          </p>
-        </div>
+    <section className="section-padding">
+      <div className="section-content">
+        <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
+          <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
+            <h2 className="text-3xl font-bold sm:text-4xl text-secondary-800 mb-4">
+              Reclaim Your Time and Boost Your Bottom Line with AI
+            </h2>
 
-        <motion.div 
-          className="lg:col-span-2 grid sm:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {features.map((feature, index) => (
-            <motion.div 
-              key={index} 
-              className="flex gap-x-4"
-              variants={itemVariants}
+            <p className="mt-4 text-primary-700 max-w-prose-75">
+              Constructiv AI empowers builders with cutting-edge tools that streamline operations, enhance productivity, and drive growth. Experience the future of construction management today.
+            </p>
+
+            <motion.a
+              href="#"
+              className="btn btn-primary mt-8"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="flex-shrink-0 mt-1">
-                {feature.icon}
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-primary-900 mb-2">
+              Get Started Today
+            </motion.a>
+          </div>
+
+          <motion.div 
+            className="grid grid-cols-2 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                className="card hover:shadow-xl transition duration-300 p-6"
+                variants={itemVariants}
+              >
+                <span className="inline-block rounded-lg bg-azure-50 p-3 mb-5">
+                  {feature.icon}
+                </span>
+
+                <h3 className="text-xl font-semibold text-primary-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="prose text-primary-700">
+
+                <p className="text-sm text-primary-700">
                   {feature.description}
                 </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

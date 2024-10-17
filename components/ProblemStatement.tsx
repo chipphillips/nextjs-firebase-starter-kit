@@ -75,9 +75,6 @@ export const ProblemStatement = () => {
           <p className="leading-normal prose prose-lg text-primary-700 mx-auto mb-6">
             You didn't get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that's all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week.
           </p>
-          <blockquote className="prose prose-45 text-primary-700 mx-auto italic border-l-4 border-primary-400 pl-4 py-2 bg-primary-50">
-            Imagine what you could do with that extra time—perfecting the details on site, closing the next big deal, or simply getting home on time.
-          </blockquote>
         </div>
         <div className="text-center mb-12">
           <p className="leading-snug prose prose-lg text-primary-700 font-semibold mx-auto my-6">

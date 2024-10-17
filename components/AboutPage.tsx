@@ -1,17 +1,21 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import HeroSection from '@/components/HeroSection'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Clock, Settings, Zap, Users, BarChart, Shield, Star, Heart, Lightbulb, Sliders, UserCheck, Gift, RefreshCw } from "lucide-react"
-import { motion } from 'framer-motion'
+import { Clock, Settings, Zap, Users, BarChart, Shield, Star, Heart, Lightbulb, Sliders, UserCheck, Gift, RefreshCw, TrendingUp, Compass, HardHat, ChevronRight } from "lucide-react"
+import { motion, useInView } from 'framer-motion'
 import { Section } from '@/app/layout'
+import Image from 'next/image'
+import AdvantagesSection from '@/components/AdvantagesSection'
+import { AnimatePresence } from 'framer-motion'
 
 // Define interfaces for our data structures
 interface Section {
   id: string;
   title: string;
+  subtitle: string;
   content: React.ReactNode | Array<{ icon?: React.ElementType; title: string; description: string }>;
   image?: string;
   imageAlt?: string;
@@ -21,11 +25,6 @@ interface Section {
 
 interface Advantage {
   icon: React.ElementType;
-  title: string;
-  description: string;
-}
-
-interface Service {
   title: string;
   description: string;
 }
@@ -60,28 +59,63 @@ const itemVariants = {
   }
 }
 
+const ValuesSection: React.FC<{ values: Value[] }> = ({ values }) => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  return (
+    <div className="mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {values.map((value, idx) => (
+          <motion.div 
+            key={idx} 
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <Card 
+              className="mb-4 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              onClick={() => toggleExpand(idx)}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center">
+                  <span className="inline-block rounded-lg bg-accent-50 p-3 mr-4">
+                    <value.icon className="h-10 w-10 text-accent-500" />
+                  </span>
+                  <h3 className="font-bold text-sm sm:text-base md:text-lg text-primary-900 leading-tight">
+                    {value.title}
+                  </h3>
+                </div>
+                <AnimatePresence>
+                  {expandedIndex === idx && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-4"
+                    >
+                      <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function AboutPage() {
-  // State to keep track of the active section
   const [activeSection, setActiveSection] = useState<string>('story');
-
-  // Define our advantages
-  const advantages: Advantage[] = [
-    { icon: Clock, title: "Time-Saving Magic", description: "Save up to 10 hours per week on tedious tasks. That's time you can use to perfect intricate details, meet with clients, or tackle challenging design problems." },
-    { icon: Settings, title: "Customizable to Your World", description: "Every builder has unique needs. Our tools adapt to your specific requirements, whether it's local building codes, client quirks, or your secret sauce for success." },
-    { icon: Zap, title: "Immediate Impact", description: "Start using our intuitive tools immediately. No time wasted on complicated new systems - just instant productivity gains." },
-    { icon: Users, title: "Team Collaboration", description: "Enhance communication and coordination among your team members, subcontractors, and clients with our collaborative features." },
-    { icon: BarChart, title: "Data-Driven Insights", description: "Make informed decisions with real-time analytics and reporting on project progress, resource allocation, and financial performance." },
-    { icon: Shield, title: "Enhanced Safety", description: "Improve on-site safety with AI-powered risk assessment tools and automated safety checklist generation." }
-  ];
-
-  // Define our services
-  const services: Service[] = [
-    { title: "Project Management", description: "Streamline your project workflow from planning to completion." },
-    { title: "Resource Allocation", description: "Optimize your team and equipment usage for maximum efficiency." },
-    { title: "Financial Forecasting", description: "Predict project costs and profitability with AI-powered accuracy." },
-    { title: "Document Management", description: "Organize and access all your project documents in one secure place." },
-    { title: "Client Communication", description: "Keep your clients informed and happy with automated updates and easy collaboration tools." }
-  ];
+  const [isImageEnlarged, setIsImageEnlarged] = useState(false);
+  const imageRef = useRef(null);
+  const isImageInView = useInView(imageRef, { once: true, amount: 0.5 });
 
   // Define our values
   const values: Value[] = [
@@ -99,13 +133,29 @@ export default function AboutPage() {
     {
       id: 'story',
       title: 'Our Story',
+      subtitle: 'The journey of Constructiv AI',
       content: (
         <>
-          <p className="text-base sm:text-lg text-muted-foreground mb-6">
-            At Constructiv AI, we've walked in your work boots. Our team brings diverse experience from across the construction industry - from material supply to on-site project management.
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+            My journey with Constructiv AI began when I recognized that small to midsize home builders and construction companies were being left behind in the digital revolution. Working as a supplier of lumber and building materials, I had the unique opportunity to collaborate with builders of all sizes. This experience allowed me to see firsthand the daily challenges they faced—managing projects, wrestling with paperwork, and striving to exceed client expectations.
           </p>
-          <p className="text-base sm:text-lg text-muted-foreground">
-            We've felt the strain of endless paperwork and the frustration of inefficient processes. That's why we created Constructiv AI: to give builders like you the power of a larger team without the overhead.
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+            I noticed that while larger firms leveraged extensive staffs and advanced tools to streamline operations, smaller teams were often overwhelmed by administrative tasks that pulled them away from their craft. Time and money were common hurdles, and despite their dedication, these builders struggled to find ways to save time and increase profits. I also saw how successful builders provided exceptional customer experiences through great communication, understanding client goals, educating on products, providing clear updates, and delivering projects on successful timelines.
+          </p>
+          <div className="relative w-full aspect-video mb-6">
+            <Image
+              src="/herographic2.png"
+              alt="Constructiv AI team at a construction site"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg shadow-xl"
+            />
+          </div>
+          <p className='text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed'>
+            Each builder had unique systems and processes—there was no one-size-fits-all solution. This realization sparked an idea: What if I could create a customizable platform that serves as a central hub, providing the necessary context to power AI tools tailored to each builder's specifics? This thought led to the creation of Constructiv AI.
+          </p>
+          <p className='text-base sm:text-lg text-muted-foreground leading-relaxed'>
+            I'm passionate about helping builders balance their work and personal lives. I believe that skilled builders are irreplaceable, and they deserve more time to enjoy the fruits of their labor. With Constructiv AI, my goal is to eliminate those late nights spent catching up on paperwork, so you can focus on growing your business and spending time with your family.
           </p>
         </>
       ),
@@ -113,33 +163,81 @@ export default function AboutPage() {
       imageAlt: "Constructiv AI team at a construction site"
     },
     {
-      id: 'advantages',
-      title: 'Our Advantages',
-      content: advantages.map(advantage => ({
-        icon: advantage.icon,
-        title: advantage.title,
-        description: advantage.description
-      }))
+      id: 'mission',
+      title: 'Our Mission',
+      subtitle: 'Empowering construction businesses with AI',
+      content: (
+        <>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+              Our mission at Constructiv AI is to empower small to midsize construction businesses with powerful, customizable AI tools designed around your unique workflows. We're committed to streamlining your operations, automating routine tasks, and boosting efficiency—saving you up to 10 hours a week. This means more time to focus on what truly matters: craftsmanship, client relationships, and enjoying the fruits of your labor.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              We understand that there's no single button to make administrative tasks disappear overnight. However, we're taking the first step in that direction by providing a central hub that powers AI tools based on your specifics. Our goal is to remove the obstacles that often separate blue-collar builders from larger opportunities, helping you grow your business without sacrificing personal time. We believe that skilled builders like you are irreplaceable, and our AI tools are designed to support you, not replace you.
+            </p>
+        </>
+      )
     },
     {
-      id: 'services',
-      title: 'Our Services',
-      content: services.map(service => ({
-        title: service.title,
-        description: service.description
-      }))
+      id: 'vision',
+      title: 'Our Vision',
+      subtitle: 'The future of AI in construction',
+      content: (
+        <>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+              We envision a future where small to midsize construction businesses harness the power of AI to elevate craftsmanship, efficiency, and work-life balance. Imagine operating with the agility of a startup and the resources of industry giants—making informed decisions, avoiding costly mistakes, and having more time for family and personal pursuits.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Our vision is to standardize the use of AI in construction in a way that enhances the irreplaceable human touch that defines true quality. We aim to create a world where technology empowers you to focus on the creative and strategic aspects of your work, without late nights spent catching up on administrative tasks. Our goal is to be your trusted partner in this journey, providing AI solutions that complement and elevate your skills, ushering in a new era of innovation and excellence in construction.
+            </p>
+        </>
+      )
+    },
+    {
+      id: 'advantages',
+      title: 'Our Advantages',
+      subtitle: 'What sets us apart',
+      content: <AdvantagesSection />
     },
     {
       id: 'values',
       title: 'Our Values',
-      content: "At Constructiv AI, our values are the foundation of everything we do. They guide our decisions, shape our culture, and drive our commitment to excellence.",
-      values: values.map(value => ({
-        icon: value.icon,
-        title: value.title,
-        description: value.description
-      }))
+      subtitle: 'What drives us forward',
+      content: (
+        <>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+            At Constructiv AI, our values are the foundation of everything we do. They guide our decisions, shape our culture, and drive our commitment to excellence.
+          </p>
+          <ValuesSection values={values} />
+        </>
+      )
     }
   ];
+
+  // Add this new function to render the content based on its type
+  const renderContent = (content: React.ReactNode | Array<{ icon?: React.ElementType; title: string; description: string }>) => {
+    if (React.isValidElement(content)) {
+      return content;
+    } else if (Array.isArray(content)) {
+      return (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {content.map((item, index) => (
+            <Card key={index} className="flex flex-col h-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <CardContent className="p-6 flex flex-col h-full">
+                <div className="flex items-center mb-4">
+                  {item.icon && <item.icon className="h-8 w-8 text-primary-500 mr-3" />}
+                  <h3 className="font-display text-xl font-bold text-azure-800">{item.title}</h3>
+                </div>
+                <p className="text-base text-muted-foreground flex-grow">{item.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      );
+    } else if (typeof content === 'string') {
+      return <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{content}</p>;
+    }
+    return null;
+  };
 
   // Effect to smooth scroll to the active section
   useEffect(() => {
@@ -184,74 +282,43 @@ export default function AboutPage() {
           key={section.id} 
           background={index % 2 === 0 ? 'primary-50' : 'white'}
         >
-          <div id={section.id} className="flex flex-col lg:flex-row items-start justify-between gap-12">
-            <div className="lg:w-1/2">
-              <h3 className="text-sm font-semibold text-primary mb-4 uppercase tracking-wide">{section.id}</h3>
-              <h2 className="text-4xl sm:text-5xl font-bold text-azure-800 mb-6">{section.title}</h2>
-              <div className="h-1 w-20 bg-primary mb-8"></div>
-              {typeof section.content === 'object' && !React.isValidElement(section.content) && Array.isArray(section.content) ? (
-                section.id === 'advantages' ? (
-                  <motion.div 
-                    className="grid sm:grid-cols-2 gap-6 sm:gap-8"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    {(section.content as Array<{ icon: React.ElementType; title: string; description: string }>).map((advantage, idx) => (
-                      <motion.div 
-                        key={idx}
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Card className="flex flex-col h-full bg-card text-card-foreground">
-                          <CardContent className="p-4">
-                            <div className="flex items-center mb-2">
-                              {advantage.icon && <advantage.icon className="h-6 w-6 text-primary mr-2" />}
-                              <h3 className="font-semibold">{advantage.title}</h3>
-                            </div>
-                            <p className="prose-45 text-sm text-muted-foreground">{advantage.description}</p>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                ) : section.id === 'services' ? (
-                  <ul className="space-y-4">
-                    {(section.content as Array<{ title: string; description: string }>).map((service, idx) => (
-                      <li key={idx} className="bg-card p-4 rounded-lg shadow-md">
-                        <h3 className="font-semibold mb-2 text-azure-500">{service.title}</h3>
-                        <p className="prose-45 text-sm text-muted-foreground">{service.description}</p>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null
-              ) : (
-                <div className="text-muted-foreground">{section.content}</div>
-              )}
+          {section.id === 'advantages' ? (
+            // Render AdvantagesSection without additional wrapping
+            <div id={section.id}>
+              {renderContent(section.content)}
             </div>
-            <div className="lg:w-1/2">
-              {section.image && (
-                <img src={section.image} alt={section.imageAlt} className="rounded-lg shadow-xl w-full h-auto" />
-              )}
-              {section.highlight && section.highlight}
-              {section.values && (
-                <div className="grid gap-6 md:grid-cols-2">
-                  {section.values.map((value, idx) => (
-                    <div key={idx} className="flex gap-3">
-                      <span className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                        <value.icon className="w-5 h-5 text-accent-foreground" />
-                      </span>
-                      <div>
-                        <h3 className="font-medium mb-1 text-azure-500">{value.title}</h3>
-                        <p className="prose-45 text-sm text-muted-foreground">{value.description}</p>
-                      </div>
-                    </div>
-                  ))}
+          ) : (
+            // Render other sections with the existing layout
+            <div id={section.id} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="lg:col-span-4 flex flex-col">
+                <h3 className="text-sm font-semibold text-primary mb-2 uppercase tracking-wide">{section.id}</h3>
+                <h2 className="text-3xl sm:text-4xl font-bold text-azure-800 mb-4">{section.title}</h2>
+                <p className="text-lg text-muted-foreground mb-6">{section.subtitle}</p>
+                <div className="h-1 w-20 bg-primary mb-6"></div>
+              </div>
+              <div className="lg:col-span-8">
+                <div className="text-muted-foreground space-y-6 max-w-prose">
+                  {renderContent(section.content)}
                 </div>
-              )}
+                {section.highlight && section.highlight}
+                {section.values && (
+                  <div className="grid gap-8 md:grid-cols-2 mt-8">
+                    {section.values.map((value, idx) => (
+                      <div key={idx} className="flex gap-4">
+                        <span className="flex-shrink-0 w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+                          <value.icon className="w-6 h-6 text-accent-foreground" />
+                        </span>
+                        <div>
+                          <h3 className="font-medium text-lg mb-2 text-azure-500">{value.title}</h3>
+                          <p className="text-base text-muted-foreground leading-relaxed">{value.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </Section>
       ))}
 
@@ -260,6 +327,22 @@ export default function AboutPage() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">Constructiv AI: Building Smarter, Together.</h2>
         </div>
       </Section>
+
+      {isImageEnlarged && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+          onClick={() => setIsImageEnlarged(false)}
+        >
+          <div className="relative w-11/12 h-11/12">
+            <Image
+              src="/herographic2.png"
+              alt="Constructiv AI team at a construction site"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+        </div>
+      )}
     </main>
   )
 }
