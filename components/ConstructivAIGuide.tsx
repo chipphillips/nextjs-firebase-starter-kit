@@ -77,13 +77,14 @@ export default function ConstructivAIGuide() {
                 className="card hover:shadow-xl transition duration-300 p-6"
                 variants={itemVariants}
               >
-                <span className="inline-block rounded-lg bg-accent-50 p-3 mb-5">
-                  {step.icon}
-                </span>
-
-                <h3 className="text-xl font-semibold text-primary-900 mb-3">
-                  {step.title}
-                </h3>
+                <div className="flex items-center mb-5">
+                  <span className="inline-block rounded-lg bg-accent-50 p-3 mr-5">
+                    {step.icon}
+                  </span>
+                  <h3 className="text-xl font-semibold text-primary-900">
+                    {step.title}
+                  </h3>
+                </div>
 
                 <p className="text-sm text-primary-700">
                   {step.description}

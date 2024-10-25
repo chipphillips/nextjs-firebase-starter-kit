@@ -1,13 +1,23 @@
 // Import necessary dependencies and components
-import { Inter } from 'next/font/google'
+import { Inter, Oswald } from 'next/font/google'
 import './globals.css'
-import type { Metadata } from 'next'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import { ReactNode } from 'react'
 
 // Initialize the Inter font with Latin subset
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+// Initialize the Oswald font with Latin subset
+const oswald = Oswald({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-oswald',
+})
 
 // Define props for the Section component
 interface SectionProps {
@@ -32,21 +42,17 @@ export const Section: React.FC<SectionProps> = ({ children, className = '', maxW
   </div>
 )
 
-// Define props for the RootLayout component
-export interface LayoutProps {
-  children: React.ReactNode
-}
-
 // RootLayout component: The main layout structure for the entire application
 export default function RootLayout({
   children,
-}: LayoutProps) {
+}: {
+  children: ReactNode
+}) {
   return (
-    <html lang="en" className={inter.className}>
-      <body className="flex flex-col min-h-screen">
+    <html lang="en" className={`${inter.variable} ${oswald.variable} font-sans`}>
+      <body className="flex flex-col min-h-screen bg-white">
         <Header />
-        {/* Main content area */}
-        <main className="flex-grow bg-background">
+        <main className="flex-grow bg-white">
           {children}
         </main>
         <Footer />

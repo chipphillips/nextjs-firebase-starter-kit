@@ -263,6 +263,7 @@
   --foreground-hsl: 222.2 84% 4.9%;
   --background-start-hsl: 210 40% 98%;
   --background-end-hsl: 0 0% 100%;
+  --hero-section-color: 217 100% 96%; /* New color for hero section */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -270,6 +271,7 @@
     --foreground-hsl: 210 40% 98%;
     --background-start-hsl: 222.2 84% 4.9%;
     --background-end-hsl: 222.2 84% 4.9%;
+    --hero-section-color: 217 100% 86%; /* Dark mode color */
   }
 }
 
@@ -281,6 +283,10 @@ body {
       hsl(var(--background-end-hsl))
     )
     hsl(var(--background-start-hsl));
+}
+
+.hero-section {
+  background-color: hsl(var(--hero-section-color)); /* Apply new color */
 }
 
 /* Add these new styles */
@@ -299,3 +305,14 @@ body {
 .bg-accent {
   @apply bg-accent-500 dark:bg-accent-400;
 }
+
+/* Add any global styles here */
+body {
+  @apply antialiased;
+}
+
+/* Add these custom utility classes */
+.nav-link {
+  @apply px-3 py-2 text-base font-medium text-foreground rounded-md hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300;
+}
+

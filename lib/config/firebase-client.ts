@@ -1,7 +1,7 @@
-import { getApps, initializeApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
+// @/lib/config/firebase-client.ts
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
 
 // Your Firebase configuration object
 const firebaseConfig = {
@@ -13,27 +13,9 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase App
-export function initializeFirebaseApp() {
-  return initializeApp(firebaseConfig);
-}
+// Initialize Firebase for client-side
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Get Firebase Auth instance
-export function getFirebaseAuth(): Auth {
-  const app = initializeFirebaseApp();
-  return getAuth(app);
-}
-
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
-
-// Export the getAuth function
-export const auth = getAuth(app);
-// Export Firestore instance
-export const db = getFirestore(app);
-
-// Export Storage instance
-export const storage = getStorage(app);
-
-// Remove redundant export of getFirebaseAuth
-// The getFirebaseAuth function is already defined and exported above
+export { auth, db };

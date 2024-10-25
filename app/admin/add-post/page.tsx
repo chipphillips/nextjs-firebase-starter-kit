@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation';
 import { createPost } from '@/lib/dao/blog-post-dao';
 import { BlogPost } from '@/types/blog-post';
 
@@ -18,18 +18,18 @@ const AddPost = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const date = new Date();
-
     const newPost: Omit<BlogPost, 'id'> = {
       title,
       content,
       slug,
-      author,
-      coverImage,
-      date,
+      author: author.name, // Convert author object to string
+      category,
       createdAt: date,
+      date,
       excerpt,
-      published: true,
-      category
+      coverImage,
+      status: 'published', // Use 'status' instead of 'published'
+      tags: [], // Add empty tags array
     };
 
     try {

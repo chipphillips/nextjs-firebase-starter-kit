@@ -1,14 +1,21 @@
 import { NextResponse } from 'next/server';
-import initializeFirebaseAdmin from '@/lib/config/firebase-admin';
+import { initializeFirebaseAdmin, adminDb } from '@/lib/config/firebase-admin';
 
 export async function GET() {
-  await initializeFirebaseAdmin();
+  // Initialize Firebase Admin
+  initializeFirebaseAdmin();
   
-  // Implement your Firebase Admin operations here
-  // For example:
-  // const db = getFirestore();
-  // const snapshot = await db.collection('users').get();
-  // const users = snapshot.docs.map(doc => doc.data());
-  
-  return NextResponse.json({ message: 'Firebase Admin operation completed' });
+  try {
+    // Use adminDb instead of the returned app instance
+    const snapshot = await adminDb.collection('posts').get();
+    const posts = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    return NextResponse.json({ posts });
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
+  }
 }

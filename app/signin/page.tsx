@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '@/lib/config/firebase-client';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,7 @@ export default function SignIn() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/dashboard');
+      router.refresh();
     } catch (error) {
       setError('Failed to sign in. Please check your credentials.');
       console.error(error);
@@ -32,6 +33,7 @@ export default function SignIn() {
     try {
       await signInWithPopup(auth, provider);
       router.push('/dashboard');
+      router.refresh();
     } catch (error) {
       setError('Failed to sign in with Google. Please try again.');
       console.error(error);

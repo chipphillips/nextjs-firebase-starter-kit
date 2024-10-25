@@ -324,7 +324,7 @@ export default function AboutPage() {
 
       <Section background="primary-50" className="text-accent-foreground">
         <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Constructiv AI: Building Smarter, Together.</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Communicate Faster, Document Better, and Build Smarter.</h2>
         </div>
       </Section>
 

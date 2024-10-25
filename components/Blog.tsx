@@ -2,9 +2,7 @@
 // It displays a list of blog posts, allows searching, and shows recent posts
 'use client'
 
-import React, { useMemo, useState } from 'react'
-import { db } from '@/lib/config/firebase-client';
-import { collection, query, orderBy, limit } from 'firebase/firestore'
+import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Input } from './ui/input'
@@ -12,7 +10,6 @@ import { Search } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { BlogPost } from '@/types/blog-post'
-import { DB_COLLECTIONS } from '@/lib/dao/db-collections'
 
 // Define the props expected by the Blog component
 type BlogProps = {
@@ -20,22 +17,49 @@ type BlogProps = {
   recentPosts: BlogPost[]
 }
 
-const Blog = ({ posts, recentPosts }: BlogProps) => {
-  // State for managing the search query and all posts
+const Blog = ({ posts: initialPosts, recentPosts: initialRecentPosts }: BlogProps) => {
+  // State for managing posts
+  const [posts] = useState<BlogPost[]>(initialPosts)
+  const [recentPosts] = useState<BlogPost[]>(initialRecentPosts)
   const [searchQuery, setSearchQuery] = useState('')
-  const [allPosts, setAllPosts] = useState<BlogPost[]>(posts)
-
-  // Memoized query for fetching recent posts from Firestore
-  // This query is created once and reused unless its dependencies change
-  const recentPostsQuery = useMemo(() => {
-    return query(collection(db, DB_COLLECTIONS.POSTS), orderBy('createdAt', 'desc'), limit(5));
-  }, []);
 
   // Filter posts based on the search query
-  const filteredPosts = allPosts.filter(post =>
+  const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()))
   )
+
+  // Update the post card rendering
+  const PostCard = ({ post }: { post: BlogPost }) => (
+    <Card key={post.id} className="overflow-hidden">
+      <div className="md:flex">
+        {post.coverImage && (
+          <div className="md:w-1/3">
+            <Image
+              src={post.coverImage}
+              alt={`Cover image for ${post.title}`}
+              width={300}
+              height={200}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        )}
+        <div className="p-6 md:w-2/3">
+          <CardTitle className="text-2xl mb-2">
+            <Link href={`/resources/blog/${post.slug}`}>
+              {post.title}
+            </Link>
+          </CardTitle>
+          <CardDescription className="mb-4">
+            Posted on {new Date(post.date).toLocaleDateString()} by {post.author}
+          </CardDescription>
+          <div className="text-muted-foreground">
+            <p>{post.excerpt}</p>
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -67,38 +91,7 @@ const Blog = ({ posts, recentPosts }: BlogProps) => {
                 <div className="grid gap-8">
                   {/* Map through filtered posts and render each as a card */}
                   {filteredPosts.map((post) => (
-                    <Card key={post.id} className="overflow-hidden">
-                      <div className="md:flex">
-                        {post.coverImage && (
-                          <div className="md:w-1/3 aspect-w-16 aspect-h-9 md:aspect-h-full">
-                            <Image
-                              src={post.coverImage}
-                              alt={`Cover image for ${post.title}`}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        )}
-                        <div className="p-6 md:w-2/3 flex flex-col justify-between">
-                          <div>
-                            <CardTitle className="text-2xl mb-2">
-                              <Link href={`/resources/blog/${post.id}`} className="hover:text-primary transition-colors">
-                                {post.title}
-                              </Link>
-                            </CardTitle>
-                            <CardDescription className="mb-4">Posted on {post.date.toDateString()} by {post.author.name}</CardDescription>
-                            <div className="text-muted-foreground">
-                              <p>{post.excerpt}</p>
-                            </div>
-                          </div>
-                          <div className="mt-4">
-                            <Button variant="outline" asChild>
-                              <Link href={`/resources/blog/${post.id}`}>Read More</Link>
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
+                    <PostCard key={post.id} post={post} />
                   ))}
                 </div>
               ) : (

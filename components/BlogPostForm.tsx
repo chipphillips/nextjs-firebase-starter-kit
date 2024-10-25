@@ -59,6 +59,35 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
   // Calculate the estimated reading time for the blog post
   const readingTime = estimateReadingTime(post.content)
 
+  // Update the author-related sections
+  const AuthorSection = ({ author }: { author: string }) => (
+    <div className="flex items-center mb-4">
+      <Image
+        src="/placeholder.svg?height=100&width=100"
+        alt="Author avatar"
+        width={100}
+        height={100}
+        className="rounded-full mr-4"
+      />
+      <div>
+        <h3 className="text-xl font-semibold">{author}</h3>
+        <p className="text-gray-600">AI and Web Development Expert</p>
+      </div>
+    </div>
+  );
+
+  // Update the post metadata section
+  const PostMetadata = ({ date, status }: { date: Date, status: 'published' | 'draft' }) => (
+    <div className="flex items-center text-sm text-text-secondary mb-6">
+      <CalendarIcon className="w-4 h-4 mr-2" />
+      <time>{new Date(date).toLocaleDateString()}</time>
+      <span className="mx-2">•</span>
+      <span className={`capitalize ${status === 'published' ? 'text-green-600' : 'text-yellow-600'}`}>
+        {status}
+      </span>
+    </div>
+  );
+
   return (
     <div className="bg-white">
       {/* Hero section with post details */}
@@ -87,27 +116,12 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                   {post.excerpt}
                 </p>
                 {/* Author information */}
-                <div className="flex items-center mb-4">
-                  <Image
-                    src={post.author.avatar || "/placeholder.svg?height=40&width=40"}
-                    alt={`${post.author.name}'s avatar`}
-                    width={40}
-                    height={40}
-                    className="rounded-full mr-3"
-                  />
-                  <div>
-                    <div className="font-semibold">{post.author.name}</div>
-                    <div className="text-text-secondary">{post.author.title}</div>
-                  </div>
-                </div>
+                <AuthorSection author={post.author} />
                 {/* Post metadata */}
-                <div className="flex items-center text-sm text-text-secondary mb-6">
-                  <CalendarIcon className="w-4 h-4 mr-2" />
-                  <time>{new Date(post.date).toLocaleDateString()}</time>
-                  <span className="mx-2">•</span>
-                  <Clock className="w-4 h-4 mr-2" />
-                  <span>{readingTime} min read</span>
-                </div>
+                <PostMetadata date={post.date} status={post.status} />
+                <span className="mx-2">•</span>
+                <Clock className="w-4 h-4 mr-2" />
+                <span>{readingTime} min read</span>
                 {/* Social sharing buttons */}
                 <div className="flex space-x-4">
                   <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">
@@ -197,21 +211,9 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
           {/* About the Author section */}
           <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">About the Author</h2>
-            <div className="flex items-center mb-4">
-              <Image
-                src="/placeholder.svg?height=100&width=100"
-                alt="John Doe"
-                width={100}
-                height={100}
-                className="rounded-full mr-4"
-              />
-              <div>
-                <h3 className="text-xl font-semibold">John Doe</h3>
-                <p className="text-gray-600">AI and Web Development Expert</p>
-              </div>
-            </div>
+            <AuthorSection author={post.author} />
             <p className="text-gray-700 mb-4">
-              John Doe is a seasoned web developer with over 10 years of experience in the industry. 
+              Author is a seasoned web developer with over 10 years of experience in the industry. 
               He specializes in AI-driven web solutions and is passionate about exploring the 
               intersection of artificial intelligence and web development.
             </p>

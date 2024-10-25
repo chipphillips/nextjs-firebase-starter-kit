@@ -29,7 +29,7 @@ const advantages: AdvantageInfo[] = [
     icon: <TrendingUp className="h-10 w-10 text-accent-500" />
   },
   {
-    title: "Future-Proof Your Business",
+    title: "Future-Proof",
     description: "Stay ahead of the curve with AI that evolves alongside your business and the industry.",
     icon: <Compass className="h-10 w-10 text-accent-500" />
   },
@@ -39,12 +39,12 @@ const advantages: AdvantageInfo[] = [
     icon: <HardHat className="h-10 w-10 text-accent-500" />
   },
   {
-    title: "No Extra Staff Needed",
+    title: "Built for Small Teams",
     description: "Our AI works tirelessly behind the scenes, transforming your operations without the need for additional staff or complex training.",
     icon: <Users className="h-10 w-10 text-accent-500" />
   },
   {
-    title: "Enhance Work-Life Balance",
+    title: "Work-Life Balance",
     description: "By automating time-consuming tasks, we help you reclaim personal time and reduce late nights spent on paperwork.",
     icon: <Heart className="h-10 w-10 text-accent-500" />
   }
@@ -113,8 +113,8 @@ const AdvantagesSection: React.FC = () => {
               variants={itemVariants}
             >
               <div className="p-6 flex flex-col h-full">
-                <div className="flex items-start mb-4">
-                  <span className="inline-block rounded-lg bg-accent-50 p-3 mr-4">
+                <div className="flex items-center mb-5">
+                  <span className="inline-block rounded-lg bg-accent-50 p-3 mr-5">
                     {advantage.icon}
                   </span>
                   <h3 className="text-xl font-semibold text-primary-900">{advantage.title}</h3>

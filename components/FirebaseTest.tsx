@@ -2,12 +2,12 @@
 
 // Import necessary dependencies for React, Firebase, and custom UI components
 import React, { useState } from 'react';
-import { auth, firestore } from '@/lib/firebase';
+import { auth, db } from '@/lib/config/firebase-client';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 import { Button } from './ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/useToast'; // Custom hook for displaying toast notifications
+import { useToast } from '@/hooks/useToast';
 
 // Define the FirebaseTest component
 const FirebaseTest: React.FC = () => {
@@ -40,8 +40,8 @@ const FirebaseTest: React.FC = () => {
     }
 
     try {
-      // Add a new document to the 'test-collection' in Firestore
-      const docRef = await addDoc(collection(firestore, 'test-collection'), {
+      // Use 'db' instead of 'firestore'
+      const docRef = await addDoc(collection(db, 'test-collection'), {
         userId: user.uid,
         timestamp: new Date(),
         message: 'Test document'

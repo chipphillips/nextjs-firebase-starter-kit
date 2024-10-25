@@ -86,13 +86,14 @@ export default function FeaturesSection() {
                 className="card hover:shadow-xl transition duration-300 p-6"
                 variants={itemVariants}
               >
-                <span className="inline-block rounded-lg bg-azure-50 p-3 mb-5">
-                  {feature.icon}
-                </span>
-
-                <h3 className="text-xl font-semibold text-primary-900 mb-3">
-                  {feature.title}
-                </h3>
+                <div className="flex items-center mb-5">
+                  <span className="inline-block rounded-lg bg-azure-50 p-3 mr-5">
+                    {feature.icon}
+                  </span>
+                  <h3 className="text-xl font-semibold text-primary-900">
+                    {feature.title}
+                  </h3>
+                </div>
 
                 <p className="text-sm text-primary-700">
                   {feature.description}
