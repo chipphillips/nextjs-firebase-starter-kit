@@ -3,13 +3,10 @@ export interface BlogPost {
     id: string;
     title: string;
     content: string;
-    author: string;
-    category: string;
-    createdAt: Date;
-    date: Date;
-    excerpt: string;
-    coverImage: string;
     slug: string;
-    status: 'published' | 'draft';
-    tags: string[];
+    date: string; // ISO string format
+    author: string;
+    status: 'draft' | 'published';
+    excerpt: string;
+    coverImage?: string;
 }

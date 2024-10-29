@@ -1,42 +1,66 @@
-import { adminDb, initializeFirebaseAdmin } from '@/lib/config/firebase-admin';
-import AdminPageClient from '@/components/AdminPageClient';
-import { getServerSession } from 'next-auth/next';
+import { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { adminAuth, adminDb } from '@/lib/config/firebase-admin';
 import { redirect } from 'next/navigation';
+import AdminPageClient from '@/components/AdminPageClient';
 import { BlogPost } from '@/types/blog-post';
 
+export const metadata: Metadata = {
+  title: 'Admin Dashboard',
+  description: 'Admin dashboard for Constructiv AI',
+};
+
+// Mark as server component
 export default async function AdminPage() {
-  // Check authentication
-  const session = await getServerSession();
-  if (!session?.user) {
+  const sessionCookie = cookies().get('__session');
+
+  if (!sessionCookie) {
     redirect('/admin/login');
   }
 
-  // Initialize Firebase Admin
-  initializeFirebaseAdmin();
-
   try {
+    // Verify the session cookie
+    const decodedClaims = await adminAuth.verifySessionCookie(
+      sessionCookie.value,
+      true // Check if cookie is revoked
+    );
+
+    if (!decodedClaims.admin) {
+      redirect('/admin/login');
+    }
+
+    // Fetch posts from Firestore and serialize the data
     const postsSnapshot = await adminDb.collection('posts').get();
     const posts = postsSnapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
         title: data.title || '',
-        slug: data.slug || '',
         content: data.content || '',
+        slug: data.slug || '',
+        date: data.date?.toDate?.() || new Date(),
         author: data.author || '',
-        coverImage: data.coverImage || '',
-        date: data.date ? new Date(data.date) : new Date(),
-        excerpt: data.excerpt || '',
-        category: data.category || '',
-        createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
         status: data.status || 'draft',
-        tags: data.tags || []
-      } as BlogPost;
+        excerpt: data.excerpt || '',
+        coverImage: data.coverImage || '',
+        // Add any other fields you need, with default values
+      };
     });
 
-    return <AdminPageClient initialPosts={posts} />;
+    // Serialize dates to strings
+    const serializedPosts = posts.map(post => ({
+      ...post,
+      date: post.date.toISOString(),
+    }));
+
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+        <AdminPageClient initialPosts={serializedPosts} />
+      </div>
+    );
   } catch (error) {
-    console.error('Error fetching posts:', error);
-    return <div>Error loading admin dashboard</div>;
+    console.error('Error verifying admin session:', error);
+    redirect('/admin/login');
   }
-}  // Add closing brace for AdminPage function
+}

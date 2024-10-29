@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import { initializeFirebaseAdmin, adminDb } from '@/lib/config/firebase-admin';
+import { adminAuth, adminDb } from '@/lib/config/firebase-admin';
 
 export async function GET() {
-  // Initialize Firebase Admin
-  initializeFirebaseAdmin();
-  
   try {
     // Use adminDb instead of the returned app instance
     const snapshot = await adminDb.collection('posts').get();

@@ -1,12 +1,29 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
-  // Implement your middleware logic here without using Firebase Admin
-  // For example, you can check for a session cookie or a token in the request headers
-  
-  // If you need to use Firebase Admin, consider moving that logic to an API route
-  // and calling it from the client-side or server-side components
+export async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    // Skip middleware for login page
+    if (request.nextUrl.pathname === '/admin/login') {
+      return NextResponse.next()
+    }
 
-  return NextResponse.next();
+    const session = request.cookies.get('__session')
+
+    if (!session?.value) {
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
+
+    try {
+      return NextResponse.next()
+    } catch (error) {
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
+  }
+
+  return NextResponse.next()
+}
+
+export const config = {
+  matcher: '/admin/:path*'
 }

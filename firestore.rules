@@ -1,43 +1,20 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    function getUserRole() {
-      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role : null;
-    }
-
+    // Helper function to check if user is admin
     function isAdmin() {
-      return getUserRole() == 'admin';
+      return request.auth != null && request.auth.token.admin == true;
     }
-
-    function isBetaUser() {
-      return getUserRole() == 'betaUser';
+    
+    // Admin can read and write all documents
+    match /{document=**} {
+      allow read, write: if isAdmin();
     }
-
-    match /users/{userId} {
-      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
-      allow create: if request.auth.uid == userId;
-      allow update: if request.auth.uid == userId || isAdmin();
-      allow delete: if isAdmin();
-    }
-
+    
+    // Public can read published posts
     match /posts/{postId} {
-      allow read: if true; // Publicly readable
-      allow create, update, delete: if isAdmin();
+      allow read: if resource.data.status == 'published';
     }
-
-    match /projects/{projectId} {
-      allow read: if isSignedIn();
-      allow create, update, delete: if isAdmin() || isBetaUser();
-    }
-
-    match /users/{userId}/activityLogs/{logId} {
-      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
-    }
-
-    // Add additional rules for other collections as needed
   }
 }

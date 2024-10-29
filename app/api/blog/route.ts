@@ -1,16 +1,18 @@
 import { NextResponse } from 'next/server';
-import { getAllPublishedPosts } from '@/lib/dao/blog-post-dao';
-import { initializeFirebaseAdmin } from '@/lib/config/firebase-admin';
+import { adminDb } from '@/lib/config/firebase-admin';
 
 export async function GET() {
   try {
-    // Initialize Firebase Admin before any operations
-    initializeFirebaseAdmin();
+    // adminDb is already initialized in the firebase-admin config
+    const snapshot = await adminDb.collection('posts').get();
+    const posts = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
     
-    const blogPosts = await getAllPublishedPosts();
-    return NextResponse.json(blogPosts);
+    return NextResponse.json({ posts });
   } catch (error) {
-    console.error('Error in blog API route:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('Error fetching posts:', error);
+    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
