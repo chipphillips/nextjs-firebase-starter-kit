@@ -9,4 +9,16 @@ export interface BlogPost {
     status: 'draft' | 'published';
     excerpt: string;
     coverImage?: string;
+    tags: string[];
+    readingTime: number;
+    seoTitle?: string;
+    seoDescription?: string;
+    lastModified: string;
+    categories: string[];
+    metaKeywords: string[];
+}
+
+// Add this new interface for the AdminPageClient props
+export interface AdminPageProps {
+    initialPosts: BlogPost[];
 }

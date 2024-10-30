@@ -43,14 +43,15 @@ export default async function AdminPage() {
         status: data.status || 'draft',
         excerpt: data.excerpt || '',
         coverImage: data.coverImage || '',
-        // Add any other fields you need, with default values
-      };
+        categories: data.categories || [],
+        readingTime: data.readingTime || 5,
+      } as BlogPost;
     });
 
     // Serialize dates to strings
-    const serializedPosts = posts.map(post => ({
+    const serializedPosts: BlogPost[] = posts.map(post => ({
       ...post,
-      date: post.date.toISOString(),
+      date: post.date.toString(),
     }));
 
     return (

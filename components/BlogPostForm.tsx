@@ -108,7 +108,9 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
             {/* Post details */}
             <div className="lg:w-1/2">
               <header>
-                <div className="text-pink-600 font-semibold mb-2">{post.category}</div>
+                <div className="text-pink-600 font-semibold mb-2">
+                  {post.categories[0]}
+                </div>
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">
                   {post.title}
                 </h1>
@@ -118,10 +120,10 @@ export default function BlogPostForm({ post }: { post: BlogPost }) {
                 {/* Author information */}
                 <AuthorSection author={post.author} />
                 {/* Post metadata */}
-                <PostMetadata date={post.date} status={post.status} />
+                <PostMetadata date={new Date(post.date)} status={post.status} />
                 <span className="mx-2">•</span>
                 <Clock className="w-4 h-4 mr-2" />
-                <span>{readingTime} min read</span>
+                <span>{post.readingTime} min read</span>
                 {/* Social sharing buttons */}
                 <div className="flex space-x-4">
                   <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">

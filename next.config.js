@@ -19,21 +19,31 @@ const nextConfig = {
         os: false,
         path: false,
         zlib: false,
+        events: require.resolve('events/'),
       };
     }
 
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
+      layers: true,
     };
 
     return config;
   },
-  experimental: {},
+  experimental: {
+    serverActions: true,
+  },
   images: {
-    domains: [
-      'hebbkx1anhila5yf.public.blob.vercel-storage.com',
-      'your-image-domain.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'your-image-domain.com',
+      },
     ],
   },
 };

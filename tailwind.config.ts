@@ -264,6 +264,63 @@ const config: Config = {
         'prose-60': '27.5em',  // Approximately 60 characters
         'prose-75': '35em',  // Approximately 75 characters
       },
+      // Add typography specific styles
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '65ch',
+            color: 'inherit',
+            a: {
+              color: 'hsl(var(--primary-500))',
+              '&:hover': {
+                color: 'hsl(var(--primary-600))',
+              },
+            },
+            '[class~="lead"]': {
+              color: 'hsl(var(--foreground))',
+            },
+            strong: {
+              color: 'hsl(var(--foreground))',
+            },
+            'ul > li::before': {
+              backgroundColor: 'hsl(var(--muted-foreground))',
+            },
+            hr: {
+              borderColor: 'hsl(var(--border))',
+            },
+            blockquote: {
+              color: 'hsl(var(--foreground))',
+              borderLeftColor: 'hsl(var(--border))',
+            },
+            h1: {
+              color: 'hsl(var(--foreground))',
+            },
+            h2: {
+              color: 'hsl(var(--foreground))',
+            },
+            h3: {
+              color: 'hsl(var(--foreground))',
+            },
+            h4: {
+              color: 'hsl(var(--foreground))',
+            },
+            code: {
+              color: 'hsl(var(--foreground))',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              color: 'inherit',
+              fontSize: 'inherit',
+              lineHeight: 'inherit',
+              fontWeight: 'inherit',
+            },
+            pre: {
+              backgroundColor: 'hsl(var(--muted))',
+              color: 'hsl(var(--muted-foreground))',
+            },
+          },
+        },
+      },
     },
   },
   // Add Tailwind plugins for additional functionality
@@ -273,7 +330,7 @@ const config: Config = {
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
   ],
-} as Config
+} satisfies Config
 
 // Export the configuration for use in the project
 export default config

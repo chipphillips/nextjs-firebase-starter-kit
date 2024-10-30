@@ -2,13 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { BlogPost } from '@/types/blog-post';
+import { BlogPost, AdminPageProps } from '@/types/blog-post';
 
-interface AdminPageProps {
-  initialPosts: BlogPost[];
-}
-
-const AdminPageClient = ({ initialPosts = [] }: AdminPageProps) => {
+const AdminPageClient: React.FC<AdminPageProps> = ({ initialPosts }) => {
   const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
 
   const handleDelete = async (id: string) => {
