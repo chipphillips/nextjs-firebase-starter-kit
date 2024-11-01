@@ -11,9 +11,11 @@ import {
   Droplet, CheckSquare, Zap, FileText as FileTextIcon, Box,
   ChevronRight, ChevronLeft, ThumbsUp, LogOut, Mic, Home,
   Users, TrendingUp, MessageSquare, HardHat, ChevronDown, ChevronUp,
-  PlusCircle
+  PlusCircle,
+  Cloud,
+  CloudRain
 } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -25,7 +27,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 interface AITool {
@@ -64,6 +66,19 @@ interface NewsAlert {
   description: string
   icon: string
   isRead: boolean
+}
+
+interface ProjectMetric {
+  label: string
+  value: number
+  change: number
+  unit: string
+}
+
+interface SafetyMetric {
+  incident_free_days: number
+  safety_score: number
+  open_issues: number
 }
 
 const initialAITools: AITool[] = [
@@ -175,6 +190,20 @@ export function DashboardComponent() {
   const [newToolSuggestion, setNewToolSuggestion] = useState('')
   const [isNewToolDialogOpen, setIsNewToolDialogOpen] = useState(false)
   const router = useRouter()
+  const { toast } = useToast()
+
+  const [projectMetrics, setProjectMetrics] = useState<ProjectMetric[]>([
+    { label: 'Active Projects', value: 12, change: 2, unit: '' },
+    { label: 'On-time Completion Rate', value: 94, change: 3, unit: '%' },
+    { label: 'Resource Utilization', value: 87, change: -2, unit: '%' },
+    { label: 'Cost Efficiency', value: 92, change: 5, unit: '%' }
+  ])
+
+  const [safetyMetrics, setSafetyMetrics] = useState<SafetyMetric>({
+    incident_free_days: 145,
+    safety_score: 98,
+    open_issues: 3
+  })
 
   useEffect(() => {
     setUser({
