@@ -101,8 +101,10 @@ export default function Services() {
   return (
     <main className="flex-grow bg-background text-foreground">
       <HeroSection
-        title="Transforming Construction with"
-        highlightedText="AI-Powered Services"
+        title={{
+          before: "Transforming Construction with",
+          highlighted: "AI-Powered Services"
+        }}
         description="Discover our range of innovative services designed to optimize your construction projects and boost efficiency."
         primaryCTA={{ text: "Explore Services", href: "#services" }}
         secondaryCTA={{ text: "Contact Us", href: "/contact" }}

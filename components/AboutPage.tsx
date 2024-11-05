@@ -250,8 +250,11 @@ export default function AboutPage() {
   return (
     <main className="flex-grow bg-background text-foreground">
       <HeroSection
-        title="Your 24/7 Assistant:"
-        highlightedText="AI Tools That Work While You Build"
+        title={{
+          before: "Your 24/7 Assistant:",
+          highlighted: "AI Tools",
+          after: "That Work While You Build"
+        }}
         description="Constructiv AI isn't just software—it's your round-the-clock partner in profitability. Our AI-powered tools handle time-consuming tasks, allowing you to focus on what you do best: delivering exceptional projects and growing your business."
         primaryCTA={{ text: "Schedule Your Demo", href: "#join" }}
         secondaryCTA={{ text: "Explore Our Story", href: "#story" }}

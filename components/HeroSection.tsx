@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 
 interface HeroSectionProps {
-  title: string
-  highlightedText: string
+  title: {
+    before?: string;
+    highlighted: string;
+    after?: string;
+  }
   description: string
   primaryCTA: { text: string; href: string }
   secondaryCTA: { text: string; href: string }
@@ -16,7 +19,6 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({
   title,
-  highlightedText,
   description,
   primaryCTA,
   secondaryCTA,
@@ -30,10 +32,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Content Section */}
           <div className="flex flex-col space-y-6 max-w-xl mx-auto md:mx-0">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary-950 dark:text-primary-50 text-center md:text-left leading-[1.1]">
-              {title}{' '}
-              <span className="text-[#2563eb] dark:text-[#60a5fa]">
-                {highlightedText}
+              {title.before && <>{title.before}{' '}</>}
+              <span className="relative">
+                <span className="text-[#2563eb] dark:text-[#60a5fa]">
+                  {title.highlighted}
+                </span>
               </span>
+              {title.after && <>{' '}{title.after}</>}
             </h1>
             
             <p className="text-lg sm:text-xl text-primary-800/90 dark:text-primary-200 leading-relaxed text-center md:text-left">

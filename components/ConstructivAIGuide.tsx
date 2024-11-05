@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from "framer-motion"
 import { Lightbulb, Wrench, Zap, TrendingUp } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 // Define the structure for each step in the AI implementation process
 interface StepInfo {
@@ -65,6 +66,31 @@ export default function ConstructivAIGuide() {
     <section className="section-padding">
       <div className="section-content">
         <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
+          <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
+            <h2 className="text-3xl font-bold sm:text-4xl text-secondary-800 mb-4">
+              How Constructiv AI Works for Your Business
+            </h2>
+
+            <p className="mt-4 text-primary-700 max-w-prose-75">
+              Our AI-powered solutions are designed to streamline your construction processes, 
+              increase efficiency, and drive innovation in your projects. Experience a tailored 
+              approach that adapts to your unique business needs.
+            </p>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button 
+                variant="default" 
+                size="lg"
+                className="btn-primary mt-8 inline-block"
+              >
+                Start Your AI Journey
+              </Button>
+            </motion.div>
+          </div>
+
           <motion.div 
             className="grid grid-cols-2 gap-6"
             variants={containerVariants}
@@ -92,27 +118,6 @@ export default function ConstructivAIGuide() {
               </motion.div>
             ))}
           </motion.div>
-
-          <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-right">
-            <h2 className="text-3xl font-bold sm:text-4xl text-secondary-800 mb-4">
-              How Constructiv AI Works for Your Business
-            </h2>
-
-            <p className="mt-4 text-primary-700 max-w-prose-75 lg:ml-auto">
-              Our AI-powered solutions are designed to streamline your construction processes, 
-              increase efficiency, and drive innovation in your projects. Experience a tailored 
-              approach that adapts to your unique business needs.
-            </p>
-
-            <motion.a
-              href="#"
-              className="btn btn-primary mt-8 inline-block"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Start Your AI Journey
-            </motion.a>
-          </div>
         </div>
       </div>
     </section>

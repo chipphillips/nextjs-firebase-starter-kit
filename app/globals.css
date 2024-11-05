@@ -208,7 +208,7 @@
 
   /* Primary button style */
   .btn-primary {
-    @apply btn text-white bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 disabled:bg-primary-200 disabled:cursor-not-allowed;
+    @apply btn text-white bg-primary-300 hover:bg-primary-400 focus:bg-primary-500 disabled:bg-primary-200 disabled:cursor-not-allowed;
   }
 
   /* Secondary button style */
@@ -314,5 +314,10 @@ body {
 /* Add these custom utility classes */
 .nav-link {
   @apply px-3 py-2 text-base font-medium text-foreground rounded-md hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300;
+}
+
+/* Primary button style - make it more specific */
+button.btn-primary {
+  @apply text-white bg-primary-300 hover:bg-primary-400 focus:bg-primary-500 disabled:bg-primary-200 disabled:cursor-not-allowed;
 }
 

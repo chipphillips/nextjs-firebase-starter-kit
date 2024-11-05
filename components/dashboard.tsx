@@ -27,7 +27,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 interface AITool {
@@ -190,7 +189,6 @@ export function DashboardComponent() {
   const [newToolSuggestion, setNewToolSuggestion] = useState('')
   const [isNewToolDialogOpen, setIsNewToolDialogOpen] = useState(false)
   const router = useRouter()
-  const { toast } = useToast()
 
   const [projectMetrics, setProjectMetrics] = useState<ProjectMetric[]>([
     { label: 'Active Projects', value: 12, change: 2, unit: '' },
@@ -224,16 +222,6 @@ export function DashboardComponent() {
     ])
 
     setWeather({ temp: 82, high: 85, low: 75, condition: 'sunny' })
-
-    // Highlight new alerts on login
-    const hasUnreadAlerts = newsAlerts.some(alert => !alert.isRead)
-    if (hasUnreadAlerts) {
-      toast({
-        title: "New Alerts",
-        description: "You have unread news and alerts. Check them out!",
-        duration: 5000,
-      })
-    }
   }, [])
 
   const handleSearch = (e: React.FormEvent) => {
@@ -259,17 +247,6 @@ export function DashboardComponent() {
       setUser(prevUser => 
         prevUser ? { ...prevUser, votesRemaining: prevUser.votesRemaining - 1 } : null
       )
-      toast({
-        title: "Vote Recorded",
-        description: `You have ${user.votesRemaining - 1} votes remaining today.`,
-        duration: 3000,
-      })
-    } else {
-      toast({
-        title: "Voting Limit Reached",
-        description: "You've used all your votes for today. Come back tomorrow!",
-        duration: 3000,
-      })
     }
   }
 
@@ -300,11 +277,6 @@ export function DashboardComponent() {
 
   const handleNewToolSuggestion = () => {
     if (newToolSuggestion.trim()) {
-      toast({
-        title: "Thank you for your suggestion!",
-        description: "We've received your idea and will consider it for future development.",
-        duration: 5000,
-      })
       setNewToolSuggestion('')
       setIsNewToolDialogOpen(false)
     }

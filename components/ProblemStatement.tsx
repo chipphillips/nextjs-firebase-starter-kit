@@ -2,6 +2,7 @@
 import React from 'react';
 import { AlertTriangle, FileText, MessageSquare, Briefcase, Clock, ShieldAlert, DollarSign } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 // Define an array of common pain points in the construction industry
 const painPoints = [
@@ -70,7 +71,7 @@ export const ProblemStatement = () => {
             Industry Challenges
           </p>
           <h2 className="text-xl font-display font-semibold uppercase text-secondary-800 mb-6 sm:text-4xl">
-            Is Paperwork Eating Your Profits<br />and Stealing Your Time?
+            Is Paperwork Stealing Your Time<br />and Eating Your Profits?
           </h2>
           <p className="leading-normal prose prose-lg text-primary-700 mx-auto mb-6">
             You didn't get into building to sit behind a desk. But with constant paperwork, order tracking, and client updates, it feels like that's all you do. Constructiv AI changes that. Our tools streamline project management, saving you up to 10 hours a week.
@@ -117,14 +118,18 @@ export const ProblemStatement = () => {
         ))}
       </motion.div>
       <div className="text-center mt-12">
-        <motion.a
-          href="/"
-          className="inline-block px-8 py-3 text-lg font-semibold text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-300"
+        <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Learn How We Can Help
-        </motion.a>
+          <Button 
+            variant="default" 
+            size="lg"
+            className="btn btn-primary inline-block text-white"
+          >
+            Learn How We Can Help
+          </Button>
+        </motion.div>
       </div>
     </div>
   );

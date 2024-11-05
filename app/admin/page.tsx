@@ -10,7 +10,13 @@ export const metadata: Metadata = {
   description: 'Admin dashboard for Constructiv AI',
 };
 
-// Mark as server component
+// Helper function to calculate reading time
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
 export default async function AdminPage() {
   const sessionCookie = cookies().get('__session');
 
@@ -19,11 +25,7 @@ export default async function AdminPage() {
   }
 
   try {
-    // Verify the session cookie
-    const decodedClaims = await adminAuth.verifySessionCookie(
-      sessionCookie.value,
-      true // Check if cookie is revoked
-    );
+    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie.value, true);
 
     if (!decodedClaims.admin) {
       redirect('/admin/login');
@@ -43,8 +45,13 @@ export default async function AdminPage() {
         status: data.status || 'draft',
         excerpt: data.excerpt || '',
         coverImage: data.coverImage || '',
-        categories: data.categories || [],
-        readingTime: data.readingTime || 5,
+        categories: Array.isArray(data.categories) ? data.categories : [],
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        readingTime: data.readingTime || calculateReadingTime(data.content || ''),
+        seoTitle: data.seoTitle || '',
+        seoDescription: data.seoDescription || '',
+        lastModified: data.lastModified?.toDate?.() || new Date(),
+        metaKeywords: Array.isArray(data.metaKeywords) ? data.metaKeywords : [],
       } as BlogPost;
     });
 
@@ -52,6 +59,7 @@ export default async function AdminPage() {
     const serializedPosts: BlogPost[] = posts.map(post => ({
       ...post,
       date: post.date.toString(),
+      lastModified: post.lastModified?.toString() || post.date.toString(),
     }));
 
     return (
